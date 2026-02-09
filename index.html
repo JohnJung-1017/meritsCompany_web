@@ -10,7 +10,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
         body { font-family: 'Noto Sans KR', sans-serif; }
         
-        /* Hero Background with Mesh Overlay */
+        /* Hero Background */
         .hero-bg {
             background-image: 
                 linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.8)), 
@@ -19,7 +19,7 @@
             background-position: center;
         }
 
-        /* Windproof Wall Pattern (Perforated Metal Look) */
+        /* Patterns */
         .pattern-perforated {
             background-color: #f8fafc;
             background-image: radial-gradient(#cbd5e1 1.5px, transparent 1.5px);
@@ -27,13 +27,21 @@
         }
         
         .pattern-perforated-blue {
-            background-color: #1e3a8a; /* Blue-900 */
-            background-image: radial-gradient(#3b82f6 1.5px, transparent 1.5px); /* Blue-500 dots */
+            background-color: #1e3a8a;
+            background-image: radial-gradient(#3b82f6 1.5px, transparent 1.5px);
             background-size: 20px 20px;
         }
 
-        .scroll-smooth { scroll-behavior: smooth; }
+        /* Animation Classes */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
         
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         /* Wind Animation */
         @keyframes flow {
             0% { stroke-dashoffset: 20; }
@@ -44,7 +52,6 @@
             animation: flow 1s linear infinite;
         }
 
-        /* Section Wave Separator */
         .wave-divider {
             position: absolute;
             bottom: 0;
@@ -65,15 +72,15 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 scroll-smooth">
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
 
     <!-- Navigation -->
     <nav class="bg-white/95 backdrop-blur-sm shadow-md fixed w-full z-50 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20">
                 <div class="flex items-center">
-                    <a href="#" class="flex-shrink-0 flex items-center group">
-                        <!-- Logo with Wind Icon -->
+                    <!-- Logo updates to go to Home -->
+                    <a href="#" onclick="showPage('home')" class="flex-shrink-0 flex items-center group">
                         <div class="relative flex items-center justify-center w-10 h-10 bg-blue-900 rounded-lg mr-3 group-hover:bg-blue-800 transition">
                             <i data-lucide="wind" class="text-white w-6 h-6"></i>
                         </div>
@@ -87,11 +94,13 @@
                         </div>
                     </a>
                 </div>
+                <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#about" class="text-gray-600 hover:text-blue-900 font-medium transition py-2 border-b-2 border-transparent hover:border-blue-900">회사소개</a>
-                    <a href="#features" class="text-gray-600 hover:text-blue-900 font-medium transition py-2 border-b-2 border-transparent hover:border-blue-900">방풍벽이란?</a>
-                    <a href="#technology" class="text-gray-600 hover:text-blue-900 font-medium transition py-2 border-b-2 border-transparent hover:border-blue-900">기술력</a>
-                    <a href="#contact" class="px-5 py-2 rounded-full bg-blue-900 text-white font-bold hover:bg-blue-800 transition shadow-lg hover:shadow-blue-900/30">문의하기</a>
+                    <button onclick="showPage('about')" class="nav-btn text-gray-600 hover:text-blue-900 font-medium transition py-2 border-b-2 border-transparent hover:border-blue-900">회사소개</button>
+                    <button onclick="showPage('features')" class="nav-btn text-gray-600 hover:text-blue-900 font-medium transition py-2 border-b-2 border-transparent hover:border-blue-900">방풍벽이란?</button>
+                    <button onclick="showPage('technology')" class="nav-btn text-gray-600 hover:text-blue-900 font-medium transition py-2 border-b-2 border-transparent hover:border-blue-900">기술력</button>
+                    <button onclick="showPage('gallery')" class="nav-btn text-gray-600 hover:text-blue-900 font-medium transition py-2 border-b-2 border-transparent hover:border-blue-900">시공사진</button>
+                    <button onclick="showPage('contact')" class="px-5 py-2 rounded-full bg-blue-900 text-white font-bold hover:bg-blue-800 transition shadow-lg hover:shadow-blue-900/30">문의하기</button>
                 </div>
                 <!-- Mobile menu button -->
                 <div class="flex items-center md:hidden">
@@ -102,459 +111,684 @@
             </div>
         </div>
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
-            <a href="#about" class="block px-4 py-3 text-gray-700 hover:bg-gray-100">회사소개</a>
-            <a href="#features" class="block px-4 py-3 text-gray-700 hover:bg-gray-100">방풍벽이란?</a>
-            <a href="#technology" class="block px-4 py-3 text-gray-700 hover:bg-gray-100">기술력</a>
-            <a href="#contact" class="block px-4 py-3 text-blue-900 font-bold hover:bg-gray-100">문의하기</a>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t fixed top-20 left-0 w-full shadow-lg z-40">
+            <button onclick="showPage('about'); toggleMobileMenu()" class="block w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-100 border-b">회사소개</button>
+            <button onclick="showPage('features'); toggleMobileMenu()" class="block w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-100 border-b">방풍벽이란?</button>
+            <button onclick="showPage('technology'); toggleMobileMenu()" class="block w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-100 border-b">기술력</button>
+            <button onclick="showPage('gallery'); toggleMobileMenu()" class="block w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-100 border-b">시공사진</button>
+            <button onclick="showPage('contact'); toggleMobileMenu()" class="block w-full text-left px-4 py-3 text-blue-900 font-bold hover:bg-gray-100">문의하기</button>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero-bg min-h-screen flex items-center justify-center px-4 pt-24 pb-20 relative overflow-hidden">
-        <!-- Abstract Wind Lines Overlay -->
-        <div class="absolute inset-0 opacity-10 pointer-events-none">
-            <svg width="100%" height="100%">
-                <path d="M0,100 Q400,300 800,100 T1600,100" fill="none" stroke="white" stroke-width="2" />
-                <path d="M0,300 Q400,500 800,300 T1600,300" fill="none" stroke="white" stroke-width="2" />
-                <path d="M0,500 Q400,700 800,500 T1600,500" fill="none" stroke="white" stroke-width="2" />
-            </svg>
-        </div>
-
-        <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
-            
-            <!-- Left: Text Content -->
-            <div class="text-white text-center lg:text-left">
-                <div class="inline-flex items-center px-4 py-1.5 mb-6 border border-blue-400/30 rounded-full bg-blue-900/40 backdrop-blur-md">
-                    <span class="w-2 h-2 rounded-full bg-blue-400 mr-2 animate-pulse"></span>
-                    <span class="text-blue-200 text-sm font-bold tracking-wide">SINCE 2000, 방풍 솔루션의 리더</span>
-                </div>
-                <h1 class="text-4xl lg:text-6xl font-black mb-6 leading-tight tracking-tight">
-                    바람을 제어하는 기술,<br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-sky-300">안전을 설계하다</span>
-                </h1>
-                <p class="text-lg text-gray-300 mb-10 font-light leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                    메리츠컴퍼니의 <strong>다공성 방풍벽(Porous Windproof Wall)</strong>은 
-                    자연의 바람을 과학적으로 감쇄시켜 
-                    교량과 도로의 주행 안전성을 획기적으로 높입니다.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                    <a href="#features" class="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition shadow-lg shadow-blue-900/50 flex items-center justify-center gap-2 group">
-                        방풍 기술 자세히 보기 
-                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                    <a href="https://www.merits.co.kr/" target="_blank" class="px-8 py-4 bg-white/5 hover:bg-white/10 text-white border border-white/20 font-bold rounded-lg transition shadow-lg flex items-center justify-center gap-2 backdrop-blur-sm">
-                        본사 홈페이지 <i data-lucide="external-link" class="w-4 h-4"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Right: Technical Illustration (Updated with context) -->
-            <div class="relative hidden lg:block">
-                <!-- Panel Frame Effect -->
-                <div class="absolute -inset-4 border-2 border-blue-500/20 rounded-3xl transform rotate-2"></div>
-                <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-2 shadow-2xl border border-slate-700">
-                    <!-- SVG Diagram -->
-                    <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto rounded-xl bg-slate-800">
-                        <defs>
-                            <linearGradient id="panelGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" style="stop-color:#1e3a8a;stop-opacity:1" />
-                                <stop offset="50%" style="stop-color:#3b82f6;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#1e3a8a;stop-opacity:1" />
-                            </linearGradient>
-                            <filter id="glow">
-                                <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
-                                <feMerge>
-                                    <feMergeNode in="coloredBlur"/>
-                                    <feMergeNode in="SourceGraphic"/>
-                                </feMerge>
-                            </filter>
-                        </defs>
-
-                        <!-- Base Platform -->
-                        <path d="M50 350 L550 350" stroke="#475569" stroke-width="2" stroke-linecap="round"/>
-                        <text x="50" y="375" fill="#94a3b8" font-size="10" font-weight="bold" letter-spacing="1">WIND DIRECTION</text>
-                        <text x="480" y="375" fill="#94a3b8" font-size="10" font-weight="bold" letter-spacing="1">PROTECTED AREA</text>
-
-                        <!-- The Wall Structure -->
-                        <rect x="280" y="50" width="15" height="300" fill="#0f172a" rx="2"/>
-                        <rect x="280" y="50" width="15" height="300" fill="#334155" opacity="0.5" transform="translate(10, 5)"/>
-
-                        <!-- Blue Panel (Representing the product) -->
-                        <rect x="285" y="60" width="8" height="280" fill="url(#panelGrad)" stroke="#60a5fa" stroke-width="0.5"/>
-                        
-                        <!-- Visualizing Holes -->
-                        <g fill="#0f172a">
-                            <circle cx="289" cy="80" r="1.5"/><circle cx="289" cy="100" r="1.5"/><circle cx="289" cy="120" r="1.5"/>
-                            <circle cx="289" cy="140" r="1.5"/><circle cx="289" cy="160" r="1.5"/><circle cx="289" cy="180" r="1.5"/>
-                            <circle cx="289" cy="200" r="1.5"/><circle cx="289" cy="220" r="1.5"/><circle cx="289" cy="240" r="1.5"/>
-                            <circle cx="289" cy="260" r="1.5"/><circle cx="289" cy="280" r="1.5"/><circle cx="289" cy="300" r="1.5"/>
-                        </g>
-
-                        <!-- Strong Wind (Left) - Intense Blue -->
-                        <g filter="url(#glow)">
-                            <path d="M50 100 L250 100" stroke="#60a5fa" stroke-width="5" stroke-linecap="round" class="wind-flow"/>
-                            <path d="M20 150 L250 150" stroke="#60a5fa" stroke-width="5" stroke-linecap="round" class="wind-flow" style="animation-delay: 0.2s"/>
-                            <path d="M60 200 L250 200" stroke="#60a5fa" stroke-width="5" stroke-linecap="round" class="wind-flow" style="animation-delay: 0.5s"/>
-                            <path d="M30 250 L250 250" stroke="#60a5fa" stroke-width="5" stroke-linecap="round" class="wind-flow" style="animation-delay: 0.1s"/>
-                            <path d="M70 300 L250 300" stroke="#60a5fa" stroke-width="5" stroke-linecap="round" class="wind-flow" style="animation-delay: 0.3s"/>
-                        </g>
-                        
-                        <!-- Impact Dispersion -->
-                        <circle cx="280" cy="100" r="5" fill="none" stroke="#fff" stroke-opacity="0.5">
-                            <animate attributeName="r" values="5;15" dur="1s" repeatCount="indefinite"/>
-                            <animate attributeName="opacity" values="0.8;0" dur="1s" repeatCount="indefinite"/>
-                        </circle>
-
-                        <!-- Weakened Wind (Right) - Calmer, Dashed -->
-                        <g opacity="0.6">
-                            <path d="M310 100 L450 100" stroke="#93c5fd" stroke-width="1.5" stroke-dasharray="3,3"/>
-                            <path d="M310 150 L500 150" stroke="#93c5fd" stroke-width="1.5" stroke-dasharray="3,3"/>
-                            <path d="M310 200 L420 200" stroke="#93c5fd" stroke-width="1.5" stroke-dasharray="3,3"/>
-                            <path d="M310 250 L480 250" stroke="#93c5fd" stroke-width="1.5" stroke-dasharray="3,3"/>
-                            <path d="M310 300 L460 300" stroke="#93c5fd" stroke-width="1.5" stroke-dasharray="3,3"/>
-                        </g>
-
-                        <!-- Labels -->
-                        <rect x="50" y="70" width="90" height="20" rx="4" fill="#ef4444" opacity="0.9"/>
-                        <text x="95" y="84" fill="white" font-size="10" font-weight="bold" text-anchor="middle">강풍 (25m/s)</text>
-
-                        <rect x="360" y="70" width="90" height="20" rx="4" fill="#22c55e" opacity="0.9"/>
-                        <text x="405" y="84" fill="white" font-size="10" font-weight="bold" text-anchor="middle">감쇄풍 (~50%)</text>
-                    </svg>
-                    
-                    <div class="px-6 py-4 border-t border-slate-700 bg-slate-800/50 rounded-b-xl flex justify-between items-center">
-                        <span class="text-blue-300 text-xs font-mono">SIMULATION: POROUS_WALL_V2.0</span>
-                        <div class="flex gap-2">
-                            <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-                            <span class="w-2 h-2 rounded-full bg-green-500"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Main Content Area (Pages) -->
+    <main class="flex-grow pt-20">
         
-        <!-- Bottom Wave -->
-        <div class="wave-divider">
-            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
-            </svg>
+        <!-- PAGE: HOME -->
+        <div id="page-home" class="page-section fade-in">
+            <section class="hero-bg min-h-[calc(100vh-5rem)] flex items-center justify-center px-4 relative overflow-hidden">
+                <!-- Abstract Wind Lines Overlay -->
+                <div class="absolute inset-0 opacity-10 pointer-events-none">
+                    <svg width="100%" height="100%">
+                        <path d="M0,100 Q400,300 800,100 T1600,100" fill="none" stroke="white" stroke-width="2" />
+                        <path d="M0,300 Q400,500 800,300 T1600,300" fill="none" stroke="white" stroke-width="2" />
+                        <path d="M0,500 Q400,700 800,500 T1600,500" fill="none" stroke="white" stroke-width="2" />
+                    </svg>
+                </div>
+
+                <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+                    <div class="text-white text-center lg:text-left">
+                        <div class="inline-flex items-center px-4 py-1.5 mb-6 border border-blue-400/30 rounded-full bg-blue-900/40 backdrop-blur-md">
+                            <span class="w-2 h-2 rounded-full bg-blue-400 mr-2 animate-pulse"></span>
+                            <span class="text-blue-200 text-sm font-bold tracking-wide">SINCE 2000, 방풍 솔루션의 리더</span>
+                        </div>
+                        <h1 class="font-black mb-6 leading-tight tracking-tight">
+                            <span class="block text-4xl lg:text-6xl mb-2">WIND BARRIER,</span>
+                            <span class="block text-2xl lg:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-sky-300">더 안전한 내일을 위한 준비</span>
+                        </h1>
+                        <p class="text-lg text-gray-300 mb-10 font-light leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                            메리츠컴퍼니의 <strong>다공성 방풍벽</strong>은 자연의 바람을 과학적으로 감쇄시켜 교량과 도로의 주행 안전성을 획기적으로 높입니다.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                            <button onclick="showPage('features')" class="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition shadow-lg shadow-blue-900/50 flex items-center justify-center gap-2 group">
+                                방풍 기술 자세히 보기 
+                                <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                            </button>
+                            <a href="https://www.merits.co.kr/" target="_blank" class="px-8 py-4 bg-white/5 hover:bg-white/10 text-white border border-white/20 font-bold rounded-lg transition shadow-lg flex items-center justify-center gap-2 backdrop-blur-sm">
+                                본사 홈페이지 <i data-lucide="external-link" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Technical Illustration -->
+                    <div class="relative hidden lg:block">
+                        <div class="absolute -inset-4 border-2 border-blue-500/20 rounded-3xl transform rotate-2"></div>
+                        <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-2 shadow-2xl border border-slate-700">
+                             <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto rounded-xl bg-slate-800">
+                                <defs>
+                                    <linearGradient id="panelGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" style="stop-color:#1e3a8a;stop-opacity:1" />
+                                        <stop offset="50%" style="stop-color:#3b82f6;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#1e3a8a;stop-opacity:1" />
+                                    </linearGradient>
+                                    <filter id="glow">
+                                        <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+                                        <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                                    </filter>
+                                </defs>
+                                <path d="M50 350 L550 350" stroke="#475569" stroke-width="2" stroke-linecap="round"/>
+                                <text x="50" y="375" fill="#94a3b8" font-size="10" font-weight="bold" letter-spacing="1">WIND DIRECTION</text>
+                                <text x="480" y="375" fill="#94a3b8" font-size="10" font-weight="bold" letter-spacing="1">PROTECTED AREA</text>
+                                <rect x="280" y="50" width="15" height="300" fill="#0f172a" rx="2"/>
+                                <rect x="280" y="50" width="15" height="300" fill="#334155" opacity="0.5" transform="translate(10, 5)"/>
+                                <rect x="285" y="60" width="8" height="280" fill="url(#panelGrad)" stroke="#60a5fa" stroke-width="0.5"/>
+                                <g fill="#0f172a">
+                                    <circle cx="289" cy="80" r="1.5"/><circle cx="289" cy="100" r="1.5"/><circle cx="289" cy="120" r="1.5"/><circle cx="289" cy="140" r="1.5"/><circle cx="289" cy="160" r="1.5"/><circle cx="289" cy="180" r="1.5"/>
+                                    <circle cx="289" cy="200" r="1.5"/><circle cx="289" cy="220" r="1.5"/><circle cx="289" cy="240" r="1.5"/><circle cx="289" cy="260" r="1.5"/><circle cx="289" cy="280" r="1.5"/><circle cx="289" cy="300" r="1.5"/>
+                                </g>
+                                <g filter="url(#glow)">
+                                    <path d="M50 100 L250 100" stroke="#60a5fa" stroke-width="5" stroke-linecap="round" class="wind-flow"/>
+                                    <path d="M20 150 L250 150" stroke="#60a5fa" stroke-width="5" stroke-linecap="round" class="wind-flow" style="animation-delay: 0.2s"/>
+                                    <path d="M60 200 L250 200" stroke="#60a5fa" stroke-width="5" stroke-linecap="round" class="wind-flow" style="animation-delay: 0.5s"/>
+                                    <path d="M30 250 L250 250" stroke="#60a5fa" stroke-width="5" stroke-linecap="round" class="wind-flow" style="animation-delay: 0.1s"/>
+                                    <path d="M70 300 L250 300" stroke="#60a5fa" stroke-width="5" stroke-linecap="round" class="wind-flow" style="animation-delay: 0.3s"/>
+                                </g>
+                                <circle cx="280" cy="100" r="5" fill="none" stroke="#fff" stroke-opacity="0.5">
+                                    <animate attributeName="r" values="5;15" dur="1s" repeatCount="indefinite"/>
+                                    <animate attributeName="opacity" values="0.8;0" dur="1s" repeatCount="indefinite"/>
+                                </circle>
+                                <g opacity="0.6">
+                                    <path d="M310 100 L450 100" stroke="#93c5fd" stroke-width="1.5" stroke-dasharray="3,3"/>
+                                    <path d="M310 150 L500 150" stroke="#93c5fd" stroke-width="1.5" stroke-dasharray="3,3"/>
+                                    <path d="M310 200 L420 200" stroke="#93c5fd" stroke-width="1.5" stroke-dasharray="3,3"/>
+                                    <path d="M310 250 L480 250" stroke="#93c5fd" stroke-width="1.5" stroke-dasharray="3,3"/>
+                                    <path d="M310 300 L460 300" stroke="#93c5fd" stroke-width="1.5" stroke-dasharray="3,3"/>
+                                </g>
+                                <rect x="50" y="70" width="90" height="20" rx="4" fill="#ef4444" opacity="0.9"/>
+                                <text x="95" y="84" fill="white" font-size="10" font-weight="bold" text-anchor="middle">강풍 (25m/s)</text>
+                                <rect x="360" y="70" width="90" height="20" rx="4" fill="#22c55e" opacity="0.9"/>
+                                <text x="405" y="84" fill="white" font-size="10" font-weight="bold" text-anchor="middle">감쇄풍 (~50%)</text>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
-    </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-24 bg-white relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div class="relative group">
-                    <!-- Decorative Frame for Image -->
-                    <div class="absolute -top-4 -left-4 w-full h-full border-2 border-blue-100 rounded-2xl z-0 transform group-hover:-translate-x-2 group-hover:-translate-y-2 transition duration-300"></div>
-                    <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-blue-50 rounded-full z-0"></div>
-                    
-                    <!-- 이미지: 건설 현장 사진으로 변경 -->
-                    <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Construction Site" class="relative z-10 rounded-2xl shadow-2xl object-cover h-[500px] w-full grayscale group-hover:grayscale-0 transition duration-500">
-                    
-                    <div class="absolute -bottom-8 -right-8 bg-white p-6 rounded-xl shadow-xl z-20 border-l-4 border-blue-600">
-                        <div class="flex items-center gap-4">
-                            <div class="bg-blue-900 text-white p-3 rounded-lg">
-                                <i data-lucide="shield" class="w-8 h-8"></i>
+        <!-- PAGE: ABOUT -->
+        <div id="page-about" class="page-section hidden fade-in">
+            <section class="py-24 bg-white relative min-h-[calc(100vh-5rem)] flex items-center">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                        <div class="relative group">
+                            <div class="absolute -top-4 -left-4 w-full h-full border-2 border-blue-100 rounded-2xl z-0"></div>
+                            
+                            <!-- Container for Image and Overlay -->
+                            <div class="relative rounded-2xl shadow-2xl overflow-hidden h-[500px] w-full">
+                                <!-- Background Image -->
+                                <img src="https://images.unsplash.com/photo-1621955964441-c173e01c135b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Windproof Wall Structure" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-500">
+                                
+                                <!-- MERITS Logo Overlay (Netflix Style) -->
+                                <div class="absolute inset-0 flex items-center justify-center bg-black/10 group-hover:bg-black/20 transition duration-500">
+                                    <h2 class="text-7xl md:text-8xl font-black tracking-tighter text-[#E50914] transform scale-90 group-hover:scale-105 transition duration-500 drop-shadow-2xl" 
+                                        style="text-shadow: 4px 4px 0px rgba(0,0,0,0.5); font-family: 'Arial Black', sans-serif; letter-spacing: -4px;">
+                                        MERITS
+                                    </h2>
+                                </div>
                             </div>
-                            <div>
-                                <p class="text-3xl font-black text-blue-900">2000</p>
-                                <p class="text-xs text-gray-500 font-bold tracking-wider">ESTABLISHED</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="w-10 h-1 bg-blue-600"></span>
-                        <h2 class="text-blue-900 font-bold text-lg tracking-wider">ABOUT US</h2>
-                    </div>
-                    <h3 class="text-3xl md:text-4xl font-bold mb-6 text-gray-900 leading-tight">
-                        도로 위의 안전을 지키는<br>
-                        <span class="text-blue-600">방풍 기술의 표준</span>
-                    </h3>
-                    <p class="text-gray-600 mb-8 leading-relaxed text-lg">
-                        (주)메리츠컴퍼니는 2000년 설립 이래 <strong>방풍벽 제조·설치</strong> 분야에서 
-                        독보적인 기술력을 쌓아왔습니다. <br><br>
-                        강풍이 부는 교량 위에서도, 돌풍이 잦은 도로 옆에서도
-                        저희의 기술은 묵묵히 제 역할을 다하며 
-                        고객의 안전한 이동을 책임지고 있습니다.
-                    </p>
-                    
-                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-100">
-                        <ul class="space-y-4">
-                            <li class="flex items-start">
-                                <i data-lucide="check-circle-2" class="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5"></i>
-                                <span class="ml-3 text-gray-700 font-medium">고속도로 및 특수 교량 방풍벽 전문 시공</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i data-lucide="check-circle-2" class="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5"></i>
-                                <span class="ml-3 text-gray-700 font-medium">내구성이 뛰어난 친환경 소재 적용</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i data-lucide="check-circle-2" class="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5"></i>
-                                <span class="ml-3 text-gray-700 font-medium">특허 받은 타공 기술로 최적의 방풍 효율 달성</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Why Windproof Wall Section (With Perforated Pattern) -->
-    <section id="features" class="py-24 pattern-perforated border-y border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <span class="text-blue-600 font-bold tracking-wide uppercase">NECESSITY</span>
-                <h2 class="text-3xl md:text-4xl font-bold mt-2 text-gray-900">왜 '방풍벽'이어야 할까요?</h2>
-                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">
-                    단순히 바람을 막는 것이 아닙니다. 바람을 다스려 구조물과 차량을 보호하는 첨단 기술입니다.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Card 1 -->
-                <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 border border-gray-100">
-                    <div class="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 rotate-3 group-hover:rotate-0 transition">
-                        <i data-lucide="car-front" class="w-8 h-8 text-blue-600"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 text-gray-900">주행 안전성 확보</h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        횡풍속이 25m/s를 넘으면 대형 차량도 전복될 수 있습니다. 방풍벽은 강풍을 약 50% 이상 감쇄시켜 운전자의 생명을 보호합니다.
-                    </p>
-                </div>
-                <!-- Card 2 -->
-                <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 border border-gray-100">
-                    <div class="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 -rotate-3 group-hover:rotate-0 transition">
-                        <i data-lucide="wind" class="w-8 h-8 text-blue-600"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 text-gray-900">탁월한 풍속 감쇄</h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        메리츠컴퍼니의 특수 타공 패널은 바람을 잘게 부수어(Shattering) 통과시킴으로써 후면의 풍속을 획기적으로 낮춥니다.
-                    </p>
-                </div>
-                <!-- Card 3 -->
-                <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 border border-gray-100">
-                    <div class="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 rotate-3 group-hover:rotate-0 transition">
-                        <i data-lucide="construction" class="w-8 h-8 text-blue-600"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 text-gray-900">구조적 안정성</h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        완전 밀폐형과 달리 바람의 일부를 통과시켜, 방풍벽 자체가 받는 풍하중을 줄여 교량 구조물의 안전까지 생각했습니다.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Technical Specs Section (Visualizing the Product) -->
-    <section id="technology" class="py-24 pattern-perforated-blue text-white overflow-hidden relative">
-        <!-- Decoration Circles (Holes) -->
-        <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-        <div class="absolute bottom-0 left-0 w-64 h-64 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div class="order-2 lg:order-1">
-                    <span class="text-blue-300 font-bold tracking-wide uppercase border-b border-blue-400 pb-1">Core Technology</span>
-                    <h2 class="text-3xl md:text-4xl font-bold mt-6 mb-6 leading-tight">
-                        다공성(Porous) 방풍벽의<br>
-                        <span class="text-blue-200">과학적 원리</span>
-                    </h2>
-                    <p class="text-blue-100 mb-10 leading-relaxed text-lg font-light">
-                        바람을 막기만 하면 와류가 발생해 오히려 위험할 수 있습니다.<br>
-                        메리츠컴퍼니의 기술은 **'바람을 통과시키며 힘을 뺀다'**는 역발상에서 시작되었습니다. 최적의 개공율(Opening Ratio) 설계가 핵심입니다.
-                    </p>
-                    
-                    <div class="space-y-8">
-                        <div class="flex group">
-                            <div class="flex-shrink-0 w-12 h-12 bg-blue-800 rounded-lg flex items-center justify-center group-hover:bg-blue-700 transition">
-                                <i data-lucide="eye" class="w-6 h-6 text-blue-300"></i>
-                            </div>
-                            <div class="ml-6">
-                                <h4 class="text-xl font-bold">운전자 조망권 확보 (See-through)</h4>
-                                <p class="text-sm text-blue-200 mt-2 leading-relaxed">답답한 벽이 아닌, 반투명한 시야를 제공하여 쾌적한 주행 환경을 만듭니다.</p>
-                            </div>
-                        </div>
-                        <div class="flex group">
-                            <div class="flex-shrink-0 w-12 h-12 bg-blue-800 rounded-lg flex items-center justify-center group-hover:bg-blue-700 transition">
-                                <i data-lucide="anchor" class="w-6 h-6 text-blue-300"></i>
-                            </div>
-                            <div class="ml-6">
-                                <h4 class="text-xl font-bold">구조물 하중 최소화</h4>
-                                <p class="text-sm text-blue-200 mt-2 leading-relaxed">통기성 구조로 설계되어 교량 상판에 가해지는 비틀림과 하중을 최소화합니다.</p>
-                            </div>
-                        </div>
-                        <div class="flex group">
-                            <div class="flex-shrink-0 w-12 h-12 bg-blue-800 rounded-lg flex items-center justify-center group-hover:bg-blue-700 transition">
-                                <i data-lucide="settings" class="w-6 h-6 text-blue-300"></i>
-                            </div>
-                            <div class="ml-6">
-                                <h4 class="text-xl font-bold">모듈형 유지보수</h4>
-                                <p class="text-sm text-blue-200 mt-2 leading-relaxed">파손 시 전체 교체가 아닌, 패널 단위 교체가 가능한 경제적인 모듈형 설계입니다.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Right Side: Panel Visualization -->
-                <div class="order-1 lg:order-2">
-                    <div class="bg-blue-900/50 backdrop-blur-md rounded-2xl border border-blue-400/30 p-8 shadow-2xl">
-                        <!-- Simulated Panel Look -->
-                        <div class="aspect-square bg-gradient-to-br from-gray-200 to-gray-300 rounded-lg p-1 shadow-inner relative overflow-hidden">
-                            <!-- Holes Grid -->
-                            <div class="absolute inset-0 grid grid-cols-6 grid-rows-6 gap-2 p-4">
-                                <!-- Create many holes -->
-                                <div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div>
-                                <div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div>
-                                <div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div>
-                                <div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div>
-                                <div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div>
-                                <div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div>
-                            </div>
-                            <!-- Wind Passing Through -->
-                            <div class="absolute inset-0 flex items-center justify-center">
-                                <div class="text-center bg-blue-900/80 p-4 rounded-xl backdrop-blur-sm border border-blue-400">
-                                    <i data-lucide="wind" class="w-12 h-12 text-white mx-auto mb-2 animate-pulse"></i>
-                                    <span class="text-white font-bold text-lg">WIND REDUCTION</span>
+                            <div class="absolute -bottom-8 -right-8 bg-white p-6 rounded-xl shadow-xl z-20 border-l-4 border-blue-600">
+                                <div class="flex items-center gap-4">
+                                    <div class="bg-blue-900 text-white p-3 rounded-lg"><i data-lucide="shield" class="w-8 h-8"></i></div>
+                                    <div><p class="text-3xl font-black text-blue-900">2000</p><p class="text-xs text-gray-500 font-bold tracking-wider">ESTABLISHED</p></div>
                                 </div>
                             </div>
                         </div>
-                        <p class="text-center text-blue-300 mt-4 text-sm">* 실제 방풍판 형상 예시 (타공형)</p>
+                        <div>
+                            <div class="flex items-center gap-2 mb-4">
+                                <span class="w-10 h-1 bg-blue-600"></span>
+                                <h2 class="text-blue-900 font-bold text-lg tracking-wider">ABOUT US</h2>
+                            </div>
+                            <h3 class="text-3xl md:text-4xl font-bold mb-6 text-gray-900 leading-tight">도로 위의 안전을 지키는<br><span class="text-blue-600">방풍 기술의 표준</span></h3>
+                            <p class="text-gray-600 mb-8 leading-relaxed text-lg">
+                                (주)메리츠컴퍼니는 2000년 설립 이래 <strong>방풍벽 제조·설치</strong> 분야에서 독보적인 기술력을 쌓아왔습니다. <br><br>
+                                강풍이 부는 교량 위에서도, 돌풍이 잦은 도로 옆에서도 저희의 기술은 묵묵히 제 역할을 다하며 고객의 안전한 이동을 책임지고 있습니다.
+                            </p>
+                            <div class="bg-gray-50 p-6 rounded-xl border border-gray-100">
+                                <ul class="space-y-4">
+                                    <li class="flex items-start"><i data-lucide="check-circle-2" class="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5"></i><span class="ml-3 text-gray-700 font-medium">고속도로 및 특수 교량 방풍벽 전문 시공</span></li>
+                                    <li class="flex items-start"><i data-lucide="check-circle-2" class="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5"></i><span class="ml-3 text-gray-700 font-medium">내구성이 뛰어난 친환경 소재 적용</span></li>
+                                    <li class="flex items-start"><i data-lucide="check-circle-2" class="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5"></i><span class="ml-3 text-gray-700 font-medium">특허 받은 타공 기술로 최적의 방풍 효율 달성</span></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </section>
+        </div>
+
+        <!-- PAGE: FEATURES (Why Windproof Wall?) -->
+        <div id="page-features" class="page-section hidden fade-in">
+            <div class="bg-white min-h-[calc(100vh-5rem)]">
+                
+                <!-- Section 0: Core Benefits (Moved to Top as requested) -->
+                <section class="py-20 bg-white">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="text-center mb-12">
+                            <span class="text-blue-600 font-bold tracking-wide uppercase">Core Values</span>
+                            <h2 class="text-3xl md:text-4xl font-bold mt-2 text-gray-900">방풍벽의 핵심 효과</h2>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <!-- Card 1 -->
+                            <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:border-blue-300 transition duration-300">
+                                <div class="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-6">
+                                    <i data-lucide="car-front" class="w-8 h-8 text-blue-600"></i>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3 text-gray-900">주행 안전성 확보</h3>
+                                <p class="text-gray-600 leading-relaxed">
+                                    횡풍속이 25m/s를 넘으면 대형 차량도 전복될 수 있습니다. 방풍벽은 강풍을 약 50% 이상 감쇄시켜 운전자의 생명을 보호합니다.
+                                </p>
+                            </div>
+                            <!-- Card 2 -->
+                            <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:border-blue-300 transition duration-300">
+                                <div class="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-6">
+                                    <i data-lucide="wind" class="w-8 h-8 text-blue-600"></i>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3 text-gray-900">탁월한 풍속 감쇄</h3>
+                                <p class="text-gray-600 leading-relaxed">
+                                    메리츠컴퍼니의 특수 타공 패널은 바람을 잘게 부수어(Shattering) 통과시킴으로써 후면의 풍속을 획기적으로 낮춥니다.
+                                </p>
+                            </div>
+                            <!-- Card 3 -->
+                            <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:border-blue-300 transition duration-300">
+                                <div class="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-6">
+                                    <i data-lucide="construction" class="w-8 h-8 text-blue-600"></i>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3 text-gray-900">구조적 안정성</h3>
+                                <p class="text-gray-600 leading-relaxed">
+                                    완전 밀폐형과 달리 바람의 일부를 통과시켜, 방풍벽 자체가 받는 풍하중을 줄여 교량 구조물의 안전까지 생각했습니다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 1: The Threat (Need) -->
+                <section class="py-20 bg-slate-50 border-t border-gray-200">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="text-center mb-16">
+                            <span class="text-blue-600 font-bold tracking-wide uppercase">NECESSITY</span>
+                            <h2 class="text-3xl md:text-4xl font-bold mt-2 text-gray-900">왜 방풍벽이 필요한가요?</h2>
+                            <p class="mt-4 text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                                강풍은 도로와 교량에서 큰 위험 요소로 작용하여 안전을 위협합니다.<br>
+                                특히 기후 변화로 인해 태풍과 돌풍의 빈도가 잦아지며, 이에 대한 대비책인 방풍벽은 선택이 아닌 필수입니다.
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                            <div class="order-2 md:order-1">
+                                <h3 class="text-2xl font-bold text-gray-900 mb-6">강풍 사고의 위험성</h3>
+                                <div class="space-y-6">
+                                    <div class="flex items-start">
+                                        <div class="flex-shrink-0 w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mt-1">
+                                            <i data-lucide="alert-triangle" class="w-5 h-5 text-red-600"></i>
+                                        </div>
+                                        <div class="ml-4">
+                                            <h4 class="text-lg font-bold text-gray-900">차량 전복 및 주행 경로 이탈</h4>
+                                            <p class="text-gray-600 mt-1">횡풍속이 높을 경우 대형 트럭이나 버스가 전복되거나 차선을 이탈하여 2차 대형 사고로 이어질 수 있습니다.</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="flex-shrink-0 w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center mt-1">
+                                            <i data-lucide="trending-up" class="w-5 h-5 text-orange-600"></i>
+                                        </div>
+                                        <div class="ml-4">
+                                            <h4 class="text-lg font-bold text-gray-900">전세계적 기후 변화</h4>
+                                            <p class="text-gray-600 mt-1">해수 온도 상승으로 태풍과 허리케인이 강력해지고 있으며, 대한민국 또한 국지성 돌풍 빈도가 매년 증가하는 추세입니다.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Visualizing Accident Scenario -->
+                            <div class="order-1 md:order-2 bg-white rounded-2xl p-2 shadow-xl border border-gray-200">
+                                <div class="relative rounded-xl overflow-hidden bg-slate-800 h-64 flex items-center justify-center">
+                                    <!-- Simple Animation of Truck Instability -->
+                                    <svg viewBox="0 0 400 200" class="w-full h-full">
+                                        <path d="M0 150 L400 150" stroke="#475569" stroke-width="2"/>
+                                        <!-- Wind Lines -->
+                                        <path d="M50 100 L150 100" stroke="#60a5fa" stroke-width="4" stroke-dasharray="10">
+                                            <animate attributeName="stroke-dashoffset" from="20" to="0" dur="0.5s" repeatCount="indefinite"/>
+                                        </path>
+                                        <!-- Truck -->
+                                        <g transform="translate(200, 110)">
+                                            <rect x="0" y="0" width="80" height="40" fill="#cbd5e1" rx="2">
+                                                <animateTransform attributeName="transform" type="rotate" values="0 40 40; 5 40 40; 0 40 40; -2 40 40; 0 40 40" dur="2s" repeatCount="indefinite"/>
+                                            </rect>
+                                            <circle cx="20" cy="40" r="8" fill="#334155"/>
+                                            <circle cx="60" cy="40" r="8" fill="#334155"/>
+                                            <!-- Warning Icon -->
+                                            <path d="M40 -20 L30 0 L50 0 Z" fill="#ef4444" opacity="0">
+                                                <animate attributeName="opacity" values="0;1;0" dur="1s" repeatCount="indefinite"/>
+                                            </path>
+                                        </g>
+                                    </svg>
+                                    <div class="absolute bottom-4 left-0 right-0 text-center text-white/80 text-sm">강풍에 의한 차량 주행 불안정성 시뮬레이션</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Design Factors (Comparison) -->
+                <section class="py-24 bg-white">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="mb-16">
+                            <h2 class="text-3xl font-bold text-gray-900 mb-4 border-l-8 border-blue-600 pl-4">설계 핵심 요소: 공극률(Porosity)</h2>
+                            <p class="text-gray-600 text-lg">
+                                단순히 바람을 막는 것이 능사가 아닙니다. <br>
+                                <strong>공극률(구멍의 비율)</strong>은 바람의 세기와 흐름을 조절하는 가장 중요한 기술적 요소입니다.
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                            <!-- Case A: Solid Wall (Bad) -->
+                            <div class="bg-gray-50 rounded-2xl p-8 border border-gray-200">
+                                <div class="flex items-center justify-between mb-6">
+                                    <h3 class="text-xl font-bold text-gray-700">A. 무공극 방풍벽 (Solid Wall)</h3>
+                                    <span class="px-3 py-1 bg-red-100 text-red-600 text-sm font-bold rounded-full">위험</span>
+                                </div>
+                                <div class="bg-white rounded-xl border border-gray-200 h-48 mb-6 relative overflow-hidden">
+                                    <!-- SVG Visualization: Turbulence -->
+                                    <svg viewBox="0 0 400 200" class="w-full h-full">
+                                        <line x1="0" y1="180" x2="400" y2="180" stroke="#94a3b8" stroke-width="2"/>
+                                        <!-- The Wall -->
+                                        <rect x="150" y="80" width="10" height="100" fill="#475569"/>
+                                        <!-- Wind hitting and creating turbulence -->
+                                        <path d="M20 100 L140 100" stroke="#94a3b8" stroke-width="2"/>
+                                        <path d="M20 130 L140 130" stroke="#94a3b8" stroke-width="2"/>
+                                        <!-- Turbulence behind wall -->
+                                        <path d="M170 180 Q200 100 230 150 T280 160" stroke="#ef4444" stroke-width="2" fill="none" stroke-dasharray="4"/>
+                                        <path d="M170 120 Q220 80 200 160" stroke="#ef4444" stroke-width="2" fill="none" stroke-dasharray="4"/>
+                                        <text x="250" y="100" fill="#ef4444" font-size="14" font-weight="bold">와류(난류) 발생</text>
+                                        <text x="250" y="120" fill="#ef4444" font-size="12">눈/먼지 퇴적 위험</text>
+                                    </svg>
+                                </div>
+                                <p class="text-gray-600 text-sm leading-relaxed">
+                                    바람을 완전히 차단하지만, 벽 뒤쪽에 강한 <strong>와류(난류)</strong>가 발생합니다.<br>
+                                    이로 인해 차량이 휘청거리거나, 겨울철 눈이나 먼지가 벽 뒤에 쌓이는 문제가 발생합니다.
+                                </p>
+                            </div>
+
+                            <!-- Case B: Porous Wall (Good) -->
+                            <div class="bg-blue-50 rounded-2xl p-8 border border-blue-200 shadow-lg">
+                                <div class="flex items-center justify-between mb-6">
+                                    <h3 class="text-xl font-bold text-blue-900">B. 다공성 방풍벽 (Porous Wall)</h3>
+                                    <span class="px-3 py-1 bg-blue-100 text-blue-600 text-sm font-bold rounded-full">권장</span>
+                                </div>
+                                <div class="bg-white rounded-xl border border-blue-100 h-48 mb-6 relative overflow-hidden">
+                                    <!-- SVG Visualization: Smooth Flow -->
+                                    <svg viewBox="0 0 400 200" class="w-full h-full">
+                                        <line x1="0" y1="180" x2="400" y2="180" stroke="#94a3b8" stroke-width="2"/>
+                                        <!-- The Wall (Dotted) -->
+                                        <line x1="155" y1="80" x2="155" y2="180" stroke="#3b82f6" stroke-width="10" stroke-dasharray="4"/>
+                                        <!-- Smooth Wind Flow -->
+                                        <path d="M20 100 L140 100" stroke="#60a5fa" stroke-width="2"/>
+                                        <path d="M20 130 L140 130" stroke="#60a5fa" stroke-width="2"/>
+                                        <!-- Passing Through -->
+                                        <path d="M170 100 L380 100" stroke="#60a5fa" stroke-width="2" stroke-dasharray="4"/>
+                                        <path d="M170 130 L380 130" stroke="#60a5fa" stroke-width="2" stroke-dasharray="4"/>
+                                        <text x="250" y="90" fill="#2563eb" font-size="14" font-weight="bold">안정적인 흐름</text>
+                                        <text x="250" y="160" fill="#2563eb" font-size="12">풍속 50% 감쇄</text>
+                                    </svg>
+                                </div>
+                                <p class="text-gray-700 text-sm leading-relaxed">
+                                    일정 비율의 바람을 통과시켜 난류를 줄이고 주행 안정성을 높입니다.<br>
+                                    메리츠컴퍼니는 <strong>최적의 공극률(30~40%)</strong>을 찾아내어 도로 환경을 개선합니다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Performance Data -->
+                <section class="py-24 bg-slate-900 text-white">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="mb-12 text-center">
+                            <span class="text-blue-400 font-bold tracking-wide uppercase">PERFORMANCE DATA</span>
+                            <h2 class="text-3xl font-bold mt-2">공극률과 풍속 감소 효과</h2>
+                            <p class="text-gray-400 mt-4">일본 건축 종합시험소 및 자체 풍동 실험 데이터를 기반으로 입증된 성능입니다.</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                            <!-- Graph Visualization -->
+                            <div class="bg-slate-800 rounded-2xl p-8 border border-slate-700 h-full flex flex-col">
+                                <h4 class="text-lg font-bold mb-6 flex items-center">
+                                    <i data-lucide="bar-chart-2" class="w-5 h-5 mr-2 text-blue-400"></i>
+                                    거리별 풍속비 (U/U₀) 비교
+                                </h4>
+                                <!-- HTML/CSS Chart Representation -->
+                                <div class="relative flex-grow w-full flex items-end justify-between px-2 pb-8 border-b border-l border-slate-600 gap-2 mt-4">
+                                    
+                                    <!-- Grid Lines (Background) -->
+                                    <div class="absolute inset-0 pointer-events-none flex flex-col justify-between pb-8 pl-2 pr-2">
+                                        <div class="border-t border-slate-700/50 w-full h-0"></div> <!-- 1.0 -->
+                                        <div class="border-t border-slate-700/50 w-full h-0"></div> <!-- 0.8 -->
+                                        <div class="border-t border-slate-700/50 w-full h-0"></div> <!-- 0.6 -->
+                                        <div class="border-t border-slate-700/50 w-full h-0"></div> <!-- 0.4 -->
+                                        <div class="border-t border-slate-700/50 w-full h-0"></div> <!-- 0.2 -->
+                                        <div class="w-full h-0"></div> <!-- 0.0 -->
+                                    </div>
+
+                                    <!-- Y Axis Labels -->
+                                    <div class="absolute -left-8 top-0 text-xs text-gray-500">1.0</div>
+                                    <div class="absolute -left-8 top-[20%] text-xs text-gray-500">0.8</div>
+                                    <div class="absolute -left-8 top-[40%] text-xs text-gray-500">0.6</div>
+                                    <div class="absolute -left-8 top-[60%] text-xs text-gray-500">0.4</div>
+                                    <div class="absolute -left-8 top-[80%] text-xs text-gray-500">0.2</div>
+                                    <div class="absolute -left-8 bottom-8 text-xs text-gray-500">0.0</div>
+                                    
+                                    <!-- Bars Group 1 (3m) -->
+                                    <div class="w-1/5 flex flex-col items-center gap-1 group relative z-10 h-full justify-end">
+                                        <div class="w-full flex justify-center gap-1 items-end h-full">
+                                            <!-- Max height is 100% which is 1.0. 0.48 is 48% -->
+                                            <div class="w-3 md:w-5 bg-blue-500 h-[48%] rounded-t-sm relative group-hover:bg-blue-400 transition duration-300">
+                                                <span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] text-blue-200 opacity-0 group-hover:opacity-100 transition whitespace-nowrap">0.48</span>
+                                            </div>
+                                            <div class="w-3 md:w-5 bg-slate-500 h-[18%] rounded-t-sm relative group-hover:bg-slate-400 transition duration-300">
+                                                <span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] text-gray-200 opacity-0 group-hover:opacity-100 transition whitespace-nowrap">0.18</span>
+                                            </div>
+                                        </div>
+                                        <span class="absolute -bottom-6 text-xs text-gray-400 font-medium">3m</span>
+                                    </div>
+                                    <!-- Bars Group 2 (6m) -->
+                                    <div class="w-1/5 flex flex-col items-center gap-1 group relative z-10 h-full justify-end">
+                                        <div class="w-full flex justify-center gap-1 items-end h-full">
+                                            <div class="w-3 md:w-5 bg-blue-500 h-[29%] rounded-t-sm relative group-hover:bg-blue-400 transition duration-300">
+                                                 <span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] text-blue-200 opacity-0 group-hover:opacity-100 transition whitespace-nowrap">0.29</span>
+                                            </div>
+                                            <div class="w-3 md:w-5 bg-slate-500 h-[16%] rounded-t-sm relative group-hover:bg-slate-400 transition duration-300">
+                                                 <span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] text-gray-200 opacity-0 group-hover:opacity-100 transition whitespace-nowrap">0.16</span>
+                                            </div>
+                                        </div>
+                                        <span class="absolute -bottom-6 text-xs text-gray-400 font-medium">6m</span>
+                                    </div>
+                                    <!-- Bars Group 3 (12m) -->
+                                    <div class="w-1/5 flex flex-col items-center gap-1 group relative z-10 h-full justify-end">
+                                        <div class="w-full flex justify-center gap-1 items-end h-full">
+                                            <div class="w-3 md:w-5 bg-blue-500 h-[20%] rounded-t-sm relative group-hover:bg-blue-400 transition duration-300">
+                                                 <span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] text-blue-200 opacity-0 group-hover:opacity-100 transition whitespace-nowrap">0.20</span>
+                                            </div>
+                                            <div class="w-3 md:w-5 bg-slate-500 h-[20%] rounded-t-sm relative group-hover:bg-slate-400 transition duration-300">
+                                                 <span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] text-gray-200 opacity-0 group-hover:opacity-100 transition whitespace-nowrap">0.20</span>
+                                            </div>
+                                        </div>
+                                        <span class="absolute -bottom-6 text-xs text-gray-400 font-medium">12m</span>
+                                    </div>
+                                    <!-- Bars Group 4 (18m) -->
+                                    <div class="w-1/5 flex flex-col items-center gap-1 group relative z-10 h-full justify-end">
+                                        <div class="w-full flex justify-center gap-1 items-end h-full">
+                                            <div class="w-3 md:w-5 bg-blue-500 h-[24%] rounded-t-sm relative group-hover:bg-blue-400 transition duration-300">
+                                                 <span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] text-blue-200 opacity-0 group-hover:opacity-100 transition whitespace-nowrap">0.24</span>
+                                            </div>
+                                            <div class="w-3 md:w-5 bg-slate-500 h-[20%] rounded-t-sm relative group-hover:bg-slate-400 transition duration-300">
+                                                 <span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] text-gray-200 opacity-0 group-hover:opacity-100 transition whitespace-nowrap">0.20</span>
+                                            </div>
+                                        </div>
+                                        <span class="absolute -bottom-6 text-xs text-gray-400 font-medium">18m</span>
+                                    </div>
+                                    <!-- Bars Group 5 (24m) - Added -->
+                                    <div class="w-1/5 flex flex-col items-center gap-1 group relative z-10 h-full justify-end">
+                                        <div class="w-full flex justify-center gap-1 items-end h-full">
+                                            <div class="w-3 md:w-5 bg-blue-500 h-[24%] rounded-t-sm relative group-hover:bg-blue-400 transition duration-300">
+                                                 <span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] text-blue-200 opacity-0 group-hover:opacity-100 transition whitespace-nowrap">0.24</span>
+                                            </div>
+                                            <div class="w-3 md:w-5 bg-slate-500 h-[17%] rounded-t-sm relative group-hover:bg-slate-400 transition duration-300">
+                                                 <span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] text-gray-200 opacity-0 group-hover:opacity-100 transition whitespace-nowrap">0.17</span>
+                                            </div>
+                                        </div>
+                                        <span class="absolute -bottom-6 text-xs text-gray-400 font-medium">24m</span>
+                                    </div>
+                                </div>
+                                <div class="flex justify-center gap-6 mt-10">
+                                    <div class="flex items-center"><span class="w-3 h-3 bg-blue-500 rounded-sm mr-2"></span><span class="text-sm text-gray-300">공극률 40% (Type A)</span></div>
+                                    <div class="flex items-center"><span class="w-3 h-3 bg-slate-500 rounded-sm mr-2"></span><span class="text-sm text-gray-300">공극률 30% (Type B)</span></div>
+                                </div>
+                            </div>
+
+                            <!-- Data Table -->
+                            <div class="flex flex-col justify-center">
+                                <div class="bg-slate-800 rounded-xl overflow-hidden border border-slate-700 shadow-xl">
+                                    <div class="overflow-x-auto">
+                                        <table class="w-full text-sm text-left text-gray-300">
+                                            <thead class="text-xs text-blue-200 uppercase bg-slate-700/80 border-b border-slate-600">
+                                                <tr>
+                                                    <th rowspan="2" class="px-6 py-4 border-r border-slate-600 bg-slate-700 align-middle">
+                                                        거리 (Distance)<br>
+                                                        <span class="text-[10px] text-gray-400 font-normal normal-case">방풍벽 높이(H)=3m 기준</span>
+                                                    </th>
+                                                    <th colspan="2" class="px-4 py-2 text-center border-r border-slate-600 bg-blue-900/30 text-blue-300">공극률 40% (Type A)</th>
+                                                    <th colspan="2" class="px-4 py-2 text-center border-r border-slate-600 bg-slate-700/50 text-gray-300">공극률 30% (Type B)</th>
+                                                    <th rowspan="2" class="px-6 py-4 text-center align-middle">효과 분석</th>
+                                                </tr>
+                                                <tr>
+                                                    <th class="px-2 py-2 text-center border-r border-slate-600 text-[10px] bg-slate-800">풍속비 (U/U₀)</th>
+                                                    <th class="px-2 py-2 text-center border-r border-slate-600 text-[10px] text-blue-400 bg-slate-800">감쇄율 (%)</th>
+                                                    <th class="px-2 py-2 text-center border-r border-slate-600 text-[10px] bg-slate-800">풍속비 (U/U₀)</th>
+                                                    <th class="px-2 py-2 text-center border-r border-slate-600 text-[10px] text-green-400 bg-slate-800">감쇄율 (%)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="divide-y divide-slate-600">
+                                                <tr class="hover:bg-slate-700/30 transition">
+                                                    <td class="px-6 py-4 font-medium border-r border-slate-700 bg-slate-800/30">3m (1H)</td>
+                                                    <td class="px-4 py-4 text-center border-r border-slate-700">0.48</td>
+                                                    <td class="px-4 py-4 text-center border-r border-slate-700 font-bold text-blue-400">52%</td>
+                                                    <td class="px-4 py-4 text-center border-r border-slate-700">0.18</td>
+                                                    <td class="px-4 py-4 text-center border-r border-slate-700 font-bold text-green-400">82%</td>
+                                                    <td class="px-6 py-4 text-center text-xs text-gray-400">초기 급격한 감쇄</td>
+                                                </tr>
+                                                <tr class="hover:bg-slate-700/30 transition">
+                                                    <td class="px-6 py-4 font-medium border-r border-slate-700 bg-slate-800/30">6m (2H)</td>
+                                                    <td class="px-4 py-4 text-center border-r border-slate-700">0.29</td>
+                                                    <td class="px-4 py-4 text-center border-r border-slate-700 font-bold text-blue-400">71%</td>
+                                                    <td class="px-4 py-4 text-center border-r border-slate-700">0.16</td>
+                                                    <td class="px-4 py-4 text-center border-r border-slate-700 font-bold text-green-400">84%</td>
+                                                    <td class="px-6 py-4 text-center text-xs text-white font-medium bg-green-900/20 rounded-md">최대 효율 구간</td>
+                                                </tr>
+                                                <tr class="hover:bg-slate-700/30 transition">
+                                                    <td class="px-6 py-4 font-medium border-r border-slate-700 bg-slate-800/30">12m (4H)</td>
+                                                    <td class="px-4 py-4 text-center border-r border-slate-700">0.20</td>
+                                                    <td class="px-4 py-4 text-center border-r border-slate-700 font-bold text-blue-400">80%</td>
+                                                    <td class="px-4 py-4 text-center border-r border-slate-700">0.20</td>
+                                                    <td class="px-4 py-4 text-center border-r border-slate-700 font-bold text-green-400">80%</td>
+                                                    <td class="px-6 py-4 text-center text-xs text-gray-400">안정적 감쇄 유지</td>
+                                                </tr>
+                                                <tr class="hover:bg-slate-700/30 transition">
+                                                    <td class="px-6 py-4 font-medium border-r border-slate-700 bg-slate-800/30">18m (6H)</td>
+                                                    <td class="px-4 py-4 text-center border-r border-slate-700">0.24</td>
+                                                    <td class="px-4 py-4 text-center border-r border-slate-700 font-bold text-blue-400">76%</td>
+                                                    <td class="px-4 py-4 text-center border-r border-slate-700">0.20</td>
+                                                    <td class="px-4 py-4 text-center border-r border-slate-700 font-bold text-green-400">80%</td>
+                                                    <td class="px-6 py-4 text-center text-xs text-gray-400">원거리 방풍 효과 지속</td>
+                                                </tr>
+                                                <tr class="hover:bg-slate-700/30 transition">
+                                                    <td class="px-6 py-4 font-medium border-r border-slate-700 bg-slate-800/30">24m (8H)</td>
+                                                    <td class="px-4 py-4 text-center border-r border-slate-700">0.24</td>
+                                                    <td class="px-4 py-4 text-center border-r border-slate-700 font-bold text-blue-400">76%</td>
+                                                    <td class="px-4 py-4 text-center border-r border-slate-700">0.17</td>
+                                                    <td class="px-4 py-4 text-center border-r border-slate-700 font-bold text-green-400">83%</td>
+                                                    <td class="px-6 py-4 text-center text-xs text-gray-400">유효 범위 내</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <p class="mt-4 text-xs text-gray-500 text-right">
+                                    * 풍속비(U/U₀): 수치가 낮을수록 방풍 효과 우수<br>
+                                    * 감쇄율(%): (1 - 풍속비) × 100
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: Locations -->
+                <section class="py-24 bg-white">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="text-center mb-16">
+                            <h2 class="text-3xl font-bold text-gray-900">설치 위치에 따른 효과</h2>
+                            <p class="mt-4 text-gray-600">각 구간의 특성에 맞춰 최적의 주행 안전성을 제공합니다.</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <!-- Card 1 -->
+                            <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 hover:shadow-lg transition">
+                                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 mb-4">
+                                    <i data-lucide="waves" class="w-6 h-6"></i>
+                                </div>
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">교량 구간</h3>
+                                <p class="text-sm text-gray-600">강풍에 직접 노출되는 고속도로 상의 교량에서 차량의 주행 방향 상실을 방지합니다.</p>
+                            </div>
+                            <!-- Card 2 -->
+                            <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 hover:shadow-lg transition">
+                                <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center text-green-600 mb-4">
+                                    <i data-lucide="mountain" class="w-6 h-6"></i>
+                                </div>
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">산악 및 해안가</h3>
+                                <p class="text-sm text-gray-600">지형 영향으로 갑작스럽게 부는 돌풍을 막고, 해안가의 염분이 섞인 바람을 걸러내 부식을 줄입니다.</p>
+                            </div>
+                            <!-- Card 3 -->
+                            <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 hover:shadow-lg transition">
+                                <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center text-orange-600 mb-4">
+                                    <i data-lucide="disc" class="w-6 h-6"></i>
+                                </div>
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">터널 통과 후</h3>
+                                <p class="text-sm text-gray-600">터널 출구에서 급격한 압력 차이로 발생하는 돌풍을 완화하여 차량 제어력을 유지시킵니다.</p>
+                            </div>
+                            <!-- Card 4 -->
+                            <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 hover:shadow-lg transition">
+                                <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600 mb-4">
+                                    <i data-lucide="arrow-up-right" class="w-6 h-6"></i>
+                                </div>
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">고속도로 상부</h3>
+                                <p class="text-sm text-gray-600">고가도로나 가장자리에서 차량이 바람에 밀려 경로를 이탈하는 것을 방지합니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
             </div>
         </div>
-    </section>
 
-    <!-- Application / Gallery -->
-    <section class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <span class="text-blue-600 font-bold tracking-wide uppercase">Portfolio</span>
-                <h2 class="text-3xl font-bold text-gray-900 mt-2">적용 분야</h2>
-                <p class="mt-4 text-gray-600">다양한 환경에 최적화된 메리츠컴퍼니의 솔루션</p>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="group relative overflow-hidden rounded-xl shadow-lg cursor-pointer h-72">
-                    <!-- 교량: 웅장한 해상 교량 사진으로 변경 -->
-                    <img src="https://images.unsplash.com/photo-1518182170546-0766ce6fec56?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Bridge" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-transparent to-transparent flex items-end p-8">
-                        <div>
-                            <h3 class="text-white font-bold text-xl mb-1">해상 교량</h3>
-                            <p class="text-blue-200 text-sm">강한 측풍 제어</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="group relative overflow-hidden rounded-xl shadow-lg cursor-pointer h-72">
-                    <!-- 고속도로: 실제 방풍/방음벽이 설치된 도로 인프라 사진으로 변경 -->
-                    <img src="https://images.unsplash.com/photo-1621955964441-c173e01c135b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Highway" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-transparent to-transparent flex items-end p-8">
-                        <div>
-                            <h3 class="text-white font-bold text-xl mb-1">고속도로 성토부</h3>
-                            <p class="text-blue-200 text-sm">돌풍 및 횡풍 방지</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="group relative overflow-hidden rounded-xl shadow-lg cursor-pointer h-72">
-                    <!-- 산업시설: 대규모 플랜트/산업 단지 사진으로 변경 -->
-                    <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Industrial" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-transparent to-transparent flex items-end p-8">
-                        <div>
-                            <h3 class="text-white font-bold text-xl mb-1">산업 시설</h3>
-                            <p class="text-blue-200 text-sm">비산먼지 억제</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Call to Action / Footer -->
-    <footer id="contact" class="bg-slate-900 text-gray-300 py-16 relative overflow-hidden">
-        <!-- Background Pattern for Footer -->
-        <div class="absolute inset-0 opacity-5 pattern-perforated"></div>
-        
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <div>
-                    <div class="flex items-center mb-4">
-                        <i data-lucide="wind" class="text-blue-500 w-6 h-6 mr-2"></i>
-                        <div class="text-2xl font-black text-white tracking-tighter">
-                            MERITS<span class="text-blue-500">.</span>
-                        </div>
-                    </div>
-                    <p class="text-gray-400 font-medium mb-6">대표이사 김태진</p>
-                    <p class="mb-6 leading-relaxed text-gray-400">
-                        (주)메리츠컴퍼니는 끊임없는 기술개발과 품질혁신으로<br>
-                        대한민국의 안전한 도로 환경을 만들어갑니다.
-                    </p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-gray-400 hover:bg-blue-600 hover:text-white transition"><i data-lucide="facebook" class="w-5 h-5"></i></a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-gray-400 hover:bg-blue-600 hover:text-white transition"><i data-lucide="instagram" class="w-5 h-5"></i></a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-gray-400 hover:bg-blue-600 hover:text-white transition"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
-                    </div>
-                </div>
-                <div>
-                    <h3 class="text-white font-bold text-lg mb-6 border-l-4 border-blue-500 pl-3">Contact Us</h3>
+        <!-- PAGE: TECHNOLOGY -->
+        <div id="page-technology" class="page-section hidden fade-in">
+            <section class="py-24 pattern-perforated-blue text-white overflow-hidden relative min-h-[calc(100vh-5rem)]">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+                <div class="absolute bottom-0 left-0 w-64 h-64 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+                
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
                     
-                    <div class="space-y-8">
-                        <!-- Head Office -->
-                        <div class="group">
-                            <div class="flex items-center mb-2">
-                                <i data-lucide="map-pin" class="w-5 h-5 mr-2 text-blue-500 group-hover:text-blue-400 transition"></i>
-                                <span class="text-white font-bold">본사 (Head Office)</span>
-                            </div>
-                            <div class="pl-7 space-y-1">
-                                <p class="text-sm text-gray-400">경기도 용인시 기흥구 흥덕중앙로 55,<br>흥덕리써밋 309~310호 (영덕동, 리써밋타워)</p>
-                                <p class="text-sm text-gray-400 flex flex-wrap gap-x-4">
-                                    <span>TEL : 1544-3341</span>
-                                    <span>FAX : 031-211-6366</span>
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Factory -->
-                        <div class="group">
-                            <div class="flex items-center mb-2">
-                                <i data-lucide="factory" class="w-5 h-5 mr-2 text-blue-500 group-hover:text-blue-400 transition"></i>
-                                <span class="text-white font-bold">공장 (Factory)</span>
-                            </div>
-                            <div class="pl-7 space-y-1">
-                                <p class="text-sm text-gray-400">경기도 화성시 서신면 전곡산단13길 7 (전곡리)</p>
-                                <p class="text-sm text-gray-400 flex flex-wrap gap-x-4">
-                                    <span>TEL : 031-366-7993</span>
-                                    <span>FAX : 031-366-7994</span>
-                                </p>
+                    <!-- Part 1: Scientific Principles (Existing) -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
+                        <div>
+                            <span class="text-blue-300 font-bold tracking-wide uppercase border-b border-blue-400 pb-1">Core Technology</span>
+                            <h2 class="text-3xl md:text-4xl font-bold mt-6 mb-6 leading-tight">다공성(Porous) 방풍벽의<br><span class="text-blue-200">과학적 원리</span></h2>
+                            <p class="text-blue-100 mb-10 leading-relaxed text-lg font-light">메리츠컴퍼니의 기술은 **'바람을 통과시키며 힘을 뺀다'**는 역발상에서 시작되었습니다. 최적의 개공율(Opening Ratio) 설계가 핵심입니다.</p>
+                            <div class="space-y-8">
+                                <div class="flex group">
+                                    <div class="flex-shrink-0 w-12 h-12 bg-blue-800 rounded-lg flex items-center justify-center"><i data-lucide="eye" class="w-6 h-6 text-blue-300"></i></div>
+                                    <div class="ml-6"><h4 class="text-xl font-bold">운전자 조망권 확보 (See-through)</h4><p class="text-sm text-blue-200 mt-2">반투명한 시야를 제공하여 쾌적한 주행 환경을 만듭니다.</p></div>
+                                </div>
+                                <div class="flex group">
+                                    <div class="flex-shrink-0 w-12 h-12 bg-blue-800 rounded-lg flex items-center justify-center"><i data-lucide="anchor" class="w-6 h-6 text-blue-300"></i></div>
+                                    <div class="ml-6"><h4 class="text-xl font-bold">구조물 하중 최소화</h4><p class="text-sm text-blue-200 mt-2">통기성 구조로 설계되어 교량 상판에 가해지는 비틀림과 하중을 최소화합니다.</p></div>
+                                </div>
+                                <div class="flex group">
+                                    <div class="flex-shrink-0 w-12 h-12 bg-blue-800 rounded-lg flex items-center justify-center"><i data-lucide="settings" class="w-6 h-6 text-blue-300"></i></div>
+                                    <div class="ml-6"><h4 class="text-xl font-bold">모듈형 유지보수</h4><p class="text-sm text-blue-200 mt-2">패널 단위 교체가 가능한 경제적인 모듈형 설계입니다.</p></div>
+                                </div>
                             </div>
                         </div>
-
-                        <!-- Web -->
-                        <div class="pl-7 pt-2">
-                            <div class="flex items-center">
-                                <i data-lucide="globe" class="w-4 h-4 mr-2 text-blue-500"></i>
-                                <a href="https://www.merits.co.kr" target="_blank" class="hover:text-blue-400 transition text-sm">www.merits.co.kr</a>
+                        <div>
+                            <div class="bg-blue-900/50 backdrop-blur-md rounded-2xl border border-blue-400/30 p-8 shadow-2xl">
+                                <div class="aspect-square bg-gradient-to-br from-gray-200 to-gray-300 rounded-lg p-1 shadow-inner relative overflow-hidden">
+                                    <div class="absolute inset-0 grid grid-cols-6 grid-rows-6 gap-2 p-4">
+                                        <div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div>
+                                        <div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div>
+                                        <div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div>
+                                        <div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div>
+                                        <div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div>
+                                        <div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div><div class="bg-gray-800 rounded-full shadow-inner"></div>
+                                    </div>
+                                    <div class="absolute inset-0 flex items-center justify-center">
+                                        <div class="text-center bg-blue-900/80 p-4 rounded-xl backdrop-blur-sm border border-blue-400">
+                                            <i data-lucide="wind" class="w-12 h-12 text-white mx-auto mb-2 animate-pulse"></i>
+                                            <span class="text-white font-bold text-lg">WIND REDUCTION</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-center text-blue-300 mt-4 text-sm">* 실제 방풍판 형상 예시 (타공형)</p>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="border-t border-slate-800 mt-12 pt-8 text-sm text-center flex flex-col md:flex-row justify-between items-center text-gray-500">
-                <p>&copy; 2000-2026 Merits Company. All rights reserved.</p>
-                <div class="mt-4 md:mt-0 space-x-4">
-                    <a href="#" class="hover:text-gray-300">Privacy Policy</a>
-                    <a href="#" class="hover:text-gray-300">Terms of Service</a>
-                </div>
-            </div>
-        </div>
-    </footer>
 
-    <script>
-        // Initialize Lucide Icons
-        lucide.createIcons();
-    </script>
-</body>
-</html>
+                    <!-- Part 2: Product Specifications (Added based on image) -->
+                    <div class="border-t border-blue-500/30 pt-20">
+                        <div class="text-center mb-16">
+                            <h3 class="text-3xl md:text-4xl font-bold mb-4">제품 사양 및 특징</h3>
+                            <p class="text-blue-200 max-w-2xl mx-auto">기능성이 뛰어난 유공절곡형 패널을 채택하여 공극률 40%와 30%의 두 가지 선택지를 제공합니다.</p>
+                        </div>
+
+                        <!-- Panel Materials Info -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                            <div class="bg-slate-800/80 backdrop-blur-sm p-8 rounded-2xl border border-blue-500/20 hover:border-blue-500/50 transition duration-300">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center mr-4 font-bold text-white">GI</div>
+                                    <h4 class="text-xl font-bold text-white">아연도강판 (Galvanized Iron)</h4>
+                                </div>
+                                <p class="text-gray-300 mb-4 leading-relaxed">
+                                    고강도와 경제성을 갖춘 소재로, 한국 산업표준 "KS D 3506 (용융 아연 도금 강판 및 강대)"에 적합한 재료로 제작됩니다.
+                                </p>
+                                <ul class="text-sm text-blue-200 space-y-2 pl-4 border-l-2 border-blue-600">
+                                    <li>• 내식성 및 내구성 우수</li>
+                                    <li>• 구조적 안정성이 뛰어남</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-slate-800/80 backdrop-blur-sm p-8 rounded-2xl border border-blue-500/20 hover:border-blue-500/50 transition duration-300">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-10 h-10 rounded-full bg-teal-600 flex items-center justify-center mr-4 font-bold text-white">FRP</div>
+                                    <h4 class="text-xl font-bold text-white">섬유 강화 플라스틱 (FRP)</h4>
+                                </div>
+                                <p class="text-gray-300 mb-4 leading-relaxed">
+                                    부식 저항성이 뛰어나며, 특히 염화칼슘이 많이 뿌려지는 겨울철 도로 환경이나 해안가 지역에 최적화된 소재입니다.
+                                </p>
+                                <ul class="text-sm text-blue-200 space-y-2 pl-4 border-l-2 border-teal-600">
+                                    <li>• 염해 지역 및 해안가 추천</li>
+                                    <li>• 반영구적 수명 및 유지보수 용이</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Technical Drawings & Specs Table -->
+                        <div class="grid grid-cols-1 xl:grid-cols-2 gap-12">
+                            <!-- Specs Table -->
+                            <div class="bg-slate-900/50 rounded-2xl p-6 border border-slate-700">
+                                <div class="flex items-center mb-6">
+                                    <i data-lucide="table" class="w-6 h-6 text-blue-400 mr-2"></i>
+                                    <h4 class="text-lg font-bold text-white">상세 사양 (Specifications)</h4>
+                                </div>
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-sm text-left text-gray-300">
+                                        <thead class="text-xs text-blue-200 uppercase bg-slate-800">
+                                            <tr>
+                                                <th scope="col" class="px-4 py-3 rounded-l-lg">재질</th>
+                                                <th scope="col" class="px-4 py-3">제품명</th>
+                                                <th scope="col" class="px-4 py-3">규격 (mm / T)</th>
+                                                <th scope="col" class="px-4 py-3">공극률</th>
+                                                <th scope="col" class="px-4 py-3 rounded-r-lg text-right">풍속저감비율</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-slate-700">
+                                            <tr class="hover:bg-slate-800/50">
+                                                <td class="px-4 py-4 font-bold text-blue-400">GI</td>
+                                                <td class="px-4 py-4 font-medium">MSWB 60</td>
+                                                <td class="px-4 py-4">(250~500) x (1960~3960) x 1.6T</td>
+                              
