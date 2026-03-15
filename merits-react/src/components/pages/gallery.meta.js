@@ -1,4 +1,13 @@
-﻿export const galleryMeta = {
+export const galleryHero = {
+  videoEmbedUrl:
+    "https://www.youtube.com/embed/qd1zxi9HGxk?autoplay=1&mute=1&controls=0&loop=1&playlist=qd1zxi9HGxk&rel=0&playsinline=1",
+  title: "MERITS COMPANY",
+  subtitle:
+    "현장을 감싸는 구조물의 디테일과 시공 품질을 영상으로 먼저 보여줍니다.",
+  ctaLabel: "SCROLL",
+};
+
+export const galleryMeta = {
   // Key: image filename without extension
   // Example:
   // bridge_01: {

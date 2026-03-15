@@ -1,108 +1,253 @@
-﻿function NavBar() {
+import { useState } from "react";
+import teamMeritsLogo from "../../assets/team-merits-logo.svg";
+import teamMeritsLogoWhiteText from "../../assets/team-merits-logo-white-text.svg";
+
+const menuGroups = [
+  {
+    title: "회사소개",
+    page: "about",
+    items: [
+      { label: "기업 이념", page: "about" },
+      { label: "기업연혁", page: "about" },
+      { label: "오시는길", page: "about" },
+    ],
+  },
+  {
+    title: "방풍벽이란?",
+    page: "features",
+    items: [
+      { label: "방풍벽 효과", page: "features", section: "section-effects" },
+      { label: "설계 및 검토", page: "features", section: "section-design" },
+    ],
+  },
+  {
+    title: "기술력",
+    page: "technology",
+    items: [
+      {
+        label: "방풍패널 종류 및 특징",
+        page: "technology",
+        section: "section-panels",
+      },
+      { label: "와류저감장치", page: "technology", section: "section-vortex" },
+    ],
+  },
+  {
+    title: "자료실",
+    page: "resources",
+    items: [
+      { label: "회사소개서", page: "resources" },
+      { label: "특허현황", page: "resources" },
+      { label: "동영상자료", page: "resources" },
+    ],
+  },
+];
+
+function NavBar({ isTransparent = false }) {
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const isMenuOpen = hoveredIndex !== null;
+  const isGlobalHover = hoveredIndex === -1;
+
+  const wrapperClassName = `fixed inset-x-0 top-0 z-50 ${
+    isTransparent && !isMenuOpen
+      ? "bg-transparent"
+      : "bg-white/95 backdrop-blur-md"
+  }`;
+  const navClassName = `border-b transition-all duration-200 ${
+    isTransparent && !isMenuOpen
+      ? "border-transparent shadow-none"
+      : "border-gray-100 shadow-sm"
+  }`;
+  const topMenuTextClassName =
+    isTransparent && !isMenuOpen
+      ? "text-white hover:text-white"
+      : "text-gray-700 hover:text-blue-900";
+  const mobileToggleClassName =
+    isTransparent && !isMenuOpen
+      ? "text-white hover:text-white/80"
+      : "text-gray-700 hover:text-blue-900";
+
+  const navColumnsClassName =
+    "grid grid-cols-[220px_repeat(4,minmax(0,1fr))_minmax(0,0.8fr)_auto_auto] gap-x-8";
+  const submenuColumnsClassName =
+    "grid grid-cols-[220px_repeat(4,minmax(0,1fr))_minmax(0,0.8fr)] gap-x-8";
+
   return (
     <>
-  {/* Navigation */}
-  <nav className="bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100 fixed w-full z-50 transition-all duration-300">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="flex justify-between h-20">
-        <div className="flex items-center">
-          <a href="#" data-nav-page="home" className="flex-shrink-0 flex items-center group wind-interact px-3 py-2 -ml-3 rounded-xl hover:bg-blue-50/50">
-            <div className="relative flex items-center justify-center w-10 h-10 bg-blue-900 rounded-lg mr-3 group-hover:bg-blue-700 transition duration-300">
-              <i data-lucide="wind" className="text-white w-5 h-5 group-hover:translate-x-1 group-hover:scale-110 transition-all duration-300" />
+      <div
+        className={wrapperClassName}
+        onMouseLeave={() => setHoveredIndex(null)}
+      >
+        <nav className={navClassName}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className={`${navColumnsClassName} h-20 items-center`}>
+              <a
+                href="#"
+                data-nav-page="home"
+                className="relative flex h-full items-center"
+              >
+                <img
+                  src={teamMeritsLogoWhiteText}
+                  alt="팀메리츠 로고"
+                  className={`block h-[4.25rem] w-auto transition-opacity duration-200 sm:h-[4.5rem] ${
+                    isTransparent && !isMenuOpen ? "opacity-100" : "opacity-0"
+                  }`}
+                />
+                <img
+                  src={teamMeritsLogo}
+                  alt="팀메리츠 로고"
+                  className={`absolute left-0 top-1/2 block h-[4.25rem] w-auto -translate-y-1/2 transition-opacity duration-200 sm:h-[4.5rem] ${
+                    isTransparent && !isMenuOpen ? "opacity-0" : "opacity-100"
+                  }`}
+                />
+              </a>
+
+              {menuGroups.map((group, index) => (
+                <button
+                  key={group.title}
+                  data-nav-page={group.page}
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  className={`relative h-full text-left text-[18px] font-medium transition-colors ${topMenuTextClassName}`}
+                >
+                  <span className="flex h-full items-center justify-start">
+                    {group.title}
+                  </span>
+                  <span
+                    className={`absolute bottom-0 left-0 h-[2px] w-full transition-opacity duration-200 ${
+                      hoveredIndex === index
+                        ? "bg-blue-700 opacity-100"
+                        : "opacity-0"
+                    }`}
+                  />
+                </button>
+              ))}
+
+              <button
+                data-nav-page="gallery"
+                onMouseEnter={() => setHoveredIndex(-1)}
+                className={`h-full text-left text-[18px] font-medium transition-colors ${topMenuTextClassName}`}
+              >
+                <span className="flex h-full items-center justify-start">
+                  시공사진
+                </span>
+              </button>
+
+              <button
+                data-nav-page="contact"
+                onMouseEnter={() => setHoveredIndex(-1)}
+                className="self-center rounded-full bg-blue-900 px-6 py-2.5 font-bold text-white transition hover:bg-blue-800"
+              >
+                문의하기
+              </button>
+              <a
+                href="https://merits.co.kr/"
+                target="_blank"
+                rel="noreferrer"
+                onMouseEnter={() => setHoveredIndex(-1)}
+                className="self-center rounded-full border border-gray-300 px-5 py-2.5 font-semibold text-gray-700 transition hover:border-blue-900 hover:text-blue-900"
+              >
+                <span className="flex items-center gap-2">
+                  merits 본사
+                  <span aria-hidden="true">↗</span>
+                </span>
+              </a>
             </div>
-            <div>
-              <div className="text-2xl font-black text-blue-900 tracking-tight leading-none group-hover:text-blue-700 transition-colors">
-                MERITS<span className="text-blue-500">.</span>
-              </div>
-              <span className="text-xs text-gray-500 font-medium tracking-wider">
-                (주)메리츠컴퍼니
-              </span>
-            </div>
-          </a>
-        </div>
-        {/* Desktop Menu */}
-        <div className="hidden md:flex items-center space-x-8">
-          {/* 회사소개 Dropdown */}
-          <div className="relative group">
-            <button data-nav-page="about" className="nav-btn text-gray-600 hover:text-blue-900 font-medium transition py-2 border-b-2 border-transparent hover:border-blue-900 flex items-center gap-1">
-              회사소개 <i data-lucide="chevron-down" className="w-4 h-4 text-gray-400 group-hover:text-blue-600 transition duration-300" />
-            </button>
-            <div className="absolute left-0 top-full pt-2 w-40 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 z-50">
-              <div className="bg-white border border-gray-100 rounded-xl shadow-lg overflow-hidden py-1">
-                <button data-nav-page="about" className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">기업 이념</button>
-                <button data-nav-page="about" className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">기업연혁</button>
-                <button data-nav-page="about" className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">오시는길</button>
+          </div>
+        </nav>
+
+        {isMenuOpen ? (
+          <div className="border-b border-gray-100 bg-white/95 backdrop-blur-md">
+            <div className="border-t border-gray-200">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className={`${submenuColumnsClassName} py-8`}>
+                  <div />
+                  {menuGroups.map((group, index) => (
+                    <div key={group.title} className="min-w-0">
+                      <div className="space-y-2">
+                        {group.items.map((item) => (
+                          <button
+                            key={`${group.title}-${item.label}`}
+                            data-nav-page={item.page}
+                            data-nav-section={item.section}
+                            className={`block w-full text-left text-[16px] transition ${
+                              hoveredIndex === index || isGlobalHover
+                                ? "text-gray-700 hover:text-blue-900"
+                                : "text-gray-400 hover:text-gray-600"
+                            }`}
+                          >
+                            {item.label}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                  <div />
+                </div>
               </div>
             </div>
           </div>
-          {/* 방풍벽이란? Dropdown */}
-          <div className="relative group">
-            <button data-nav-page="features" className="nav-btn text-gray-600 hover:text-blue-900 font-medium transition py-2 border-b-2 border-transparent hover:border-blue-900 flex items-center gap-1">
-              방풍벽이란? <i data-lucide="chevron-down" className="w-4 h-4 text-gray-400 group-hover:text-blue-600 transition duration-300" />
-            </button>
-            <div className="absolute left-0 top-full pt-2 w-40 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 z-50">
-              <div className="bg-white border border-gray-100 rounded-xl shadow-lg overflow-hidden py-1">
-                <button data-nav-page="features" data-nav-section="section-effects" className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">방풍벽 효과</button>
-                <button data-nav-page="features" data-nav-section="section-design" className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">설계 및 검토</button>
-              </div>
-            </div>
-          </div>
-          {/* 기술력 Dropdown */}
-          <div className="relative group">
-            <button data-nav-page="technology" className="nav-btn text-gray-600 hover:text-blue-900 font-medium transition py-2 border-b-2 border-transparent hover:border-blue-900 flex items-center gap-1">
-              기술력 <i data-lucide="chevron-down" className="w-4 h-4 text-gray-400 group-hover:text-blue-600 transition duration-300" />
-            </button>
-            <div className="absolute left-0 top-full pt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 z-50">
-              <div className="bg-white border border-gray-100 rounded-xl shadow-lg overflow-hidden py-1">
-                <button data-nav-page="technology" data-nav-section="section-panels" className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">방풍패널 종류 및 특징</button>
-                <button data-nav-page="technology" data-nav-section="section-vortex" className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">와류저감장치</button>
-              </div>
-            </div>
-          </div>
-          {/* 자료실 Dropdown */}
-          <div className="relative group">
-            <button data-nav-page="resources" className="nav-btn text-gray-600 hover:text-blue-900 font-medium transition py-2 border-b-2 border-transparent hover:border-blue-900 flex items-center gap-1">
-              자료실 <i data-lucide="chevron-down" className="w-4 h-4 text-gray-400 group-hover:text-blue-600 transition duration-300" />
-            </button>
-            <div className="absolute left-0 top-full pt-2 w-40 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 z-50">
-              <div className="bg-white border border-gray-100 rounded-xl shadow-lg overflow-hidden py-1">
-                <button data-nav-page="resources" className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">회사소개서</button>
-                <button data-nav-page="resources" className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">특허현황</button>
-                <button data-nav-page="resources" className="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">동영상자료</button>
-              </div>
-            </div>
-          </div>
-          <button data-nav-page="gallery" className="nav-btn text-gray-600 hover:text-blue-900 font-medium transition py-2 border-b-2 border-transparent hover:border-blue-900">시공사진</button>
-          <button data-nav-page="contact" className="px-6 py-2.5 rounded-full bg-blue-900 text-white font-bold hover:bg-blue-800 transition shadow-md">문의하기</button>
-        </div>
-        {/* Mobile menu button */}
-        <div className="flex items-center md:hidden">
-          <button data-toggle-mobile="true" className="text-gray-600 hover:text-blue-900 focus:outline-none">
-            <i data-lucide="menu" className="w-8 h-8" />
+        ) : null}
+      </div>
+
+      <div
+        id="mobile-menu"
+        className="hidden md:hidden bg-white border-t border-gray-100 fixed top-20 left-0 w-full shadow-lg z-40 overflow-y-auto max-h-[80vh]"
+      >
+        <div className="border-b border-gray-50">
+          <button
+            data-nav-page="about"
+            data-close-mobile="true"
+            className="block w-full text-left px-4 py-4 text-[18px] text-gray-700 hover:bg-gray-50 font-medium"
+          >
+            회사소개
           </button>
         </div>
+        <div className="border-b border-gray-50">
+          <button
+            data-nav-page="features"
+            data-nav-section="section-effects"
+            data-close-mobile="true"
+            className="block w-full text-left px-4 py-4 text-[18px] text-gray-700 hover:bg-gray-50 font-medium"
+          >
+            방풍벽이란? (효과/설계)
+          </button>
+        </div>
+        <div className="border-b border-gray-50">
+          <button
+            data-nav-page="technology"
+            data-nav-section="section-panels"
+            data-close-mobile="true"
+            className="block w-full text-left px-4 py-4 text-[18px] text-gray-700 hover:bg-gray-50 font-medium"
+          >
+            기술력 (종류/와류저감)
+          </button>
+        </div>
+        <div className="border-b border-gray-50">
+          <button
+            data-nav-page="resources"
+            data-close-mobile="true"
+            className="block w-full text-left px-4 py-4 text-[18px] text-gray-700 hover:bg-gray-50 font-medium"
+          >
+            자료실
+          </button>
+        </div>
+        <button
+          data-nav-page="gallery"
+          data-close-mobile="true"
+          className="block w-full text-left px-4 py-4 text-[18px] text-gray-700 hover:bg-gray-50 border-b border-gray-50 font-medium"
+        >
+          시공사진
+        </button>
+        <button
+          data-nav-page="contact"
+          data-close-mobile="true"
+          className="block w-full text-left px-4 py-4 text-[18px] text-blue-900 font-bold hover:bg-gray-50"
+        >
+          문의하기
+        </button>
       </div>
-    </div>
-    {/* Mobile Menu */}
-    <div id="mobile-menu" className="hidden md:hidden bg-white border-t border-gray-100 fixed top-20 left-0 w-full shadow-lg z-40 overflow-y-auto max-h-[80vh]">
-      <div className="border-b border-gray-50">
-        <button data-nav-page="about" data-close-mobile="true" className="block w-full text-left px-4 py-4 text-gray-700 hover:bg-gray-50 font-medium">회사소개</button>
-      </div>
-      <div className="border-b border-gray-50">
-        <button data-nav-page="features" data-nav-section="section-effects" data-close-mobile="true" className="block w-full text-left px-4 py-4 text-gray-700 hover:bg-gray-50 font-medium">방풍벽이란? (효과/설계)</button>
-      </div>
-      <div className="border-b border-gray-50">
-        <button data-nav-page="technology" data-nav-section="section-panels" data-close-mobile="true" className="block w-full text-left px-4 py-4 text-gray-700 hover:bg-gray-50 font-medium">기술력 (종류/와류저감)</button>
-      </div>
-      <div className="border-b border-gray-50">
-        <button data-nav-page="resources" data-close-mobile="true" className="block w-full text-left px-4 py-4 text-gray-700 hover:bg-gray-50 font-medium">자료실</button>
-      </div>
-      <button data-nav-page="gallery" data-close-mobile="true" className="block w-full text-left px-4 py-4 text-gray-700 hover:bg-gray-50 border-b border-gray-50 font-medium">시공사진</button>
-      <button data-nav-page="contact" data-close-mobile="true" className="block w-full text-left px-4 py-4 text-blue-900 font-bold hover:bg-gray-50">문의하기</button>
-    </div>
-  </nav>
     </>
-  )
+  );
 }
 
-export default NavBar
+export default NavBar;

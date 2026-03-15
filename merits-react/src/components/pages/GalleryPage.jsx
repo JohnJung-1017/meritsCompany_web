@@ -1,4 +1,4 @@
-﻿import { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { galleryMeta } from "./gallery.meta";
 
 const imageModules = import.meta.glob(
@@ -98,7 +98,7 @@ function GalleryPage() {
                   aria-label="이전 사진"
                   className="absolute left-3 top-1/2 -translate-y-1/2 h-11 w-11 rounded-full bg-white/90 text-gray-800 shadow-md border border-gray-200 hover:bg-white transition disabled:opacity-35 disabled:cursor-not-allowed"
                 >
-                  ‹
+                  {"<"}
                 </button>
                 <button
                   type="button"
@@ -107,7 +107,7 @@ function GalleryPage() {
                   aria-label="다음 사진"
                   className="absolute right-3 top-1/2 -translate-y-1/2 h-11 w-11 rounded-full bg-white/90 text-gray-800 shadow-md border border-gray-200 hover:bg-white transition disabled:opacity-35 disabled:cursor-not-allowed"
                 >
-                  ›
+                  {">"}
                 </button>
               </div>
             )}
