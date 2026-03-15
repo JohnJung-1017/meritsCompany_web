@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Footer from './components/layout/Footer'
 import NavBar from './components/layout/NavBar'
 import AboutPage from './components/pages/AboutPage'
@@ -15,6 +15,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState('home')
   const [targetSection, setTargetSection] = useState(null)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [isHomeHeroActive, setIsHomeHeroActive] = useState(false)
 
   useEffect(() => {
     let attempts = 0
@@ -33,6 +34,10 @@ function App() {
 
     renderIcons()
   }, [])
+
+  useEffect(() => {
+    setIsHomeHeroActive(currentPage === 'home')
+  }, [currentPage])
 
   useEffect(() => {
     const root = containerRef.current
@@ -102,9 +107,9 @@ function App() {
 
   return (
     <div ref={containerRef} onClick={handleInteraction} className="flex min-h-screen flex-col">
-      <NavBar />
+      <NavBar isTransparent={currentPage === 'home' && isHomeHeroActive} />
       <main className="flex-grow pt-20">
-        <HomePage />
+        <HomePage onHeroVisibilityChange={setIsHomeHeroActive} />
         <AboutPage />
         <FeaturesPage />
         <TechnologyPage />
