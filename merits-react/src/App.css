@@ -22,6 +22,24 @@
             background-size: 24px 24px;
         }
 
+        .blueprint-bg {
+            background-color: #f8fafc;
+            background-image:
+                linear-gradient(rgba(14, 165, 233, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(14, 165, 233, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .pattern-holes-30 {
+            background-image: radial-gradient(#e0f2fe 3px, transparent 3px);
+            background-size: 16px 16px;
+        }
+
+        .pattern-holes-40 {
+            background-image: radial-gradient(#e0f2fe 4px, transparent 4px);
+            background-size: 12px 12px;
+        }
+
         /* Wind Streak Animation (Soft, Elegant Version) */
         .wind-streak {
             position: absolute;
@@ -75,4 +93,27 @@
         }
         .icon-react {
             transition: all 0.3s ease;
+        }
+
+        @keyframes cfd-flow {
+            0% { transform: translateX(-50px); opacity: 0; }
+            15% { opacity: 1; }
+            85% { opacity: 1; }
+            100% { transform: translateX(350px); opacity: 0; }
+        }
+
+        .animate-cfd-1 {
+            animation: cfd-flow 3s linear infinite;
+        }
+
+        .animate-cfd-2 {
+            animation: cfd-flow 2.5s linear infinite 1s;
+        }
+
+        .animate-cfd-3 {
+            animation: cfd-flow 3.2s linear infinite 0.5s;
+        }
+
+        .animate-cfd-4 {
+            animation: cfd-flow 2.8s linear infinite 1.5s;
         }

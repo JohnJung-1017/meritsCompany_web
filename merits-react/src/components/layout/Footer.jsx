@@ -39,7 +39,13 @@
       <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm">
         <div>© 2000-2026 MERITS COMPANY. ALL RIGHTS RESERVED.</div>
         <div className="mt-4 md:mt-0">
-          <a href="https://www.merits.co.kr" target="_blank" className="hover:text-white transition font-bold tracking-widest">OFFICIAL WEBSITE</a>
+          <button
+            type="button"
+            data-nav-page="contact"
+            className="hover:text-white transition font-bold tracking-widest"
+          >
+            문의하기
+          </button>
         </div>
       </div>
     </div>
