@@ -1,173 +1,454 @@
-﻿function TechnologyPage() {
+function TechnologyPage() {
   return (
     <>
-    {/* PAGE: TECHNOLOGY (기술력) */}
-    <div id="page-technology" className="page-section hidden fade-in bg-white">
-      {/* 서브 카테고리 1: 방풍패널 종류 및 특징 */}
-      <div id="section-panels" className="min-h-screen py-24 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="text-center mb-16">
-            <span className="text-blue-600 font-bold tracking-widest uppercase text-sm">Panel Types &amp; Specs</span>
-            <h2 className="text-3xl font-bold mt-2 text-gray-900">방풍패널의 종류 및 특징 (공극률)</h2>
-            <p className="text-gray-500 mt-4">공극률에 따른 환경별 맞춤형 제어 효과와 소재별 특징입니다.</p>
-          </div>
-          {/* 공극률 효과 설명 (자료 반영) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-            <div className="bg-blue-50/50 p-8 rounded-2xl border border-blue-100 wind-interact">
-              <h3 className="text-lg font-bold text-blue-900 mb-3 flex items-center"><span className="w-3 h-3 rounded-full bg-blue-500 mr-3" />공극률 22~33%</h3>
-              <p className="text-gray-700 text-sm leading-relaxed">
-                바람의 속도가 원래 바람의 약 15~25%로 감소하여 차량의 주행 안정성이 획기적으로 높아집니다. 이 공극률 범위는 바람을 적절히 차단하면서도 난류를 줄이기 위한 용도로, <strong>교량이나 개방된 고속도로 구간</strong>에 가장 효과적입니다.
+      <div id="page-technology" className="page-section hidden fade-in bg-white">
+        <div id="section-panels" className="min-h-screen border-b border-gray-100 py-24">
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-16 text-center">
+              <span className="text-sm font-bold uppercase tracking-widest text-blue-600">
+                Panel Types &amp; Specs
+              </span>
+              <h2 className="mt-2 text-3xl font-bold text-gray-900">방풍패널의 종류 및 특징</h2>
+              <p className="mt-4 text-gray-500">
+                레거시의 제품 및 기술 콘텐츠를 현재 기술력 메뉴 구조에 맞게 이관했습니다.
               </p>
             </div>
-            <div className="bg-gray-50 p-8 rounded-2xl border border-gray-200 wind-interact">
-              <h3 className="text-lg font-bold text-gray-800 mb-3 flex items-center"><span className="w-3 h-3 rounded-full bg-gray-500 mr-3" />공극률 45%</h3>
-              <p className="text-gray-700 text-sm leading-relaxed">
-                바람 속도가 원래 바람의 30~45%로 유지되며, 바람을 완전히 막지 않고 일정 부분 통과시켜 차량이 지나치게 흔들리지 않도록 유도합니다. 이 설계는 지속적으로 강한 바람이 부는 <strong>해안가나 산악 지역</strong>에 적합합니다.
+
+            <div className="mb-16">
+              <h3 className="mb-4 flex items-center text-2xl font-bold text-gray-900">
+                <i data-lucide="layers" className="mr-2 h-6 w-6 text-blue-600" />
+                방풍벽 재질
+              </h3>
+              <p className="mb-6 text-sm leading-relaxed text-gray-700">
+                방풍벽 재질은 설치 장소, 유지관리 편의성, 내구성과 내식성을 고려해
+                선정합니다. 레거시 기준에서 사용된 대표 재질은 다음과 같습니다.
               </p>
+
+              <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-3">
+                <div className="wind-interact rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+                  <div className="icon-react mb-4 flex h-10 w-10 items-center justify-center rounded-lg border border-slate-300 bg-slate-100 text-sm font-bold text-slate-700">
+                    GI
+                  </div>
+                  <h4 className="mb-2 text-lg font-bold text-gray-900">아연도강판</h4>
+                  <p className="text-sm font-light leading-relaxed text-gray-600">
+                    기본 재질로 가장 널리 사용되며, 강도와 경제성이 우수합니다.
+                    일반 도로 및 교량 구간에 적용하기 적합합니다.
+                  </p>
+                </div>
+
+                <div className="wind-interact rounded-xl border border-blue-100 bg-white p-6 shadow-sm">
+                  <div className="icon-react mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-blue-900 text-sm font-bold text-white">
+                    FRP
+                  </div>
+                  <h4 className="mb-2 text-lg font-bold text-gray-900">섬유 강화 플라스틱</h4>
+                  <p className="text-sm font-light leading-relaxed text-gray-600">
+                    내식성이 뛰어나 해안가, 염분 환경, 제설제 노출 구간에 유리합니다.
+                    장기 유지관리 비용 절감에도 효과적입니다.
+                  </p>
+                </div>
+
+                <div className="wind-interact rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+                  <div className="icon-react mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-gray-800 text-sm font-bold text-white">
+                    AL/STS
+                  </div>
+                  <h4 className="mb-2 text-lg font-bold text-gray-900">알루미늄 / 스테인리스</h4>
+                  <p className="text-sm font-light leading-relaxed text-gray-600">
+                    경량성과 내식성을 동시에 요구하는 현장에 적합하며, 유지보수
+                    부담을 줄여 장수명 설계에 유리합니다.
+                  </p>
+                </div>
+              </div>
+
+              <div className="wind-interact rounded-xl border-l-4 border-blue-500 bg-blue-50/50 p-5 text-sm leading-relaxed text-gray-700">
+                <strong className="mb-1 flex items-center text-blue-900">
+                  <i data-lucide="puzzle" className="mr-1 h-4 w-4" />
+                  재질의 최적 조합
+                </strong>
+                일반 구간에는 아연도강판을, 부식 위험이 큰 구간에는 FRP 또는
+                알루미늄·스테인리스를 조합해 적용하면 경제성과 내구성을 함께 확보할
+                수 있습니다.
+              </div>
+            </div>
+
+            <div className="mb-16">
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-8 shadow-sm">
+                <h3 className="mb-4 flex items-center text-2xl font-bold text-gray-900">
+                  <i data-lucide="bar-chart" className="mr-2 h-6 w-6 text-blue-600" />
+                  공극률과 풍속 변화
+                </h3>
+                <p className="mb-6 text-sm leading-relaxed text-gray-700">
+                  공극률은 방풍벽을 통과하는 개구부 비율로, 풍속 저감과 후류 난류
+                  제어를 좌우하는 핵심 변수입니다. 지나치게 낮으면 난류가 커지고,
+                  지나치게 높으면 차폐 효과가 줄어듭니다.
+                </p>
+
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                  <div className="wind-interact rounded-xl border border-blue-100 bg-white p-6 shadow-sm">
+                    <h4 className="mb-3 flex items-center text-lg font-bold text-blue-900">
+                      <span className="mr-3 h-3 w-3 rounded-full bg-blue-500" />
+                      공극률 22~33%
+                    </h4>
+                    <p className="text-sm leading-relaxed text-gray-600">
+                      풍속을 원래의 약 15~25% 수준까지 낮춰 차량 주행 안정성을 크게
+                      개선합니다. 교량과 개방형 고속도로 구간에 특히 효과적입니다.
+                    </p>
+                  </div>
+
+                  <div className="wind-interact rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+                    <h4 className="mb-3 flex items-center text-lg font-bold text-gray-800">
+                      <span className="mr-3 h-3 w-3 rounded-full bg-gray-500" />
+                      공극률 45%
+                    </h4>
+                    <p className="text-sm leading-relaxed text-gray-600">
+                      풍속을 30~45% 수준으로 유지하며 바람을 일부 통과시켜 과도한
+                      흔들림과 난류를 함께 제어합니다. 해안가 및 산악 지역에 적합합니다.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-6 border-l-4 border-blue-500 bg-blue-50/50 p-4 text-sm leading-relaxed text-gray-700">
+                  <strong className="text-blue-900">결론:</strong> 공극률은 일반적으로
+                  20~45% 범위에서 현장 환경과 요구 성능을 고려해 조정하는 것이
+                  바람직합니다.
+                </div>
+              </div>
+            </div>
+
+            <div className="mb-16">
+              <div className="mb-4 flex items-center justify-between">
+                <h4 className="text-xl font-bold text-gray-900">거리별 풍속 감소 데이터</h4>
+                <span className="rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-500">
+                  방풍벽 높이 3m 기준
+                </span>
+              </div>
+              <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+                <div className="overflow-x-auto">
+                  <table className="w-full whitespace-nowrap text-center text-sm text-gray-700">
+                    <thead className="border-b border-gray-200 bg-gray-100 text-xs font-bold uppercase text-gray-600">
+                      <tr>
+                        <th className="border-r border-gray-200 px-4 py-3">벽체로부터 거리</th>
+                        <th className="border-r border-gray-200 px-4 py-3">3m</th>
+                        <th className="border-r border-gray-200 px-4 py-3">6m</th>
+                        <th className="border-r border-gray-200 bg-blue-50/50 px-4 py-3">9m</th>
+                        <th className="border-r border-gray-200 px-4 py-3">12m</th>
+                        <th className="border-r border-gray-200 bg-blue-50/50 px-4 py-3">15m</th>
+                        <th className="border-r border-gray-200 px-4 py-3">18m</th>
+                        <th className="border-r border-gray-200 bg-blue-50/50 px-4 py-3">21m</th>
+                        <th className="px-4 py-3">24m</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-100">
+                      <tr className="transition hover:bg-gray-50">
+                        <td className="border-r border-gray-200 bg-gray-50 px-4 py-3 font-bold text-blue-900">공극률 40%</td>
+                        <td className="border-r border-gray-100 px-4 py-3">0.48</td>
+                        <td className="border-r border-gray-100 px-4 py-3">0.29</td>
+                        <td className="border-r border-gray-100 bg-blue-50/30 px-4 py-3">0.25</td>
+                        <td className="border-r border-gray-100 px-4 py-3">0.20</td>
+                        <td className="border-r border-gray-100 bg-blue-50/30 px-4 py-3">0.22</td>
+                        <td className="border-r border-gray-100 px-4 py-3">0.24</td>
+                        <td className="border-r border-gray-100 bg-blue-50/30 px-4 py-3">0.24</td>
+                        <td className="px-4 py-3">0.24</td>
+                      </tr>
+                      <tr className="transition hover:bg-gray-50">
+                        <td className="border-r border-gray-200 bg-gray-50 px-4 py-3 font-bold text-gray-700">공극률 30%</td>
+                        <td className="border-r border-gray-100 px-4 py-3">0.18</td>
+                        <td className="border-r border-gray-100 px-4 py-3 font-bold text-blue-600">0.16</td>
+                        <td className="border-r border-gray-100 bg-blue-50/30 px-4 py-3">0.19</td>
+                        <td className="border-r border-gray-100 px-4 py-3">0.20</td>
+                        <td className="border-r border-gray-100 bg-blue-50/30 px-4 py-3">0.20</td>
+                        <td className="border-r border-gray-100 px-4 py-3">0.20</td>
+                        <td className="border-r border-gray-100 bg-blue-50/30 px-4 py-3">0.19</td>
+                        <td className="px-4 py-3 font-bold text-blue-600">0.17</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div className="mb-16 overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-lg">
+              <div className="flex items-center gap-3 border-b border-gray-200 bg-gray-50 px-8 py-5">
+                <i data-lucide="pen-tool" className="h-5 w-5 text-blue-600" />
+                <h3 className="text-xl font-bold text-gray-900">제품 도면 (Blueprint)</h3>
+              </div>
+              <div className="blueprint-bg grid grid-cols-1 gap-16 p-10 lg:grid-cols-2">
+                <div className="space-y-12">
+                  <div className="relative">
+                    <div className="absolute -top-6 left-0 right-0 flex items-center justify-between text-[10px] text-gray-500">
+                      <div className="h-3 w-px bg-gray-400" />
+                      <div className="mx-2 flex-grow border-t border-gray-400" />
+                      <span>1960 ~ 3960</span>
+                      <div className="mx-2 flex-grow border-t border-gray-400" />
+                      <div className="h-3 w-px bg-gray-400" />
+                    </div>
+                    <div className="pattern-holes-30 relative flex h-16 items-center justify-center rounded bg-blue-500 text-white shadow-inner">
+                      <span className="rounded bg-blue-600/80 px-3 py-1 font-bold backdrop-blur-sm">(FRP 3.0T)</span>
+                    </div>
+                    <p className="mt-3 text-sm font-bold text-gray-700">- FRONT VIEW</p>
+                  </div>
+
+                  <div className="pattern-holes-40 relative h-32 overflow-hidden rounded border-y-4 border-blue-600 bg-blue-500 shadow-inner">
+                    <div className="flex h-full flex-col justify-evenly">
+                      <div className="h-px w-full bg-white/30" />
+                      <div className="z-10 flex w-full justify-center">
+                        <span className="rounded bg-blue-600/80 px-3 py-1 font-bold text-white backdrop-blur-sm">
+                          (STEEL 1.2~1.6T)
+                        </span>
+                      </div>
+                      <div className="h-px w-full bg-black/20" />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-col justify-center space-y-12">
+                  <div>
+                    <div className="flex items-center justify-center gap-8">
+                      <div className="flex items-center gap-2">
+                        <div className="pattern-holes-30 h-20 w-32 rounded border-2 border-blue-600 bg-blue-500" />
+                        <span className="text-xl font-bold text-blue-500">30%</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="pattern-holes-40 h-20 w-32 rounded border-2 border-blue-600 bg-blue-500" />
+                        <span className="text-xl font-bold text-blue-500">40%</span>
+                      </div>
+                    </div>
+                    <p className="mt-4 text-center text-sm font-bold text-gray-700">- DETAIL (공극률)</p>
+                  </div>
+
+                  <div>
+                    <div className="mx-auto w-full max-w-sm">
+                      <svg viewBox="0 0 450 150" className="h-auto w-full drop-shadow-md">
+                        <line x1="20" y1="20" x2="430" y2="20" stroke="#94a3b8" strokeWidth="1" />
+                        <polyline
+                          points="20,110 55,110 100,55 150,55 195,110 275,110 320,55 370,55 415,110 430,110"
+                          fill="none"
+                          stroke="#1e293b"
+                          strokeWidth="3"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </div>
+                    <p className="mt-2 text-center text-sm font-bold text-gray-700">- 500 SIDE VIEW</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mb-16">
+              <div className="mb-4 flex items-center gap-3">
+                <i data-lucide="table" className="h-6 w-6 text-blue-600" />
+                <h3 className="text-2xl font-bold text-gray-900">사양 (Specifications)</h3>
+              </div>
+              <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-lg">
+                <div className="overflow-x-auto">
+                  <table className="w-full whitespace-nowrap text-center text-sm text-gray-800">
+                    <thead className="border-b-2 border-blue-500 bg-gray-100 text-xs font-bold uppercase tracking-wider text-gray-700">
+                      <tr>
+                        <th className="border-r border-gray-200 px-6 py-5">재질</th>
+                        <th className="border-r border-gray-200 px-6 py-5">제품명</th>
+                        <th className="border-r border-gray-200 px-6 py-5">규격 (mm / T)</th>
+                        <th className="border-r border-gray-200 px-6 py-5">공극률</th>
+                        <th className="border-r border-gray-200 px-6 py-5">항력계수</th>
+                        <th className="px-6 py-5">풍속저감비 (1~6H)</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-200">
+                      <tr className="transition hover:bg-blue-50/50">
+                        <td rowSpan="2" className="border-r border-gray-200 bg-white px-6 py-4 align-middle font-bold text-blue-600">금속재</td>
+                        <td className="border-r border-gray-200 px-6 py-4 font-medium">M-WB-S-40</td>
+                        <td className="border-r border-gray-200 px-6 py-4 font-mono text-xs">(250~500) x (1960~3960) x 1.2~1.6T</td>
+                        <td className="border-r border-gray-200 px-6 py-4 font-bold text-gray-700">40%</td>
+                        <td className="border-r border-gray-200 px-6 py-4 text-gray-700">0.666</td>
+                        <td className="px-6 py-4 text-gray-700">0.20~0.48</td>
+                      </tr>
+                      <tr className="bg-gray-50/50 transition hover:bg-blue-50/50">
+                        <td className="border-r border-gray-200 px-6 py-4 font-medium">M-WB-S-30</td>
+                        <td className="border-r border-gray-200 px-6 py-4 font-mono text-xs">(250~500) x (1960~3960) x 1.2~1.6T</td>
+                        <td className="border-r border-gray-200 px-6 py-4 font-bold text-gray-700">30%</td>
+                        <td className="border-r border-gray-200 px-6 py-4 font-medium text-gray-900">0.752</td>
+                        <td className="px-6 py-4 text-gray-700">0.16~0.20</td>
+                      </tr>
+                      <tr className="transition hover:bg-blue-50/50">
+                        <td rowSpan="2" className="border-r border-gray-200 border-t border-gray-300 bg-white px-6 py-4 align-middle font-bold text-cyan-600">FRP</td>
+                        <td className="border-r border-gray-200 border-t border-gray-300 px-6 py-4 font-medium">M-WB-F-30</td>
+                        <td className="border-r border-gray-200 border-t border-gray-300 px-6 py-4 font-mono text-xs">(250~500) x (1960~3960) x 3.0T</td>
+                        <td className="border-r border-gray-200 border-t border-gray-300 px-6 py-4 font-bold text-gray-700">30%</td>
+                        <td className="border-r border-gray-200 border-t border-gray-300 px-6 py-4 text-gray-700">0.666</td>
+                        <td className="border-t border-gray-300 px-6 py-4 text-gray-700">0.20~0.48</td>
+                      </tr>
+                      <tr className="bg-gray-50/50 transition hover:bg-blue-50/50">
+                        <td className="border-r border-gray-200 px-6 py-4 font-medium">M-WB-F-20</td>
+                        <td className="border-r border-gray-200 px-6 py-4 font-mono text-xs">(250~500) x (1960~3960) x 3.0T</td>
+                        <td className="border-r border-gray-200 px-6 py-4 font-bold text-gray-700">20%</td>
+                        <td className="border-r border-gray-200 px-6 py-4 font-medium text-gray-900">0.752</td>
+                        <td className="px-6 py-4 text-gray-700">0.16~0.20</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
-          {/* 풍속 감소 효과 데이터 표 (기존) */}
-          <div className="mb-16">
-            <h4 className="text-xl font-bold text-gray-900 mb-4">공극률과 풍속 감소 효과의 관계 (높이 3m 기준)</h4>
-            <div className="bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
+        </div>
+
+        <div id="section-vortex" className="min-h-screen bg-gray-50 py-24">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-16 text-center">
+              <span className="text-sm font-bold uppercase tracking-widest text-blue-600">
+                Vortex Reduction System
+              </span>
+              <h2 className="mb-4 mt-2 text-3xl font-bold text-gray-900">와류저감장치 핵심 기술</h2>
+              <p className="text-gray-600">
+                구조물 후류에서 발생하는 카르만 와류를 제어하는 레거시 기술 설명을
+                현재 메뉴에 맞춰 이관했습니다.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
+              <div className="space-y-8 lg:col-span-5">
+                <div className="wind-interact rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
+                  <h3 className="mb-4 flex items-center text-xl font-bold text-blue-900">
+                    <i data-lucide="info" className="icon-react mr-2 h-6 w-6 text-blue-600" />
+                    와류저감장치란?
+                  </h3>
+                  <p className="text-sm leading-relaxed text-gray-600">
+                    구조물 후류에서 발생하는 카르만 와류를 제어해 공진(VIV), 피로누적,
+                    소음, 볼트 이완 등의 문제를 줄이는 공력학적 제어 기술입니다.
+                  </p>
+                </div>
+
+                <div className="wind-interact rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
+                  <h3 className="mb-4 flex items-center text-xl font-bold text-gray-900">
+                    <i data-lucide="check-square" className="icon-react mr-2 h-6 w-6 text-green-600" />
+                    적용 분야
+                  </h3>
+                  <ul className="space-y-4">
+                    <li className="flex items-center text-sm text-gray-700"><i data-lucide="anchor" className="mr-3 h-5 w-5 text-gray-400" />항만 방풍벽</li>
+                    <li className="flex items-center text-sm text-gray-700"><i data-lucide="cloud-off" className="mr-3 h-5 w-5 text-gray-400" />비산먼지 차단벽</li>
+                    <li className="flex items-center text-sm text-gray-700"><i data-lucide="arrow-up-circle" className="mr-3 h-5 w-5 text-gray-400" />고속도로 방음벽 상부 증설 구간</li>
+                    <li className="flex items-center text-sm text-gray-700"><i data-lucide="factory" className="mr-3 h-5 w-5 text-gray-400" />산업시설 방진·방풍 설비</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="relative overflow-hidden rounded-3xl bg-slate-900 p-10 text-white shadow-xl lg:col-span-7">
+                <div className="pattern-dots absolute inset-0 opacity-5" />
+                <div className="relative z-10">
+                  <div className="mb-6 inline-flex items-center rounded-full border border-blue-400/30 bg-blue-900/50 px-3 py-1 text-xs font-bold text-blue-200">
+                    <i data-lucide="cpu" className="mr-1.5 h-3.5 w-3.5" />
+                    Engineering Principle
+                  </div>
+                  <h3 className="mb-4 text-2xl font-bold">와류저감장치 설계 원리</h3>
+                  <p className="mb-6 text-sm font-light leading-relaxed text-slate-300">
+                    구조물 후류에서 형성되는 와류의 발생 주파수와 구조물의 고유진동수가
+                    일치하면 공진이 발생합니다. 이를 줄이기 위해 Strouhal 관계식을
+                    기반으로 형상과 부속 장치를 설계합니다.
+                  </p>
+
+                  <div className="mb-6 flex items-center justify-center rounded-xl border border-slate-700 bg-black/40 px-4 py-8">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                      <mi>f</mi>
+                      <mo>=</mo>
+                      <mfrac>
+                        <mrow>
+                          <mi>St</mi>
+                          <mo>&middot;</mo>
+                          <mi>V</mi>
+                        </mrow>
+                        <mi>D</mi>
+                      </mfrac>
+                    </math>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-12 rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
+              <h3 className="mb-6 flex items-center text-xl font-bold text-gray-900">
+                <i data-lucide="bar-chart-2" className="icon-react mr-2 h-6 w-6 text-blue-600" />
+                적용 효과 분석
+              </h3>
               <div className="overflow-x-auto">
-                <table className="w-full text-sm text-left text-gray-700">
-                  <thead className="text-xs uppercase bg-gray-50 border-b border-gray-200 text-gray-500">
+                <table className="w-full whitespace-nowrap text-center text-sm text-gray-800">
+                  <thead className="border-b-2 border-blue-500 bg-gray-100 text-xs font-bold uppercase tracking-wider text-gray-700">
                     <tr>
-                      <th rowSpan={2} className="px-6 py-5 border-r border-gray-200 align-middle font-bold">거리 (Distance)</th>
-                      <th colSpan={2} className="px-4 py-3 text-center border-r border-gray-200 bg-blue-50/50 text-blue-700">공극률 40% (Type A)</th>
-                      <th colSpan={2} className="px-4 py-3 text-center border-r border-gray-200 bg-gray-50 text-gray-700">공극률 30% (Type B)</th>
-                      <th rowSpan={2} className="px-6 py-5 text-center align-middle font-medium">비고</th>
-                    </tr>
-                    <tr className="bg-white">
-                      <th className="px-2 py-2 text-center border-r border-gray-200 text-[10px]">풍속비</th>
-                      <th className="px-2 py-2 text-center border-r border-gray-200 text-[10px] text-blue-600">감쇄율</th>
-                      <th className="px-2 py-2 text-center border-r border-gray-200 text-[10px]">풍속비</th>
-                      <th className="px-2 py-2 text-center border-r border-gray-200 text-[10px] text-gray-600">감쇄율</th>
+                      <th className="w-1/3 border-r border-gray-200 px-6 py-5">구분</th>
+                      <th className="w-1/3 border-r border-gray-200 px-6 py-5 text-gray-500">일반 방풍벽</th>
+                      <th className="w-1/3 px-6 py-5 text-blue-600">와류저감 적용</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-100">
-                    <tr className="hover:bg-gray-50 transition">
-                      <td className="px-6 py-4 font-bold border-r border-gray-100 text-gray-900">3m</td>
-                      <td className="px-4 py-4 text-center border-r border-gray-100">0.48</td>
-                      <td className="px-4 py-4 text-center border-r border-gray-100 font-bold text-blue-600">52%</td>
-                      <td className="px-4 py-4 text-center border-r border-gray-100">0.18</td>
-                      <td className="px-4 py-4 text-center border-r border-gray-100 font-bold text-gray-700">82%</td>
-                      <td className="px-6 py-4 text-center text-xs text-gray-500">초기 제어</td>
+                  <tbody className="divide-y divide-gray-200">
+                    <tr className="transition hover:bg-blue-50/50">
+                      <td className="border-r border-gray-200 bg-gray-50/50 px-6 py-4 font-bold text-gray-700">항력계수</td>
+                      <td className="border-r border-gray-200 px-6 py-4 text-gray-500">1.3 ~ 1.5</td>
+                      <td className="bg-blue-50 px-6 py-4 font-bold text-blue-600">0.8 ~ 1.0</td>
                     </tr>
-                    <tr className="hover:bg-blue-50/30 transition bg-blue-50/10">
-                      <td className="px-6 py-4 font-bold border-r border-gray-100 text-blue-700">6m</td>
-                      <td className="px-4 py-4 text-center border-r border-gray-100">0.29</td>
-                      <td className="px-4 py-4 text-center border-r border-gray-100 font-bold text-blue-600">71%</td>
-                      <td className="px-4 py-4 text-center border-r border-gray-100">0.16</td>
-                      <td className="px-4 py-4 text-center border-r border-gray-100 font-bold text-blue-700">84%</td>
-                      <td className="px-6 py-4 text-center text-xs text-blue-600 font-bold">최대 효율</td>
+                    <tr className="transition hover:bg-blue-50/50">
+                      <td className="border-r border-gray-200 bg-gray-50/50 px-6 py-4 font-bold text-gray-700">피로누적도</td>
+                      <td className="border-r border-gray-200 px-6 py-4 font-medium text-red-500">높음</td>
+                      <td className="bg-blue-50 px-6 py-4 font-bold text-blue-600">20~35% 감소</td>
                     </tr>
-                    <tr className="hover:bg-gray-50 transition">
-                      <td className="px-6 py-4 font-bold border-r border-gray-100 text-gray-900">12m</td>
-                      <td className="px-4 py-4 text-center border-r border-gray-100">0.20</td>
-                      <td className="px-4 py-4 text-center border-r border-gray-100 font-bold text-blue-600">80%</td>
-                      <td className="px-4 py-4 text-center border-r border-gray-100">0.20</td>
-                      <td className="px-4 py-4 text-center border-r border-gray-100 font-bold text-gray-700">80%</td>
-                      <td className="px-6 py-4 text-center text-xs text-gray-500">-</td>
+                    <tr className="transition hover:bg-blue-50/50">
+                      <td className="border-r border-gray-200 bg-gray-50/50 px-6 py-4 font-bold text-gray-700">진동발생</td>
+                      <td className="border-r border-gray-200 px-6 py-4 font-medium text-red-500">주기적 발생</td>
+                      <td className="bg-blue-50 px-6 py-4 font-bold text-blue-600">현저히 감소</td>
                     </tr>
-                    <tr className="hover:bg-gray-50 transition">
-                      <td className="px-6 py-4 font-bold border-r border-gray-100 text-gray-900">24m</td>
-                      <td className="px-4 py-4 text-center border-r border-gray-100">0.24</td>
-                      <td className="px-4 py-4 text-center border-r border-gray-100 font-bold text-blue-600">76%</td>
-                      <td className="px-4 py-4 text-center border-r border-gray-100">0.17</td>
-                      <td className="px-4 py-4 text-center border-r border-gray-100 font-bold text-gray-700">83%</td>
-                      <td className="px-6 py-4 text-center text-xs text-gray-500">원거리 유지</td>
+                    <tr className="transition hover:bg-blue-50/50">
+                      <td className="border-r border-gray-200 bg-gray-50/50 px-6 py-4 font-bold text-gray-700">유지관리비</td>
+                      <td className="border-r border-gray-200 px-6 py-4 font-medium text-red-500">높음</td>
+                      <td className="bg-blue-50 px-6 py-4 font-bold text-blue-600">절감</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
-            <p className="text-right text-xs text-gray-500 mt-2">* 일본 건축 종합시험소 기준 / 공극률이 높을수록 통과 바람은 증가하나 차폐 효과는 줄어들어 20~45% 범위가 권장됩니다.</p>
-          </div>
-          {/* Material Specs */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white p-8 rounded-xl border border-gray-200 shadow-sm wind-interact">
-              <div className="flex justify-between items-start mb-6">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center font-bold text-xl icon-react">GI</div>
-                  <div><h4 className="text-lg font-bold text-gray-900">아연도강판</h4></div>
+
+            <div className="mt-12 grid grid-cols-1 gap-10 lg:grid-cols-2">
+              <div className="wind-interact rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
+                <div className="mb-6 flex items-center justify-between">
+                  <h3 className="text-lg font-bold text-gray-800">일반 방풍벽</h3>
+                  <span className="rounded-full border border-red-200 bg-red-100 px-3 py-1 text-xs font-bold text-red-600">진동 발생</span>
                 </div>
-                <div className="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded">KS D 3506</div>
-              </div>
-              <p className="text-gray-600 text-sm leading-relaxed font-light">용융 아연 도금 강판으로 높은 강도와 우수한 경제성을 지닌 산업용 방풍벽의 표준 소재입니다. (내륙 및 일반 교량 최적화)</p>
-            </div>
-            <div className="bg-white p-8 rounded-xl border border-gray-200 shadow-sm wind-interact">
-              <div className="flex justify-between items-start mb-6">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-blue-900 text-white rounded-lg flex items-center justify-center font-bold text-xl icon-react">FRP</div>
-                  <div><h4 className="text-lg font-bold text-gray-900">섬유 강화 플라스틱</h4></div>
+                <div className="mb-6 flex h-56 items-center justify-center overflow-hidden rounded-xl border border-gray-200 bg-slate-50">
+                  <svg viewBox="0 0 400 200" className="h-full w-full">
+                    <line x1="0" y1="180" x2="400" y2="180" stroke="#cbd5e1" strokeWidth="2" />
+                    <rect x="150" y="80" width="10" height="100" fill="#94a3b8" />
+                    <path d="M20 120 L140 120" stroke="#94a3b8" strokeWidth="2" />
+                    <path d="M170 180 Q200 100 230 150 T280 160" stroke="#ef4444" strokeWidth="2" fill="none" strokeDasharray="4">
+                      <animate attributeName="stroke-dashoffset" from="20" to="0" dur="1s" repeatCount="indefinite" />
+                    </path>
+                  </svg>
                 </div>
-                <div className="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded">내부식성 우수</div>
               </div>
-              <p className="text-gray-600 text-sm leading-relaxed font-light">부식에 절대적인 저항성을 지닌 첨단 소재로, 염분이 많은 해안가 및 제설제 살포 구간 완벽 대응이 가능합니다.</p>
+
+              <div className="wind-interact relative overflow-hidden rounded-2xl border border-blue-100 bg-blue-50 p-8 shadow-md">
+                <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-blue-200 opacity-50 blur-3xl" />
+                <div className="relative z-10">
+                  <div className="mb-6 flex items-center justify-between">
+                    <h3 className="flex items-center text-lg font-bold text-blue-900">
+                      <i data-lucide="check-circle" className="mr-2 h-5 w-5 text-blue-600" />
+                      와류저감장치 적용
+                    </h3>
+                    <span className="rounded-full bg-blue-600 px-3 py-1 text-xs font-bold text-white shadow-sm">안정화</span>
+                  </div>
+                  <div className="mb-6 flex h-56 items-center justify-center overflow-hidden rounded-xl border border-blue-100 bg-white">
+                    <svg viewBox="0 0 400 200" className="h-full w-full">
+                      <line x1="0" y1="180" x2="400" y2="180" stroke="#cbd5e1" strokeWidth="2" />
+                      <line x1="155" y1="80" x2="155" y2="180" stroke="#3b82f6" strokeWidth="8" strokeDasharray="6 4" />
+                      <path d="M20 120 L140 120" stroke="#3b82f6" strokeWidth="2">
+                        <animate attributeName="stroke-dashoffset" from="20" to="0" dur="0.8s" repeatCount="indefinite" />
+                      </path>
+                      <path d="M170 120 L380 120" stroke="#93c5fd" strokeWidth="1.5" strokeDasharray="4 2">
+                        <animate attributeName="stroke-dashoffset" from="20" to="0" dur="1.5s" repeatCount="indefinite" />
+                      </path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      {/* 서브 카테고리 2: 와류저감장치 (기존 방풍벽 페이지에서 이동 및 내용 추가) */}
-      <div id="section-vortex" className="min-h-screen bg-gray-50 py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <span className="text-blue-600 font-bold tracking-widest uppercase text-sm">Vortex Reduction System</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-4">와류저감장치 핵심 원리</h2>
-            <p className="text-gray-600">공극률이 확보된 다공성 패널이 어떻게 난류(와류)를 없애고 주행 안정성을 지키는지 보여줍니다.</p>
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-            {/* Solid Wall (문제점) */}
-            <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm wind-interact">
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="font-bold text-gray-800 text-lg">무공극 방풍벽 (문제점)</h3>
-                <span className="px-3 py-1 bg-red-100 text-red-600 text-xs font-bold rounded-full">난류(와류) 발생</span>
-              </div>
-              <div className="bg-gray-50 rounded-xl h-48 relative overflow-hidden flex items-center justify-center border border-gray-200 mb-6">
-                <svg viewBox="0 0 400 200" className="w-full h-full">
-                  <line x1={0} y1={180} x2={400} y2={180} stroke="#cbd5e1" strokeWidth={2} />
-                  <rect x={150} y={80} width={10} height={100} fill="#94a3b8" />
-                  <path d="M20 120 L140 120" stroke="#94a3b8" strokeWidth={2} />
-                  <path d="M170 180 Q200 100 230 150 T280 160" stroke="#ef4444" strokeWidth={2} fill="none" strokeDasharray={4}>
-                    <animate attributeName="stroke-dashoffset" from={20} to={0} dur="1s" repeatCount="indefinite" />
-                  </path>
-                </svg>
-              </div>
-              <p className="text-gray-600 text-sm font-light">
-                공극이 없는 꽉 막힌 방풍벽은 정면의 바람은 완전히 차단하지만, 벽을 넘어가는 바람이 후방에서 <strong>강한 와류(소용돌이 치는 난류)</strong>를 형성합니다. 이로 인해 겨울철 눈이 쌓이거나 먼지가 비산되는 무풍지대 문제가 발생하기 쉽습니다.
-              </p>
-            </div>
-            {/* Porous Wall (해결책) */}
-            <div className="bg-blue-50 rounded-2xl p-8 border border-blue-100 shadow-md relative overflow-hidden wind-interact">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-200 rounded-full blur-3xl opacity-50" />
-              <div className="flex items-center justify-between mb-6 relative z-10">
-                <h3 className="font-bold text-blue-900 text-lg flex items-center"><i data-lucide="check-circle" className="w-5 h-5 mr-2 text-blue-600" /> 다공성 방풍벽 (해결책)</h3>
-                <span className="px-3 py-1 bg-blue-600 text-white text-xs font-bold rounded-full shadow-sm">와류 저감 적용</span>
-              </div>
-              <div className="bg-white rounded-xl h-48 relative overflow-hidden flex items-center justify-center border border-blue-100 mb-6 z-10">
-                <svg viewBox="0 0 400 200" className="w-full h-full">
-                  <line x1={0} y1={180} x2={400} y2={180} stroke="#cbd5e1" strokeWidth={2} />
-                  {/* 타공 패널 표현 */}
-                  <line x1={155} y1={80} x2={155} y2={180} stroke="#3b82f6" strokeWidth={8} strokeDasharray="6 4" />
-                  <path d="M20 120 L140 120" stroke="#3b82f6" strokeWidth={2}>
-                    <animate attributeName="stroke-dashoffset" from={20} to={0} dur="0.8s" repeatCount="indefinite" />
-                  </path>
-                  {/* 부드럽게 통과하는 바람 */}
-                  <path d="M170 120 L380 120" stroke="#93c5fd" strokeWidth="1.5" strokeDasharray="4 2">
-                    <animate attributeName="stroke-dashoffset" from={20} to={0} dur="1.5s" repeatCount="indefinite" />
-                  </path>
-                </svg>
-              </div>
-              <p className="text-gray-700 text-sm font-light relative z-10">
-                공극률이 있는 다공성 방풍벽은 일정 비율의 바람을 통과시켜 <strong>난류와 무풍지대를 획기적으로 줄이는 효과</strong>를 기대할 수 있습니다. 바람의 흐름이 원활해져 차량 흔들림을 막고, 눈이나 먼지가 쌓이는 도로 결빙 현상을 방지합니다.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     </>
   )
 }

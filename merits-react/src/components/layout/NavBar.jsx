@@ -43,34 +43,37 @@ const menuGroups = [
   },
 ];
 
+const topNavGridClassName =
+  "grid min-h-[6.5rem] grid-cols-[minmax(12rem,2fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1fr)] items-stretch gap-x-0";
+const submenuGridClassName =
+  "grid grid-cols-[minmax(12rem,2fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1fr)] gap-x-0 py-8";
+const logoWrapperClassName =
+  "relative flex h-full items-center justify-start pr-6 lg:pr-8";
+const logoImageClassName =
+  "h-[5.2rem] w-auto max-w-none object-contain lg:h-[5.8rem]";
+const topMenuButtonClassName =
+  "relative flex h-full w-full items-center justify-center px-2 text-center whitespace-nowrap";
+const submenuColumnClassName = "flex min-w-0 justify-center px-2";
+
 function NavBar({ isTransparent = false }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  const isMenuOpen = hoveredIndex !== null;
-  const isGlobalHover = hoveredIndex === -1;
+  const isSubmenuVisible = hoveredIndex !== null && hoveredIndex >= 0;
+  const isTransparentIdle = isTransparent && !isSubmenuVisible;
 
   const wrapperClassName = `fixed inset-x-0 top-0 z-50 ${
-    isTransparent && !isMenuOpen
-      ? "bg-transparent"
-      : "bg-white/95 backdrop-blur-md"
+    isTransparentIdle ? "bg-transparent" : "bg-white/95 backdrop-blur-md"
   }`;
   const navClassName = `border-b transition-all duration-200 ${
-    isTransparent && !isMenuOpen
+    isTransparentIdle
       ? "border-transparent shadow-none"
       : "border-gray-100 shadow-sm"
   }`;
-  const topMenuTextClassName =
-    isTransparent && !isMenuOpen
-      ? "text-white hover:text-white"
-      : "text-gray-700 hover:text-blue-900";
-  const mobileToggleClassName =
-    isTransparent && !isMenuOpen
-      ? "text-white hover:text-white/80"
-      : "text-gray-700 hover:text-blue-900";
-
-  const navColumnsClassName =
-    "grid grid-cols-[220px_repeat(4,minmax(0,1fr))_minmax(0,0.8fr)_auto_auto] gap-x-8";
-  const submenuColumnsClassName =
-    "grid grid-cols-[220px_repeat(4,minmax(0,1fr))_minmax(0,0.8fr)] gap-x-8";
+  const topMenuTextClassName = isTransparentIdle
+    ? "text-white hover:text-white"
+    : "text-gray-700 hover:text-blue-900";
+  const headOfficeLinkClassName = isTransparentIdle
+    ? "border-white/40 bg-transparent text-white hover:border-blue-900 hover:bg-white hover:text-blue-900"
+    : "border-gray-300 bg-transparent text-gray-700 hover:border-blue-900";
 
   return (
     <>
@@ -79,25 +82,21 @@ function NavBar({ isTransparent = false }) {
         onMouseLeave={() => setHoveredIndex(null)}
       >
         <nav className={navClassName}>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className={`${navColumnsClassName} h-20 items-center`}>
-              <a
-                href="#"
-                data-nav-page="home"
-                className="relative flex h-full items-center"
-              >
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className={topNavGridClassName}>
+              <a href="#" data-nav-page="home" className={logoWrapperClassName}>
                 <img
                   src={teamMeritsLogoWhiteText}
                   alt="팀메리츠 로고"
-                  className={`block h-[4.25rem] w-auto transition-opacity duration-200 sm:h-[4.5rem] ${
-                    isTransparent && !isMenuOpen ? "opacity-100" : "opacity-0"
+                  className={`block transition-opacity duration-200 ${logoImageClassName} ${
+                    isTransparentIdle ? "opacity-100" : "opacity-0"
                   }`}
                 />
                 <img
                   src={teamMeritsLogo}
                   alt="팀메리츠 로고"
-                  className={`absolute left-0 top-1/2 block h-[4.25rem] w-auto -translate-y-1/2 transition-opacity duration-200 sm:h-[4.5rem] ${
-                    isTransparent && !isMenuOpen ? "opacity-0" : "opacity-100"
+                  className={`absolute left-0 top-1/2 block -translate-y-1/2 transition-opacity duration-200 ${logoImageClassName} ${
+                    isTransparentIdle ? "opacity-0" : "opacity-100"
                   }`}
                 />
               </a>
@@ -107,9 +106,10 @@ function NavBar({ isTransparent = false }) {
                   key={group.title}
                   data-nav-page={group.page}
                   onMouseEnter={() => setHoveredIndex(index)}
-                  className={`relative h-full text-left text-[18px] font-medium transition-colors ${topMenuTextClassName}`}
+                  className={`${topMenuButtonClassName} text-[17px] font-medium transition-colors ${topMenuTextClassName}`}
+                  style={{ gridColumn: `${index + 2}` }}
                 >
-                  <span className="flex h-full items-center justify-start">
+                  <span className="flex items-center justify-center">
                     {group.title}
                   </span>
                   <span
@@ -124,55 +124,58 @@ function NavBar({ isTransparent = false }) {
 
               <button
                 data-nav-page="gallery"
-                onMouseEnter={() => setHoveredIndex(-1)}
-                className={`h-full text-left text-[18px] font-medium transition-colors ${topMenuTextClassName}`}
+                onMouseEnter={() => setHoveredIndex(null)}
+                className={`${topMenuButtonClassName} text-[17px] font-medium transition-colors ${topMenuTextClassName}`}
+                style={{ gridColumn: "6" }}
               >
-                <span className="flex h-full items-center justify-start">
+                <span className="flex items-center justify-center">
                   시공사진
                 </span>
               </button>
 
-              <button
-                data-nav-page="contact"
-                onMouseEnter={() => setHoveredIndex(-1)}
-                className="self-center rounded-full bg-blue-900 px-6 py-2.5 font-bold text-white transition hover:bg-blue-800"
+              <div
+                className="col-span-3 grid grid-cols-3 items-center"
+                style={{ gridColumn: "7 / span 3" }}
               >
-                문의하기
-              </button>
-              <a
-                href="https://merits.co.kr/"
-                target="_blank"
-                rel="noreferrer"
-                onMouseEnter={() => setHoveredIndex(-1)}
-                className="self-center rounded-full border border-gray-300 px-5 py-2.5 font-semibold text-gray-700 transition hover:border-blue-900 hover:text-blue-900"
-              >
-                <span className="flex items-center gap-2">
-                  merits 본사
-                  <span aria-hidden="true">↗</span>
-                </span>
-              </a>
+                <a
+                  href="https://merits.co.kr/"
+                  target="_blank"
+                  rel="noreferrer"
+                  onMouseEnter={() => setHoveredIndex(null)}
+                  className={`col-start-1 flex min-w-[10rem] w-full items-center justify-center rounded-full border px-5 py-2.5 font-semibold transition ${headOfficeLinkClassName}`}
+                >
+                  <span className="flex whitespace-nowrap items-center gap-2">
+                    merits 본사
+                    <span aria-hidden="true">↗</span>
+                  </span>
+                </a>
+              </div>
             </div>
           </div>
         </nav>
 
-        {isMenuOpen ? (
+        {isSubmenuVisible ? (
           <div className="border-b border-gray-100 bg-white/95 backdrop-blur-md">
             <div className="border-t border-gray-200">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className={`${submenuColumnsClassName} py-8`}>
+              <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div className={submenuGridClassName}>
                   <div />
                   {menuGroups.map((group, index) => (
-                    <div key={group.title} className="min-w-0">
-                      <div className="space-y-2">
+                    <div
+                      key={group.title}
+                      className={submenuColumnClassName}
+                      style={{ gridColumn: `${index + 2}` }}
+                    >
+                      <div className="w-fit space-y-2">
                         {group.items.map((item) => (
                           <button
                             key={`${group.title}-${item.label}`}
                             data-nav-page={item.page}
                             data-nav-section={item.section}
-                            className={`block w-full text-left text-[16px] transition ${
-                              hoveredIndex === index || isGlobalHover
+                            className={`block w-full whitespace-nowrap text-left text-[15px] leading-6 transition ${
+                              hoveredIndex === index
                                 ? "text-gray-700 hover:text-blue-900"
-                                : "text-gray-400 hover:text-gray-600"
+                                : "text-gray-400"
                             }`}
                           >
                             {item.label}
@@ -181,7 +184,8 @@ function NavBar({ isTransparent = false }) {
                       </div>
                     </div>
                   ))}
-                  <div />
+                  <div style={{ gridColumn: "6" }} />
+                  <div style={{ gridColumn: "7 / span 3" }} />
                 </div>
               </div>
             </div>
@@ -191,13 +195,13 @@ function NavBar({ isTransparent = false }) {
 
       <div
         id="mobile-menu"
-        className="hidden md:hidden bg-white border-t border-gray-100 fixed top-20 left-0 w-full shadow-lg z-40 overflow-y-auto max-h-[80vh]"
+        className="fixed left-0 top-20 z-40 hidden max-h-[80vh] w-full overflow-y-auto border-t border-gray-100 bg-white shadow-lg md:hidden"
       >
         <div className="border-b border-gray-50">
           <button
             data-nav-page="about"
             data-close-mobile="true"
-            className="block w-full text-left px-4 py-4 text-[18px] text-gray-700 hover:bg-gray-50 font-medium"
+            className="block w-full px-4 py-4 text-left text-[18px] font-medium text-gray-700 hover:bg-gray-50"
           >
             회사소개
           </button>
@@ -207,7 +211,7 @@ function NavBar({ isTransparent = false }) {
             data-nav-page="features"
             data-nav-section="section-effects"
             data-close-mobile="true"
-            className="block w-full text-left px-4 py-4 text-[18px] text-gray-700 hover:bg-gray-50 font-medium"
+            className="block w-full px-4 py-4 text-left text-[18px] font-medium text-gray-700 hover:bg-gray-50"
           >
             방풍벽이란? (효과/설계)
           </button>
@@ -217,7 +221,7 @@ function NavBar({ isTransparent = false }) {
             data-nav-page="technology"
             data-nav-section="section-panels"
             data-close-mobile="true"
-            className="block w-full text-left px-4 py-4 text-[18px] text-gray-700 hover:bg-gray-50 font-medium"
+            className="block w-full px-4 py-4 text-left text-[18px] font-medium text-gray-700 hover:bg-gray-50"
           >
             기술력 (종류/와류저감)
           </button>
@@ -226,7 +230,7 @@ function NavBar({ isTransparent = false }) {
           <button
             data-nav-page="resources"
             data-close-mobile="true"
-            className="block w-full text-left px-4 py-4 text-[18px] text-gray-700 hover:bg-gray-50 font-medium"
+            className="block w-full px-4 py-4 text-left text-[18px] font-medium text-gray-700 hover:bg-gray-50"
           >
             자료실
           </button>
@@ -234,16 +238,9 @@ function NavBar({ isTransparent = false }) {
         <button
           data-nav-page="gallery"
           data-close-mobile="true"
-          className="block w-full text-left px-4 py-4 text-[18px] text-gray-700 hover:bg-gray-50 border-b border-gray-50 font-medium"
+          className="block w-full border-b border-gray-50 px-4 py-4 text-left text-[18px] font-medium text-gray-700 hover:bg-gray-50"
         >
           시공사진
-        </button>
-        <button
-          data-nav-page="contact"
-          data-close-mobile="true"
-          className="block w-full text-left px-4 py-4 text-[18px] text-blue-900 font-bold hover:bg-gray-50"
-        >
-          문의하기
         </button>
       </div>
     </>
