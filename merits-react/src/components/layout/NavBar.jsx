@@ -44,9 +44,9 @@ const menuGroups = [
 ];
 
 const topNavGridClassName =
-  "grid min-h-[6.5rem] grid-cols-[minmax(12rem,2fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1fr)] items-stretch gap-x-0";
+  "grid min-h-[3.5rem] grid-cols-[minmax(12rem,2fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1fr)] items-stretch gap-x-10";
 const submenuGridClassName =
-  "grid grid-cols-[minmax(12rem,2fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1fr)] gap-x-0 py-8";
+  "grid grid-cols-[minmax(12rem,2fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1fr)] gap-x-10 py-8";
 const logoWrapperClassName =
   "relative flex h-full items-center justify-start pr-6 lg:pr-8";
 const logoImageClassName =
@@ -73,7 +73,7 @@ function NavBar({ isTransparent = false }) {
     : "text-gray-700 hover:text-blue-900";
   const headOfficeLinkClassName = isTransparentIdle
     ? "border-white/40 bg-transparent text-white hover:border-blue-900 hover:bg-white hover:text-blue-900"
-    : "border-gray-300 bg-transparent text-gray-700 hover:border-blue-900";
+    : "border-2 border-gray-300 bg-transparent text-gray-700 hover:border-blue-900 hover:text-blue-900";
 
   return (
     <>
@@ -82,7 +82,7 @@ function NavBar({ isTransparent = false }) {
         onMouseLeave={() => setHoveredIndex(null)}
       >
         <nav className={navClassName}>
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl">
             <div className={topNavGridClassName}>
               <a href="#" data-nav-page="home" className={logoWrapperClassName}>
                 <img
@@ -157,7 +157,7 @@ function NavBar({ isTransparent = false }) {
         {isSubmenuVisible ? (
           <div className="border-b border-gray-100 bg-white/95 backdrop-blur-md">
             <div className="border-t border-gray-200">
-              <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div className="mx-auto max-w-7xl">
                 <div className={submenuGridClassName}>
                   <div />
                   {menuGroups.map((group, index) => (
