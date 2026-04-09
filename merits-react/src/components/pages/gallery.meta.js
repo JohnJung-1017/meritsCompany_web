@@ -17,7 +17,7 @@ import ulMarin001 from "../../assets/images/ul_001.jpg";
 import ulMarin002 from "../../assets/images/ul_002.jpg";
 import ulMarin003 from "../../assets/images/ul_003.jpg";
 // 영종도 해양경찰청 공기부양정기지 방풍벽
-import yjOffice001 from "../../assets/images/yj_001.jpg";
+import yjOffice001 from "../../assets/images/yj_001.JPG";
 import yjOffice002 from "../../assets/images/yj_002.png";
 import yjOffice003 from "../../assets/images/yj_003.png";
 import yjOffice004 from "../../assets/images/yj_004.jpg";
