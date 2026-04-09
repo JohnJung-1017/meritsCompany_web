@@ -31,7 +31,7 @@ function GalleryPage() {
     }
 
     setCurrentImageIndex((prev) =>
-      Math.min(prev + 1, activeProject.images.length - 1)
+      Math.min(prev + 1, activeProject.images.length - 1),
     );
   };
 
