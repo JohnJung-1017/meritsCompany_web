@@ -716,40 +716,130 @@ function TechnologyPage() {
                     교번 와류 발생
                   </span>
                 </div>
-                <div className="mb-6 flex h-56 items-center justify-center overflow-hidden rounded-xl border border-gray-200 bg-slate-50">
-                  <svg viewBox="0 0 400 200" className="h-full w-full">
+                <div className="relative mb-6 flex h-56 items-center justify-center overflow-hidden rounded-xl border border-gray-200 bg-slate-50">
+                  <div className="blueprint-bg absolute inset-0 opacity-50" />
+                  <svg viewBox="0 0 400 250" className="relative z-10 h-full w-full">
+                    <defs>
+                      <marker
+                        id="arrow-red"
+                        viewBox="0 0 10 10"
+                        refX="5"
+                        refY="5"
+                        markerWidth="4"
+                        markerHeight="4"
+                        orient="auto"
+                      >
+                        <path d="M0,0 L10,5 L0,10 z" fill="#ef4444" opacity="0.8" />
+                      </marker>
+                    </defs>
+
                     <line
                       x1="0"
-                      y1="180"
+                      y1="200"
                       x2="400"
-                      y2="180"
-                      stroke="#cbd5e1"
-                      strokeWidth="2"
-                    />
-                    <rect
-                      x="150"
-                      y="80"
-                      width="10"
-                      height="100"
-                      fill="#94a3b8"
-                    />
-                    <path
-                      d="M20 120 L140 120"
+                      y2="200"
                       stroke="#94a3b8"
-                      strokeWidth="2"
+                      strokeWidth="4"
                     />
+                    <path d="M0 200 L400 200 L400 250 L0 250 Z" fill="#e2e8f0" />
+
+                    <rect x="140" y="80" width="20" height="120" fill="#64748b" />
+                    <rect x="135" y="80" width="30" height="5" fill="#475569" />
+
                     <path
-                      d="M170 180 Q200 100 230 150 T280 160"
-                      stroke="#ef4444"
-                      strokeWidth="2"
+                      d="M -20 120 L 130 120"
+                      stroke="#94a3b8"
+                      strokeWidth="3"
                       fill="none"
-                      strokeDasharray="4"
+                      opacity="0.5"
+                      strokeDasharray="10 10"
                     >
                       <animate
                         attributeName="stroke-dashoffset"
-                        from="20"
+                        from="150"
                         to="0"
-                        dur="1s"
+                        dur="2.4s"
+                        repeatCount="indefinite"
+                      />
+                    </path>
+
+                    <path
+                      d="M 160 80 C 200 60, 240 180, 280 120 C 320 60, 360 180, 400 120"
+                      stroke="#ef4444"
+                      strokeWidth="4"
+                      fill="none"
+                      opacity="0.8"
+                      markerEnd="url(#arrow-red)"
+                      strokeDasharray="15 15"
+                    >
+                      <animate
+                        attributeName="stroke-dashoffset"
+                        from="300"
+                        to="0"
+                        dur="2.1s"
+                        repeatCount="indefinite"
+                      />
+                    </path>
+                    <path
+                      d="M 150 140 C 180 140, 220 190, 260 150 C 300 110, 340 190, 380 150"
+                      stroke="#f87171"
+                      strokeWidth="3"
+                      fill="none"
+                      opacity="0.6"
+                      strokeDasharray="12 12"
+                    >
+                      <animate
+                        attributeName="stroke-dashoffset"
+                        from="250"
+                        to="0"
+                        dur="2.4s"
+                        repeatCount="indefinite"
+                      />
+                    </path>
+
+                    <path
+                      d="M 180 100 A 30 30 0 1 1 170 120"
+                      stroke="#ef4444"
+                      strokeWidth="2"
+                      fill="none"
+                      opacity="0.7"
+                    >
+                      <animateTransform
+                        attributeName="transform"
+                        type="rotate"
+                        from="0 180 100"
+                        to="360 180 100"
+                        dur="1.8s"
+                        repeatCount="indefinite"
+                      />
+                    </path>
+                    <path
+                      d="M 230 140 A 25 25 0 1 0 240 160"
+                      stroke="#ef4444"
+                      strokeWidth="2"
+                      fill="none"
+                      opacity="0.5"
+                    >
+                      <animateTransform
+                        attributeName="transform"
+                        type="rotate"
+                        from="360 230 140"
+                        to="0 230 140"
+                        dur="2.1s"
+                        repeatCount="indefinite"
+                      />
+                    </path>
+
+                    <path
+                      d="M 125 90 L 135 80 M 125 100 L 135 90 M 175 90 L 165 80 M 175 100 L 165 90"
+                      stroke="#ef4444"
+                      strokeWidth="2"
+                      fill="none"
+                    >
+                      <animate
+                        attributeName="opacity"
+                        values="0;1;0"
+                        dur="0.9s"
                         repeatCount="indefinite"
                       />
                     </path>
@@ -777,49 +867,136 @@ function TechnologyPage() {
                       공진(VIV) 원천 차단
                     </span>
                   </div>
-                  <div className="mb-6 flex h-56 items-center justify-center overflow-hidden rounded-xl border border-blue-100 bg-white">
-                    <svg viewBox="0 0 400 200" className="h-full w-full">
+                  <div className="relative z-10 mb-6 flex h-56 items-center justify-center overflow-hidden rounded-xl border border-blue-100 bg-white shadow-inner">
+                    <div className="blueprint-bg absolute inset-0 opacity-30" />
+                    <svg viewBox="0 0 400 250" className="relative z-10 h-full w-full">
+                      <defs>
+                        <marker
+                          id="arrow-blue"
+                          markerWidth="10"
+                          markerHeight="10"
+                          refX="6"
+                          refY="3"
+                          orient="auto"
+                          markerUnits="strokeWidth"
+                        >
+                          <path d="M0,0 L0,6 L6,3 z" fill="#3b82f6" />
+                        </marker>
+                      </defs>
+
                       <line
                         x1="0"
-                        y1="180"
+                        y1="200"
                         x2="400"
-                        y2="180"
-                        stroke="#cbd5e1"
-                        strokeWidth="2"
+                        y2="200"
+                        stroke="#94a3b8"
+                        strokeWidth="4"
                       />
-                      <line
-                        x1="155"
-                        y1="80"
-                        x2="155"
-                        y2="180"
-                        stroke="#3b82f6"
-                        strokeWidth="8"
-                        strokeDasharray="6 4"
-                      />
+                      <path d="M0 200 L400 200 L400 250 L0 250 Z" fill="#f8fafc" />
+
+                      <rect x="140" y="80" width="20" height="120" fill="#3b82f6" />
+
                       <path
-                        d="M20 120 L140 120"
-                        stroke="#3b82f6"
-                        strokeWidth="2"
+                        d="M 135 80 L 140 65 L 145 80 L 150 65 L 155 80 L 160 65 L 165 80"
+                        fill="#1e40af"
+                      />
+
+                      <path
+                        d="M -20 120 L 130 120"
+                        stroke="#93c5fd"
+                        strokeWidth="3"
+                        fill="none"
+                        opacity="0.7"
+                        strokeDasharray="10 10"
                       >
                         <animate
                           attributeName="stroke-dashoffset"
-                          from="20"
+                          from="150"
                           to="0"
-                          dur="0.8s"
+                          dur="2.4s"
+                          repeatCount="indefinite"
+                        />
+                      </path>
+
+                      <path
+                        d="M 160 65 Q 200 60 240 80 T 320 100 T 400 110"
+                        stroke="#3b82f6"
+                        strokeWidth="3"
+                        fill="none"
+                        opacity="0.8"
+                        markerEnd="url(#arrow-blue)"
+                        strokeDasharray="15 15"
+                      >
+                        <animate
+                          attributeName="stroke-dashoffset"
+                          from="250"
+                          to="0"
+                          dur="2.3s"
                           repeatCount="indefinite"
                         />
                       </path>
                       <path
-                        d="M170 120 L380 120"
-                        stroke="#93c5fd"
-                        strokeWidth="1.5"
-                        strokeDasharray="4 2"
+                        d="M 160 85 Q 220 100 280 130 T 400 140"
+                        stroke="#60a5fa"
+                        strokeWidth="2"
+                        fill="none"
+                        opacity="0.6"
+                        strokeDasharray="12 12"
                       >
                         <animate
                           attributeName="stroke-dashoffset"
-                          from="20"
+                          from="250"
                           to="0"
-                          dur="1.5s"
+                          dur="2.7s"
+                          repeatCount="indefinite"
+                        />
+                      </path>
+                      <path
+                        d="M 150 140 Q 200 160 280 170 T 400 175"
+                        stroke="#93c5fd"
+                        strokeWidth="2"
+                        fill="none"
+                        opacity="0.5"
+                        strokeDasharray="10 10"
+                      >
+                        <animate
+                          attributeName="stroke-dashoffset"
+                          from="250"
+                          to="0"
+                          dur="3s"
+                          repeatCount="indefinite"
+                        />
+                      </path>
+
+                      <path
+                        d="M 180 90 A 10 10 0 1 1 175 100"
+                        stroke="#60a5fa"
+                        strokeWidth="1.5"
+                        fill="none"
+                        opacity="0.4"
+                      >
+                        <animateTransform
+                          attributeName="transform"
+                          type="rotate"
+                          from="0 180 90"
+                          to="360 180 90"
+                          dur="3.1s"
+                          repeatCount="indefinite"
+                        />
+                      </path>
+                      <path
+                        d="M 210 110 A 15 15 0 1 1 200 120"
+                        stroke="#93c5fd"
+                        strokeWidth="1.5"
+                        fill="none"
+                        opacity="0.3"
+                      >
+                        <animateTransform
+                          attributeName="transform"
+                          type="rotate"
+                          from="0 210 110"
+                          to="360 210 110"
+                          dur="3.6s"
                           repeatCount="indefinite"
                         />
                       </path>
@@ -832,6 +1009,51 @@ function TechnologyPage() {
                   </h3>
                 </div>
               </div>
+            </div>
+
+            <div className="reveal mt-16 rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
+              <h3 className="mb-6 flex items-center text-xl font-bold text-gray-900">
+                <i
+                  data-lucide="image"
+                  className="icon-react mr-2 h-6 w-6 text-blue-600"
+                />
+                와류저감장치 적용 상세 구조
+              </h3>
+
+              <div className="group relative flex h-[500px] w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
+                <div className="blueprint-bg absolute inset-0 opacity-40" />
+
+                <img
+                  src="https://images.unsplash.com/photo-1581093583563-3df8e76da74d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+                  alt="와류저감장치 구조 도면"
+                  className="absolute inset-0 h-full w-full object-cover opacity-10 transition-opacity duration-500 group-hover:opacity-20"
+                />
+
+                <div className="relative z-10 flex flex-col items-center rounded-2xl border border-gray-200 bg-white/70 p-6 text-center shadow-sm backdrop-blur-md">
+                  <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-blue-200 bg-blue-600/10 text-blue-600">
+                    <i data-lucide="camera" className="h-8 w-8" />
+                  </div>
+                  <p className="text-lg font-bold text-gray-700">
+                    와류저감장치 상세 도면/사진 삽입 영역
+                  </p>
+                  <p className="mt-2 text-sm font-light text-gray-500">
+                    유동저감장치(오버행), 직결피스(M14X25L), 받침대(GI),
+                    STS 각관 구조 위치
+                  </p>
+                </div>
+
+                <div className="absolute left-4 top-4 rounded border border-blue-200 bg-white/90 px-3 py-1.5 text-xs font-bold text-blue-800 shadow-sm backdrop-blur-md">
+                  실제 적용 구조 렌더링
+                </div>
+              </div>
+              <p className="mt-5 px-4 text-center text-sm font-light leading-relaxed text-gray-500">
+                <strong>도약대 효과(Ski-jump Effect)</strong>를 통해 오버행
+                곡면이 바람을 위쪽으로 튕겨 내어 벽체 뒤쪽의 정온역(Wind
+                Shadow)을 획기적으로 넓히고,{" "}
+                <strong>와류 파쇄(Vortex Breaking)</strong> 기술인 다단 리브
+                구조가 거대한 소용돌이를 잘게 부수어 소음과 비산 먼지를
+                차단합니다.
+              </p>
             </div>
           </div>
         </div>
