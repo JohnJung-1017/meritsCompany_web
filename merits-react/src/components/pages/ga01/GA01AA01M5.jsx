@@ -1,6 +1,7 @@
-import GalleryImage from "./GalleryImage";
+import ImageWithFallback from "../../common/ImageWithFallback";
 
-function GalleryCarousel({
+// 상세보기 이미지 캐러셀
+function GA01AA01M5({
   images,
   currentImageIndex,
   onPrev,
@@ -14,7 +15,7 @@ function GalleryCarousel({
     <div className="space-y-4">
       <div className="relative overflow-hidden rounded-[2rem] bg-slate-100">
         <div className="aspect-[16/10]">
-          <GalleryImage
+          <ImageWithFallback
             src={currentImage.src}
             alt={currentImage.alt}
             fallbackLabel={currentImage.caption}
@@ -50,4 +51,4 @@ function GalleryCarousel({
   );
 }
 
-export default GalleryCarousel;
+export default GA01AA01M5;

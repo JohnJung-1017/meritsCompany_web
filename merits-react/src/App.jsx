@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import Footer from './components/layout/Footer'
 import NavBar from './components/layout/NavBar'
-import AboutPage from './components/pages/AboutPage'
-import ContactPage from './components/pages/ContactPage'
-import FeaturesPage from './components/pages/FeaturesPage'
-import GalleryPage from './components/pages/GalleryPage'
-import HomePage from './components/pages/HomePage'
-import ResourcesPage from './components/pages/ResourcesPage'
-import TechnologyPage from './components/pages/TechnologyPage'
+import { CO01AA01M } from './components/pages/co01/CO01AA01M'
+import { CT01AA01M } from './components/pages/ct01/CT01AA01M'
+import { WB01AA01M } from './components/pages/wb01/WB01AA01M'
+import { GA01AA01M } from './components/pages/ga01/GA01AA01M'
+import { MP01AA01M } from './components/pages/mp01/MP01AA01M'
+import { RS01AA01M } from './components/pages/rs01/RS01AA01M'
+import { TE01AA01M } from './components/pages/te01/TE01AA01M'
 import './App.css'
 
 function App() {
@@ -109,13 +109,13 @@ function App() {
     <div ref={containerRef} onClick={handleInteraction} className="flex min-h-screen flex-col">
       <NavBar isTransparent={currentPage === 'home' && isHomeHeroActive} />
       <main className="flex-grow pt-20">
-        <HomePage onHeroVisibilityChange={setIsHomeHeroActive} />
-        <AboutPage />
-        <FeaturesPage />
-        <TechnologyPage />
-        <ResourcesPage />
-        <GalleryPage />
-        <ContactPage />
+        <MP01AA01M onHeroVisibilityChange={setIsHomeHeroActive} />
+        <CO01AA01M />
+        <WB01AA01M />
+        <TE01AA01M />
+        <RS01AA01M />
+        <GA01AA01M />
+        <CT01AA01M />
       </main>
       <Footer />
     </div>
