@@ -1,9 +1,11 @@
 import { useState } from "react";
-import GalleryGrid from "./gallery/GalleryGrid";
-import GalleryHeader from "./gallery/GalleryHeader";
-import { galleryPageCopy, galleryProjects } from "./gallery.meta";
+import GA01AA01M1 from "./GA01AA01M1";
+import GA01AA01M2 from "./GA01AA01M2";
+import { useGA01store } from "./useGA01store";
 
-function GalleryPage() {
+// 시공사진 페이지 (gallery) — 카드 그리드 + 인라인 상세보기 상태 관리
+export function GA01AA01M() {
+  const { galleryPageCopy, galleryProjects } = useGA01store();
   const [activeId, setActiveId] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -47,13 +49,13 @@ function GalleryPage() {
     >
       <section className="min-h-[calc(100vh-5rem)] py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <GalleryHeader
+          <GA01AA01M1
             title={galleryPageCopy.title}
             description={galleryPageCopy.description}
           />
 
           <div className="mt-16">
-            <GalleryGrid
+            <GA01AA01M2
               projects={galleryProjects}
               activeId={activeId}
               onToggle={handleToggleCard}
@@ -70,4 +72,4 @@ function GalleryPage() {
   );
 }
 
-export default GalleryPage;
+export default GA01AA01M;

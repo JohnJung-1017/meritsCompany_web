@@ -1,4 +1,4 @@
-import GalleryCarousel from "./GalleryCarousel";
+import GA01AA01M5 from "./GA01AA01M5";
 
 const detailFields = [
   { key: "location", label: "위치" },
@@ -6,7 +6,8 @@ const detailFields = [
   { key: "scale", label: "규모" },
 ];
 
-function GalleryDetail({
+// 시공사례 상세보기 패널 (캐러셀 + 상세 정보)
+function GA01AA01M4({
   project,
   currentImageIndex,
   onPrevImage,
@@ -28,7 +29,7 @@ function GalleryDetail({
       </button>
 
       <div className="grid gap-8 p-6 lg:grid-cols-[minmax(0,1.2fr)_minmax(18rem,0.8fr)] lg:p-10">
-        <GalleryCarousel
+        <GA01AA01M5
           images={project.images}
           currentImageIndex={currentImageIndex}
           onPrev={onPrevImage}
@@ -77,4 +78,4 @@ function GalleryDetail({
   );
 }
 
-export default GalleryDetail;
+export default GA01AA01M4;

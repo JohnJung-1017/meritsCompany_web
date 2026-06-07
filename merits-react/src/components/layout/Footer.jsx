@@ -1,6 +1,10 @@
 import teamMeritsLogoWhiteTextFoot from "../../assets/team-merits-logo-white-text-foot.svg";
+import { useCommonStore } from "../common/useCommonStore";
 
 function Footer() {
+  const { company, offices } = useCommonStore();
+  const { head, factory } = offices;
+
   return (
     <>
       {/* Common Footer */}
@@ -17,13 +21,13 @@ function Footer() {
                 />
               </div>
               <p className="mb-2 text-sm font-medium text-gray-300">
-                상호 : (주)메리츠컴퍼니
+                상호 : {company.name}
                 <span className="mx-2 text-gray-600">|</span>
-                대표 : 김태진
+                대표 : {company.ceo}
               </p>
               <p className="mt-3 flex items-center text-sm text-gray-400">
                 <i data-lucide="mail" className="mr-2 h-4 w-4" />
-                merits@merits.co.kr
+                {company.email}
               </p>
             </div>
             {/* Head Office */}
@@ -33,38 +37,38 @@ function Footer() {
                   data-lucide="building-2"
                   className="mr-2 h-4 w-4 text-blue-500"
                 />
-                본사
+                {head.label}
               </h4>
               <p className="mb-3 text-sm leading-relaxed text-gray-400">
-                경기도 용인시 기흥구 흥덕중앙로 55,
+                {head.addressLines[0]}
                 <br />
-                흥덕리써밋 309~310호 (영덕동, 리써밋타워)
+                {head.addressLines[1]} {head.addressDetail}
               </p>
               <p className="text-sm font-mono text-gray-400">
                 <span className="text-gray-500">TEL.</span>
-                {" "}1544-3341{" "}
+                {" "}{head.tel}{" "}
                 <span className="mx-2 text-gray-700">|</span>
                 <span className="text-gray-500">FAX.</span>
-                {" "}031-211-6366
+                {" "}{head.fax}
               </p>
             </div>
             {/* Factory */}
             <div className="md:col-span-4">
               <h4 className="mb-4 flex items-center font-bold text-white">
                 <i data-lucide="factory" className="mr-2 h-4 w-4 text-blue-500" />
-                공장
+                {factory.label}
               </h4>
               <p className="mb-3 text-sm leading-relaxed text-gray-400">
-                경기도 화성시 서신면 전곡산단13길 7
+                {factory.addressLines[0]}
                 <br />
-                (전곡리)
+                {factory.addressDetail}
               </p>
               <p className="text-sm font-mono text-gray-400">
                 <span className="text-gray-500">TEL.</span>
-                {" "}031-366-7993{" "}
+                {" "}{factory.tel}{" "}
                 <span className="mx-2 text-gray-700">|</span>
                 <span className="text-gray-500">FAX.</span>
-                {" "}031-366-7994
+                {" "}{factory.fax}
               </p>
             </div>
           </div>

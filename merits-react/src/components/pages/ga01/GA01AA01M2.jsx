@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import GalleryCard from "./GalleryCard";
-import GalleryDetail from "./GalleryDetail";
+import GA01AA01M3 from "./GA01AA01M3";
+import GA01AA01M4 from "./GA01AA01M4";
 
 function getColumnCount(width) {
   if (width >= 1280) {
@@ -14,7 +14,8 @@ function getColumnCount(width) {
   return 1;
 }
 
-function GalleryGrid({
+// 시공사례 그리드. 활성 카드가 속한 행 끝에 상세 패널을 펼친다.
+function GA01AA01M2({
   projects,
   activeId,
   onToggle,
@@ -53,14 +54,14 @@ function GalleryGrid({
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
       {projects.map((project, index) => (
         <div key={project.id} className="contents">
-          <GalleryCard
+          <GA01AA01M3
             project={project}
             isActive={project.id === activeId}
             onToggle={onToggle}
           />
           {index === activeRowEndIndex && activeProject ? (
             <div className="col-span-1 md:col-span-2 xl:col-span-3">
-              <GalleryDetail
+              <GA01AA01M4
                 project={activeProject}
                 currentImageIndex={currentImageIndex}
                 onPrevImage={onPrevImage}
@@ -75,4 +76,4 @@ function GalleryGrid({
   );
 }
 
-export default GalleryGrid;
+export default GA01AA01M2;

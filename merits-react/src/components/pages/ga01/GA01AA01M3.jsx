@@ -1,6 +1,7 @@
-import GalleryImage from "./GalleryImage";
+import ImageWithFallback from "../../common/ImageWithFallback";
 
-function GalleryCard({ project, isActive, onToggle }) {
+// 시공사례 카드 (썸네일 + 제목 + 펼침 토글)
+function GA01AA01M3({ project, isActive, onToggle }) {
   return (
     <button
       type="button"
@@ -13,7 +14,7 @@ function GalleryCard({ project, isActive, onToggle }) {
       }`}
     >
       <div className="aspect-[4/3] overflow-hidden bg-slate-100">
-        <GalleryImage
+        <ImageWithFallback
           src={project.thumbnail}
           alt={project.thumbnailAlt}
           fallbackLabel={project.title}
@@ -39,4 +40,4 @@ function GalleryCard({ project, isActive, onToggle }) {
   );
 }
 
-export default GalleryCard;
+export default GA01AA01M3;

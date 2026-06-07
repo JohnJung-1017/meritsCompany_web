@@ -1,6 +1,8 @@
 import { useState } from "react";
 
-function GalleryImage({
+// 이미지 로드 실패 시 placeholder를 보여주는 공통 이미지 컴포넌트.
+// (기존 gallery/GalleryImage 를 일반화)
+function ImageWithFallback({
   src,
   alt,
   className,
@@ -36,4 +38,4 @@ function GalleryImage({
   );
 }
 
-export default GalleryImage;
+export default ImageWithFallback;

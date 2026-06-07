@@ -1,4 +1,5 @@
-function GalleryHeader({ title, description }) {
+// 시공사례 헤더 (제목 + 설명 문단)
+function GA01AA01M1({ title, description }) {
   return (
     <header className="mx-auto max-w-3xl text-center">
       <h1 className="mt-4 text-4xl font-black tracking-tight text-slate-900 sm:text-5xl">
@@ -13,4 +14,4 @@ function GalleryHeader({ title, description }) {
   );
 }
 
-export default GalleryHeader;
+export default GA01AA01M1;
