@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { createIcons, icons } from 'lucide'
 import Footer from './components/layout/Footer'
 import NavBar from './components/layout/NavBar'
 import { CO01AA01M } from './components/pages/co01/CO01AA01M'
@@ -18,21 +19,7 @@ function App() {
   const [isHomeHeroActive, setIsHomeHeroActive] = useState(false)
 
   useEffect(() => {
-    let attempts = 0
-
-    const renderIcons = () => {
-      if (window.lucide?.createIcons) {
-        window.lucide.createIcons()
-        return
-      }
-
-      if (attempts < 20) {
-        attempts += 1
-        setTimeout(renderIcons, 100)
-      }
-    }
-
-    renderIcons()
+    createIcons({ icons })
   }, [])
 
   useEffect(() => {
@@ -58,11 +45,6 @@ function App() {
       selectedPage.classList.add('fade-in')
     }
 
-    const mobileMenu = root.querySelector('#mobile-menu')
-    if (mobileMenu) {
-      mobileMenu.classList.toggle('hidden', !mobileMenuOpen)
-    }
-
     if (targetSection) {
       const target = root.querySelector(`#${targetSection}`)
       if (target) {
@@ -74,10 +56,8 @@ function App() {
       window.scrollTo(0, 0)
     }
 
-    if (window.lucide?.createIcons) {
-      window.lucide.createIcons()
-    }
-  }, [currentPage, targetSection, mobileMenuOpen])
+    createIcons({ icons })
+  }, [currentPage, targetSection])
 
   const handleInteraction = (event) => {
     const actionElement = event.target.closest('[data-nav-page], [data-toggle-mobile], a[href="#"]')
@@ -107,7 +87,7 @@ function App() {
 
   return (
     <div ref={containerRef} onClick={handleInteraction} className="flex min-h-screen flex-col">
-      <NavBar isTransparent={currentPage === 'home' && isHomeHeroActive} />
+      <NavBar isTransparent={currentPage === 'home' && isHomeHeroActive} mobileMenuOpen={mobileMenuOpen} />
       <main className="flex-grow pt-20">
         <MP01AA01M onHeroVisibilityChange={setIsHomeHeroActive} />
         <CO01AA01M />
