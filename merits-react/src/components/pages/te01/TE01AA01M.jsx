@@ -1,4 +1,6 @@
 import SectionHeading from "../../common/SectionHeading";
+import SectionSubNav from "../../common/SectionSubNav";
+import SectionToc from "../../common/SectionToc";
 import TE01AA01M1 from "./TE01AA01M1";
 import TE01AA01M2 from "./TE01AA01M2";
 import TE01AA01M3 from "./TE01AA01M3";
@@ -9,11 +11,25 @@ import TE01AA01M7 from "./TE01AA01M7";
 import TE01AA01M8 from "./TE01AA01M8";
 import TE01AA01M9 from "./TE01AA01M9";
 
+// NavBar 의 기술력 서브메뉴와 동일한 구성
+const subNavItems = [
+  { label: "방풍패널 종류 및 특징", section: "section-panels" },
+  { label: "와류저감장치", section: "section-vortex" },
+];
+
 // 기술력 페이지 (technology) — section-panels / section-vortex 두 섹션 조립
 export function TE01AA01M() {
   return (
     <>
-      <div id="page-technology" className="page-section hidden fade-in bg-white">
+      {/* relative: SectionToc 의 우측 sticky 레일 기준점 */}
+      <div
+        id="page-technology"
+        className="page-section relative hidden fade-in bg-white"
+      >
+        {/* 좁은 화면은 상단 sticky 탭, 데스크톱은 우측 플로팅 목차 — 둘은 배타적으로 표시된다 */}
+        <SectionSubNav page="technology" items={subNavItems} />
+        <SectionToc page="technology" items={subNavItems} />
+
         <div
           id="section-panels"
           className="min-h-screen border-b border-gray-100 py-24"

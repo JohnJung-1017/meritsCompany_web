@@ -1,4 +1,5 @@
 import SectionSubNav from "../../common/SectionSubNav";
+import SectionToc from "../../common/SectionToc";
 import CO01AA01M1 from "./CO01AA01M1";
 import CO01AA01M2 from "./CO01AA01M2";
 import CO01AA01M3 from "./CO01AA01M3";
@@ -16,8 +17,14 @@ export function CO01AA01M() {
   return (
     <>
       {/* PAGE: ABOUT */}
-      <div id="page-about" className="page-section hidden fade-in bg-white">
+      {/* relative: SectionToc 의 우측 sticky 레일 기준점 */}
+      <div
+        id="page-about"
+        className="page-section relative hidden fade-in bg-white"
+      >
+        {/* 좁은 화면은 상단 sticky 탭, 데스크톱은 우측 플로팅 목차 — 둘은 배타적으로 표시된다 */}
         <SectionSubNav page="about" items={subNavItems} />
+        <SectionToc page="about" items={subNavItems} />
 
         <section id="section-ceo" className="bg-white py-20">
           <CO01AA01M1 />
