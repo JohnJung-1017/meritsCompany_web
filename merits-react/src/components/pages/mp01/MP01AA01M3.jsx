@@ -21,7 +21,9 @@ function MP01AA01M3({ contentRef }) {
       <div className="relative z-10 mx-auto flex min-h-[calc(100vh-5rem)] max-w-7xl items-center px-4 py-20 sm:px-6 lg:px-8">
         <div className="w-full">
           <div className="max-w-4xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.38em] text-emerald-300/90">
+            {/* 어두운 배경 위라 Achievements 의 blue-700 을 그대로 쓰면 대비가 부족해
+                같은 계열의 밝은 톤을 사용한다. */}
+            <p className="text-sm font-semibold uppercase tracking-[0.38em] text-blue-300/90">
               Resources & Downloads
             </p>
             <p className="mt-5 max-w-2xl text-sm leading-6 text-white/80 sm:text-base">
@@ -37,17 +39,17 @@ function MP01AA01M3({ contentRef }) {
                 key={item.title}
                 type="button"
                 data-nav-page="resources"
-                className="group flex min-h-[9.5rem] w-full items-center justify-between border border-emerald-400/50 bg-white px-6 py-5 text-left shadow-[0_18px_50px_rgba(2,6,23,0.18)] transition duration-300 hover:-translate-y-1 hover:border-emerald-400 hover:shadow-[0_24px_60px_rgba(2,6,23,0.26)]"
+                className="group flex min-h-[9.5rem] w-full items-center justify-between rounded-2xl border border-blue-700/50 bg-white px-6 py-5 text-left shadow-[0_18px_50px_rgba(2,6,23,0.18)] transition duration-300 hover:-translate-y-1 hover:border-blue-700 hover:shadow-[0_24px_60px_rgba(2,6,23,0.26)]"
               >
                 <div className="flex items-center gap-5">
-                  <div className="flex h-16 w-16 items-center justify-center border border-slate-200 bg-white text-slate-950 transition duration-300 group-hover:border-emerald-400 group-hover:text-emerald-500">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-950 transition duration-300 group-hover:border-blue-700 group-hover:text-blue-700">
                     <i data-lucide={item.icon} className="h-8 w-8" />
                   </div>
                   <div>
                     <h3 className="text-[13px] font-medium tracking-tight text-slate-800 transition group-hover:text-slate-950 sm:text-sm">
                       {item.title}
                     </h3>
-                    <p className="mt-4 text-sm font-semibold uppercase tracking-[0.18em] text-emerald-500">
+                    <p className="mt-4 text-sm font-semibold uppercase tracking-[0.18em] text-blue-700">
                       Download
                     </p>
                     <p className="mt-1 text-xs text-slate-400">{item.meta}</p>

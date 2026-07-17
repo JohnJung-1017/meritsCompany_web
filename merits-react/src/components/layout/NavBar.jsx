@@ -7,9 +7,10 @@ const menuGroups = [
     title: "회사소개",
     page: "about",
     items: [
-      { label: "기업 이념", page: "about" },
-      { label: "기업연혁", page: "about" },
-      { label: "오시는길", page: "about" },
+      { label: "CEO 인사말", page: "about", section: "section-ceo" },
+      { label: "경영목표", page: "about", section: "section-goals" },
+      { label: "기업연혁", page: "about", section: "section-history" },
+      { label: "오시는길", page: "about", section: "section-location" },
     ],
   },
   {
@@ -51,7 +52,8 @@ const GRID_TEMPLATE_COLS =
 
 // [2] menuGroups 길이 기반 computed 컬럼 위치 — 항목 추가/삭제 시 자동 반영
 const GALLERY_COL = menuGroups.length + 2;
-const HEAD_OFFICE_START = menuGroups.length + 3;
+// 본사 버튼은 grid 8번 칸에만 배치 — 7·9번 칸은 비워 여백으로 둔다
+const HEAD_OFFICE_COL = menuGroups.length + 4;
 
 // grid-cols-* 는 style로 주입하므로 여기선 gap/padding/display만 선언
 const topNavCls = "grid min-h-[3.5rem] items-stretch gap-x-10";
@@ -67,13 +69,13 @@ function NavBar({ isTransparent = false, mobileMenuOpen = false }) {
   const isSubmenuVisible = hoveredIndex !== null;
   const isTransparentIdle = isTransparent && !isSubmenuVisible;
 
-  const wrapCls = `fixed inset-x-0 top-0 z-50 ${
-    isTransparentIdle ? "bg-transparent" : "bg-white/95 backdrop-blur-md"
-  }`;
+  // 배경은 네비 바(<nav>)에만 적용 — wrapCls에 두면 접힌(투명) 서브메뉴 패널
+  // 영역까지 흰 배경이 덮여 메가 메뉴가 열린 것처럼 보이는 문제 방지
+  const wrapCls = "fixed inset-x-0 top-0 z-50";
   const navBorderCls = `border-b transition-all duration-200 ${
     isTransparentIdle
-      ? "border-transparent shadow-none"
-      : "border-gray-100 shadow-sm"
+      ? "border-transparent bg-transparent shadow-none"
+      : "border-gray-100 bg-white/95 shadow-sm backdrop-blur-md"
   }`;
   const menuTextCls = isTransparentIdle
     ? "text-white hover:text-white"
@@ -105,7 +107,13 @@ function NavBar({ isTransparent = false, mobileMenuOpen = false }) {
 
   return (
     <>
-      <div className={wrapCls} onMouseLeave={() => setHoveredIndex(null)}>
+      {/* 네비 영역 클릭(대메뉴·서브메뉴·로고·본사 링크) 시 메가 메뉴 닫기.
+          같은 페이지 내 섹션 이동도 확실히 닫히도록 currentPage가 아닌 클릭에 반응. */}
+      <div
+        className={wrapCls}
+        onMouseLeave={() => setHoveredIndex(null)}
+        onClick={() => setHoveredIndex(null)}
+      >
         <nav className={navBorderCls}>
           <div className="mx-auto max-w-7xl">
 
@@ -169,7 +177,7 @@ function NavBar({ isTransparent = false, mobileMenuOpen = false }) {
 
               <div
                 className="flex items-center"
-                style={{ gridColumn: `${HEAD_OFFICE_START} / span 3` }}
+                style={{ gridColumn: HEAD_OFFICE_COL }}
               >
                 <a
                   href="https://merits.co.kr/"
@@ -200,29 +208,30 @@ function NavBar({ isTransparent = false, mobileMenuOpen = false }) {
             <div className="mx-auto max-w-7xl">
               <div className={submenuCls} style={{ gridTemplateColumns: GRID_TEMPLATE_COLS }}>
                 <div />
-                {/* [5] 호버된 그룹 항목만 렌더링 — 비활성 컬럼 회색 텍스트 제거 */}
-                {menuGroups.map((group, index) =>
-                  hoveredIndex === index ? (
-                    <div
-                      key={group.title}
-                      className={subColCls}
-                      style={{ gridColumn: index + 2 }}
-                    >
-                      <div className="w-fit space-y-2">
-                        {group.items.map((item) => (
-                          <button
-                            key={`${group.title}-${item.label}`}
-                            data-nav-page={item.page}
-                            data-nav-section={item.section}
-                            className="block w-full whitespace-nowrap text-left text-[15px] leading-6 text-gray-700 transition hover:text-blue-900"
-                          >
-                            {item.label}
-                          </button>
-                        ))}
-                      </div>
+                {/* [5] 메가 메뉴 — 모든 그룹 컬럼을 각 부모 메뉴 아래에 정렬해 함께 렌더링.
+                    호버된 컬럼은 진하게, 나머지는 살짝 흐리게 표시해 초점을 준다. */}
+                {menuGroups.map((group, index) => (
+                  <div
+                    key={group.title}
+                    className={`${subColCls} transition-opacity duration-150 ${
+                      hoveredIndex === index ? "opacity-100" : "opacity-60"
+                    }`}
+                    style={{ gridColumn: index + 2 }}
+                  >
+                    <div className="w-fit space-y-2">
+                      {group.items.map((item) => (
+                        <button
+                          key={`${group.title}-${item.label}`}
+                          data-nav-page={item.page}
+                          data-nav-section={item.section}
+                          className="block w-full whitespace-nowrap text-left text-[15px] leading-6 text-gray-700 transition hover:text-blue-900"
+                        >
+                          {item.label}
+                        </button>
+                      ))}
                     </div>
-                  ) : null
-                )}
+                  </div>
+                ))}
               </div>
             </div>
           </div>

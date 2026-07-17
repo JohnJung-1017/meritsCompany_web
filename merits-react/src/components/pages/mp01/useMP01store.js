@@ -10,34 +10,50 @@ const hero = {
   ctaLabel: "SCROLL",
 };
 
+const FOUNDING_YEAR = 2000;
+const yearsSinceFounding = new Date().getFullYear() - FOUNDING_YEAR;
+
+// value: null 이면 수치 미확정 — 카운트업 없이 "-" 로 표기한다.
 const achievements = [
-  { label: "merits 업적1", value: 100, suffix: "", icon: "scroll-text" },
-  { label: "merits 업적2", value: 200, suffix: "", icon: "map" },
-  { label: "merits 업적3", value: 300, suffix: "", icon: "building-2" },
-  { label: "merits 업적4", value: 400, suffix: "", icon: "globe-2" },
+  {
+    label: [`창립 ${FOUNDING_YEAR}년부터`, "현재까지"],
+    value: yearsSinceFounding,
+    suffix: "주년",
+    icon: "scroll-text",
+  },
+  { label: ["특허 보유 기술"], value: 102, suffix: "건", icon: "map" },
+  { label: ["기술·경영 인증"], value: 52, suffix: "건", icon: "building-2" },
+  { label: ["국책과제", "성공 수행"], value: 8, suffix: "건", icon: "globe-2" },
+  {
+    label: ["전국 시공", "프로젝트 실적"],
+    value: null,
+    suffix: "건",
+    icon: "construction",
+  },
 ];
 
+// icon 은 common/BrandIcon.jsx 의 BRAND_PATHS 키와 일치해야 한다.
 const socials = [
   {
     title: "YouTube",
     description: "회사 유튜브 채널 바로가기",
     icon: "youtube",
     accentClassName: "from-rose-500 to-red-500",
-    href: "#",
+    href: "https://www.youtube.com/@메리츠컴퍼니",
   },
   {
     title: "Instagram",
     description: "회사 인스타그램 바로가기",
     icon: "instagram",
     accentClassName: "from-fuchsia-500 via-pink-500 to-amber-400",
-    href: "#",
+    href: "https://www.instagram.com/meritscompany",
   },
   {
-    title: "Facebook",
-    description: "회사 페이스북 바로가기",
-    icon: "facebook",
-    accentClassName: "from-blue-500 to-indigo-500",
-    href: "#",
+    title: "네이버 블로그",
+    description: "회사 네이버 블로그 바로가기",
+    icon: "naver",
+    accentClassName: "from-emerald-500 to-green-600",
+    href: "https://blog.naver.com/meritscompany",
   },
 ];
 

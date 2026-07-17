@@ -83,6 +83,26 @@
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
+        /* 본문 가독성 강조 — 핵심어 컬러(.key-point) + 형광펜 하이라이트(.text-hl).
+           .text-hl 은 페이지 진입(.fade-in 재적용) 시마다 좌→우로 그어지는 애니메이션. */
+        .key-point {
+            color: #2563eb;
+            font-weight: 600;
+        }
+        .text-hl {
+            background-image: linear-gradient(transparent 55%, rgba(250, 204, 21, 0.45) 55%);
+            background-repeat: no-repeat;
+            background-size: 0% 100%;
+            padding: 0 0.1em;
+            font-weight: 500;
+        }
+        .fade-in .text-hl {
+            animation: hlSweep 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) 0.45s forwards;
+        }
+        @keyframes hlSweep {
+            to { background-size: 100% 100%; }
+        }
+
         /* Enhanced Hover Effects (Wind React & Glow) */
         .wind-interact {
             transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
