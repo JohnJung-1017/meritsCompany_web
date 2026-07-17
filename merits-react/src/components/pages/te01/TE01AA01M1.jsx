@@ -11,7 +11,8 @@ function TE01AA01M1() {
         방풍벽 재질
       </h3>
       <p className="mb-6 text-sm leading-relaxed text-gray-700">
-        방풍벽 재질은 설치 장소, 유지관리 편의성, 내구성과 내식성을 고려해
+        방풍벽 재질은 <span className="key-point">설치 장소</span>, 유지관리
+        편의성, <span className="text-hl">내구성과 내식성</span>을 고려해
         선정합니다. 레거시 기준에서 사용된 대표 재질은 다음과 같습니다.
       </p>
 
@@ -43,7 +44,9 @@ function TE01AA01M1() {
         </strong>
         도로 환경에 따라 아연도강판을 기본 재질로 사용하면서, 부식 위험이 큰
         지역이나 관리가 어려운 지역에서는 FRP나 알루미늄, 스테인레스 강판을
-        혼합하여 사용하면 경제성과 내구성을 동시에 확보할 수 있습니다.
+        혼합하여 사용하면{" "}
+        <span className="text-hl">경제성과 내구성을 동시에 확보</span>할 수
+        있습니다.
       </div>
     </div>
   );

@@ -12,11 +12,11 @@ function TE01AA01M2() {
           공극률과 풍속 변화
         </h3>
         <p className="mb-6 text-sm leading-relaxed text-gray-700">
-          공극률은 방풍벽에서 바람이 통과할 수 있는 구멍의 비율을 의미하며,
-          바람의 세기와 흐름을 조절하는 중요한 요소입니다. 공극률이 높으면
-          바람이 더 많이 통과해 벽 뒤쪽에 난류가 적게 형성되고, 공극률이 낮으면
-          바람이 차단되어 풍속이 거의 없어지지만, 난류와 무풍지대가 생기기
-          쉽습니다.
+          <span className="key-point">공극률</span>은 방풍벽에서 바람이 통과할 수
+          있는 구멍의 비율을 의미하며, 바람의 세기와 흐름을 조절하는 중요한
+          요소입니다. 공극률이 높으면 바람이 더 많이 통과해 벽 뒤쪽에 난류가 적게
+          형성되고, 공극률이 낮으면 바람이 차단되어 풍속이 거의 없어지지만,{" "}
+          <span className="text-hl">난류와 무풍지대가 생기기 쉽습니다</span>.
         </p>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -44,8 +44,9 @@ function TE01AA01M2() {
           <strong className="text-blue-900">결론:</strong>
           공극률이 높을수록 방풍벽을 통과하는 바람의 양은 증가하나 차폐 효과는
           줄어듭니다. 따라서, 공극률은{" "}
-          <strong className="text-blue-900">20~45% </strong> 범위에서 환경과
-          주행 안정성을 고려하여 조정하는 것이 바람직합니다.
+          <strong className="text-blue-900">20~45% </strong> 범위에서{" "}
+          <span className="text-hl">환경과 주행 안정성</span>을 고려하여 조정하는
+          것이 바람직합니다.
         </div>
       </div>
     </div>

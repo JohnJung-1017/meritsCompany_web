@@ -1,84 +1,45 @@
-import SectionHeading from "../../common/SectionHeading";
-import { useCO01store } from "./useCO01store";
+import SectionSubNav from "../../common/SectionSubNav";
+import SectionToc from "../../common/SectionToc";
+import CO01AA01M1 from "./CO01AA01M1";
+import CO01AA01M2 from "./CO01AA01M2";
+import CO01AA01M3 from "./CO01AA01M3";
+import CO01AA01M4 from "./CO01AA01M4";
 
-// 회사소개 페이지 (about)
+const subNavItems = [
+  { label: "CEO 인사말", section: "section-ceo" },
+  { label: "경영목표", section: "section-goals" },
+  { label: "기업연혁", section: "section-history" },
+  { label: "오시는길", section: "section-location" },
+];
+
+// 회사소개 페이지 (about) — section-ceo/goals/history/location 네 섹션을 이어붙여 조립
 export function CO01AA01M() {
-  const { checklist } = useCO01store();
-
   return (
     <>
       {/* PAGE: ABOUT */}
-      <div id="page-about" className="page-section hidden fade-in bg-white">
-        <section className="py-24 relative">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <SectionHeading
-              eyebrow="Company Profile"
-              title="회사 소개"
-              titleClassName="md:text-4xl"
-              underline
-            />
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-              <div className="relative group">
-                <div className="relative rounded-2xl shadow-lg overflow-hidden h-[500px] w-full">
-                  <img
-                    src="https://images.unsplash.com/photo-1621955964441-c173e01c135b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-                    alt="Windproof Wall Structure"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-                    <h2
-                      className="text-6xl md:text-7xl font-bold tracking-widest text-white drop-shadow-lg"
-                      style={{ fontFamily: '"Arial", sans-serif' }}
-                    >
-                      MERITS
-                    </h2>
-                  </div>
-                </div>
-                <div className="absolute -bottom-6 -right-6 bg-blue-900 p-6 rounded-xl shadow-xl z-20">
-                  <div className="flex items-center gap-4 text-white">
-                    <i data-lucide="shield" className="w-8 h-8" />
-                    <div>
-                      <p className="text-2xl font-bold">2000</p>
-                      <p className="text-xs text-blue-200 tracking-wider">
-                        ESTABLISHED
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <h3 className="text-3xl font-bold mb-6 text-gray-900 leading-tight">
-                  도로 위의 역학,
-                  <br />
-                  <span className="text-blue-600">안전을 설계하는 기업</span>
-                </h3>
-                <p className="text-gray-600 mb-8 leading-relaxed text-lg font-light">
-                  (주)메리츠컴퍼니는 2000년 설립 이래{" "}
-                  <strong>방풍벽 제조·설치</strong> 분야에서 독보적인 기술력을
-                  쌓아왔습니다. <br />
-                  <br />
-                  거친 태풍이 부는 교량 위, 예측 불가능한 돌풍이 잦은 고속도로.
-                  가장 혹독한 환경에서 저희의 기술은 그 진가를 발휘하며 고객의
-                  생명과 안전을 지켜냅니다.
-                </p>
-                <div className="bg-gray-50 p-8 rounded-xl border border-gray-100">
-                  <ul className="space-y-5">
-                    {checklist.map((item) => (
-                      <li key={item} className="flex items-start">
-                        <i
-                          data-lucide="check"
-                          className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5"
-                        />
-                        <span className="ml-3 font-medium text-gray-800">
-                          {item}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+      {/* relative: SectionToc 의 우측 sticky 레일 기준점 */}
+      <div
+        id="page-about"
+        className="page-section relative hidden fade-in bg-white"
+      >
+        {/* 좁은 화면은 상단 sticky 탭, 데스크톱은 우측 플로팅 목차 — 둘은 배타적으로 표시된다 */}
+        <SectionSubNav page="about" items={subNavItems} />
+        <SectionToc page="about" items={subNavItems} />
+
+        <section id="section-ceo" className="bg-white py-20">
+          <CO01AA01M1 />
+        </section>
+
+        <section id="section-goals" className="bg-gray-50 py-20">
+          <CO01AA01M2 />
+        </section>
+
+        <section id="section-history" className="bg-white py-20">
+          <CO01AA01M3 />
+        </section>
+
+        <section id="section-location" className="bg-gray-50 py-20">
+          <CO01AA01M4 />
         </section>
       </div>
     </>

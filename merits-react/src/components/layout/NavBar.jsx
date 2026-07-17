@@ -7,9 +7,10 @@ const menuGroups = [
     title: "회사소개",
     page: "about",
     items: [
-      { label: "기업 이념", page: "about" },
-      { label: "기업연혁", page: "about" },
-      { label: "오시는길", page: "about" },
+      { label: "CEO 인사말", page: "about", section: "section-ceo" },
+      { label: "경영목표", page: "about", section: "section-goals" },
+      { label: "기업연혁", page: "about", section: "section-history" },
+      { label: "오시는길", page: "about", section: "section-location" },
     ],
   },
   {
@@ -43,62 +44,105 @@ const menuGroups = [
   },
 ];
 
-const topNavGridClassName =
-  "grid min-h-[3.5rem] grid-cols-[minmax(12rem,2fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1fr)] items-stretch gap-x-10";
-const submenuGridClassName =
-  "grid grid-cols-[minmax(12rem,2fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1fr)] gap-x-10 py-8";
-const logoWrapperClassName =
-  "relative flex h-full items-center justify-start pr-6 lg:pr-8";
-const logoImageClassName =
-  "h-[5.2rem] w-auto max-w-none object-contain lg:h-[5.8rem]";
-const topMenuButtonClassName =
-  "relative flex h-full w-full items-center justify-center px-2 text-center whitespace-nowrap";
-const submenuColumnClassName = "flex min-w-0 justify-center px-2";
+// [1] 공유 Grid 컬럼 정의 — inline style로 적용해 Tailwind JIT 스캔 문제 방지
+// (템플릿 리터럴 보간 시 Tailwind가 grid-cols-[...] 클래스를 인식하지 못하므로
+//  gridTemplateColumns를 style prop으로 분리하고 Tailwind 클래스는 리터럴로 유지)
+const GRID_TEMPLATE_COLS =
+  "minmax(12rem,2fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr)";
 
-function NavBar({ isTransparent = false }) {
+// [2] menuGroups 길이 기반 computed 컬럼 위치 — 항목 추가/삭제 시 자동 반영
+const GALLERY_COL = menuGroups.length + 2;
+// 본사 버튼은 grid 8번 칸에만 배치 — 7·9번 칸은 비워 여백으로 둔다
+const HEAD_OFFICE_COL = menuGroups.length + 4;
+
+// grid-cols-* 는 style로 주입하므로 여기선 gap/padding/display만 선언
+const topNavCls = "grid min-h-[3.5rem] items-stretch gap-x-10";
+const submenuCls = "grid gap-x-10 py-8";
+const logoWrapCls = "relative flex h-full items-center justify-start pr-6 lg:pr-8";
+const logoImgCls = "h-[5.2rem] w-auto max-w-none object-contain lg:h-[5.8rem]";
+const topBtnCls =
+  "relative flex h-full w-full items-center justify-center px-2 text-center whitespace-nowrap";
+const subColCls = "flex min-w-0 justify-center px-2";
+
+function NavBar({ isTransparent = false, mobileMenuOpen = false }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  const isSubmenuVisible = hoveredIndex !== null && hoveredIndex >= 0;
+  const isSubmenuVisible = hoveredIndex !== null;
   const isTransparentIdle = isTransparent && !isSubmenuVisible;
 
-  const wrapperClassName = `fixed inset-x-0 top-0 z-50 ${
-    isTransparentIdle ? "bg-transparent" : "bg-white/95 backdrop-blur-md"
-  }`;
-  const navClassName = `border-b transition-all duration-200 ${
+  // 배경은 네비 바(<nav>)에만 적용 — wrapCls에 두면 접힌(투명) 서브메뉴 패널
+  // 영역까지 흰 배경이 덮여 메가 메뉴가 열린 것처럼 보이는 문제 방지
+  const wrapCls = "fixed inset-x-0 top-0 z-50";
+  const navBorderCls = `border-b transition-all duration-200 ${
     isTransparentIdle
-      ? "border-transparent shadow-none"
-      : "border-gray-100 shadow-sm"
+      ? "border-transparent bg-transparent shadow-none"
+      : "border-gray-100 bg-white/95 shadow-sm backdrop-blur-md"
   }`;
-  const topMenuTextClassName = isTransparentIdle
+  const menuTextCls = isTransparentIdle
     ? "text-white hover:text-white"
     : "text-gray-700 hover:text-blue-900";
-  const headOfficeLinkClassName = isTransparentIdle
+  const iconColorCls = isTransparentIdle ? "text-white" : "text-gray-700";
+  const headOfficeCls = isTransparentIdle
     ? "border-white/40 bg-transparent text-white hover:border-blue-900 hover:bg-white hover:text-blue-900"
     : "border-2 border-gray-300 bg-transparent text-gray-700 hover:border-blue-900 hover:text-blue-900";
 
+  // 두 로고를 opacity 교차로 전환 — 항상 DOM에 존재, 투명 모드에 따라 표시 전환
+  const logoImages = (
+    <>
+      <img
+        src={teamMeritsLogoWhiteText}
+        alt="팀메리츠 로고"
+        className={`block transition-opacity duration-200 ${logoImgCls} ${
+          isTransparentIdle ? "opacity-100" : "opacity-0"
+        }`}
+      />
+      <img
+        src={teamMeritsLogo}
+        alt="팀메리츠 로고"
+        className={`absolute left-0 top-1/2 block -translate-y-1/2 transition-opacity duration-200 ${logoImgCls} ${
+          isTransparentIdle ? "opacity-0" : "opacity-100"
+        }`}
+      />
+    </>
+  );
+
   return (
     <>
+      {/* 네비 영역 클릭(대메뉴·서브메뉴·로고·본사 링크) 시 메가 메뉴 닫기.
+          같은 페이지 내 섹션 이동도 확실히 닫히도록 currentPage가 아닌 클릭에 반응. */}
       <div
-        className={wrapperClassName}
+        className={wrapCls}
         onMouseLeave={() => setHoveredIndex(null)}
+        onClick={() => setHoveredIndex(null)}
       >
-        <nav className={navClassName}>
+        <nav className={navBorderCls}>
           <div className="mx-auto max-w-7xl">
-            <div className={topNavGridClassName}>
-              <a href="#" data-nav-page="home" className={logoWrapperClassName}>
-                <img
-                  src={teamMeritsLogoWhiteText}
-                  alt="팀메리츠 로고"
-                  className={`block transition-opacity duration-200 ${logoImageClassName} ${
-                    isTransparentIdle ? "opacity-100" : "opacity-0"
-                  }`}
-                />
-                <img
-                  src={teamMeritsLogo}
-                  alt="팀메리츠 로고"
-                  className={`absolute left-0 top-1/2 block -translate-y-1/2 transition-opacity duration-200 ${logoImageClassName} ${
-                    isTransparentIdle ? "opacity-0" : "opacity-100"
-                  }`}
-                />
+
+            {/* [4] 모바일 전용 상단 바 — flex 레이아웃으로 logo + 햄버거만 표시 */}
+            <div className="flex min-h-[3.5rem] items-center justify-between px-4 md:hidden">
+              <a href="#" data-nav-page="home" className="relative flex items-center">
+                {logoImages}
+              </a>
+              <button
+                data-toggle-mobile="true"
+                aria-label={mobileMenuOpen ? "메뉴 닫기" : "메뉴 열기"}
+                className={`p-1 transition-colors ${iconColorCls}`}
+              >
+                {mobileMenuOpen ? (
+                  <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                ) : (
+                  <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                )}
+              </button>
+            </div>
+
+            {/* 데스크톱 전용 9컬럼 grid nav */}
+            <div className={`hidden md:grid ${topNavCls}`} style={{ gridTemplateColumns: GRID_TEMPLATE_COLS }}>
+              <a href="#" data-nav-page="home" className={logoWrapCls}>
+                {logoImages}
               </a>
 
               {menuGroups.map((group, index) => (
@@ -106,8 +150,8 @@ function NavBar({ isTransparent = false }) {
                   key={group.title}
                   data-nav-page={group.page}
                   onMouseEnter={() => setHoveredIndex(index)}
-                  className={`${topMenuButtonClassName} text-[17px] font-medium transition-colors ${topMenuTextClassName}`}
-                  style={{ gridColumn: `${index + 2}` }}
+                  className={`${topBtnCls} text-[17px] font-medium transition-colors ${menuTextCls}`}
+                  style={{ gridColumn: index + 2 }}
                 >
                   <span className="flex items-center justify-center">
                     {group.title}
@@ -125,24 +169,22 @@ function NavBar({ isTransparent = false }) {
               <button
                 data-nav-page="gallery"
                 onMouseEnter={() => setHoveredIndex(null)}
-                className={`${topMenuButtonClassName} text-[17px] font-medium transition-colors ${topMenuTextClassName}`}
-                style={{ gridColumn: "6" }}
+                className={`${topBtnCls} text-[17px] font-medium transition-colors ${menuTextCls}`}
+                style={{ gridColumn: GALLERY_COL }}
               >
-                <span className="flex items-center justify-center">
-                  시공사진
-                </span>
+                <span className="flex items-center justify-center">시공사진</span>
               </button>
 
               <div
-                className="col-span-3 grid grid-cols-3 items-center"
-                style={{ gridColumn: "7 / span 3" }}
+                className="flex items-center"
+                style={{ gridColumn: HEAD_OFFICE_COL }}
               >
                 <a
                   href="https://merits.co.kr/"
                   target="_blank"
                   rel="noreferrer"
                   onMouseEnter={() => setHoveredIndex(null)}
-                  className={`col-start-1 flex min-w-[10rem] w-full items-center justify-center rounded-full border px-5 py-2.5 font-semibold transition ${headOfficeLinkClassName}`}
+                  className={`flex min-w-[10rem] w-full items-center justify-center rounded-full border px-5 py-2.5 font-semibold transition ${headOfficeCls}`}
                 >
                   <span className="flex whitespace-nowrap items-center gap-2">
                     merits 본사
@@ -154,48 +196,55 @@ function NavBar({ isTransparent = false }) {
           </div>
         </nav>
 
-        {isSubmenuVisible ? (
-          <div className="border-b border-gray-100 bg-white/95 backdrop-blur-md">
-            <div className="border-t border-gray-200">
-              <div className="mx-auto max-w-7xl">
-                <div className={submenuGridClassName}>
-                  <div />
-                  {menuGroups.map((group, index) => (
-                    <div
-                      key={group.title}
-                      className={submenuColumnClassName}
-                      style={{ gridColumn: `${index + 2}` }}
-                    >
-                      <div className="w-fit space-y-2">
-                        {group.items.map((item) => (
-                          <button
-                            key={`${group.title}-${item.label}`}
-                            data-nav-page={item.page}
-                            data-nav-section={item.section}
-                            className={`block w-full whitespace-nowrap text-left text-[15px] leading-6 transition ${
-                              hoveredIndex === index
-                                ? "text-gray-700 hover:text-blue-900"
-                                : "text-gray-400"
-                            }`}
-                          >
-                            {item.label}
-                          </button>
-                        ))}
-                      </div>
+        {/* [1,3] 서브메뉴 — 항상 마운트, opacity+translate로 부드럽게 전환 */}
+        <div
+          className={`hidden border-b border-gray-100 bg-white/95 backdrop-blur-md transition-all duration-150 md:block ${
+            isSubmenuVisible
+              ? "translate-y-0 opacity-100 pointer-events-auto"
+              : "-translate-y-1 opacity-0 pointer-events-none"
+          }`}
+        >
+          <div className="border-t border-gray-200">
+            <div className="mx-auto max-w-7xl">
+              <div className={submenuCls} style={{ gridTemplateColumns: GRID_TEMPLATE_COLS }}>
+                <div />
+                {/* [5] 메가 메뉴 — 모든 그룹 컬럼을 각 부모 메뉴 아래에 정렬해 함께 렌더링.
+                    호버된 컬럼은 진하게, 나머지는 살짝 흐리게 표시해 초점을 준다. */}
+                {menuGroups.map((group, index) => (
+                  <div
+                    key={group.title}
+                    className={`${subColCls} transition-opacity duration-150 ${
+                      hoveredIndex === index ? "opacity-100" : "opacity-60"
+                    }`}
+                    style={{ gridColumn: index + 2 }}
+                  >
+                    <div className="w-fit space-y-2">
+                      {group.items.map((item) => (
+                        <button
+                          key={`${group.title}-${item.label}`}
+                          data-nav-page={item.page}
+                          data-nav-section={item.section}
+                          className="block w-full whitespace-nowrap text-left text-[15px] leading-6 text-gray-700 transition hover:text-blue-900"
+                        >
+                          {item.label}
+                        </button>
+                      ))}
                     </div>
-                  ))}
-                  <div style={{ gridColumn: "6" }} />
-                  <div style={{ gridColumn: "7 / span 3" }} />
-                </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
-        ) : null}
+        </div>
       </div>
 
+      {/* [4] 모바일 메뉴 패널 — prop 기반 opacity 제어 (DOM 직접 조작 제거) */}
       <div
-        id="mobile-menu"
-        className="fixed left-0 top-20 z-40 hidden max-h-[80vh] w-full overflow-y-auto border-t border-gray-100 bg-white shadow-lg md:hidden"
+        className={`fixed left-0 top-20 z-40 max-h-[80vh] w-full overflow-y-auto border-t border-gray-100 bg-white shadow-lg transition-all duration-200 md:hidden ${
+          mobileMenuOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+        }`}
       >
         <div className="border-b border-gray-50">
           <button

@@ -1,3 +1,4 @@
+import BrandIcon from "../../common/BrandIcon";
 import { useMP01store } from "./useMP01store";
 
 // 공식 SNS 채널 링크
@@ -17,8 +18,8 @@ function MP01AA01M4() {
             </h2>
           </div>
           <p className="max-w-xl text-sm leading-6 text-slate-500">
-            유튜브, 인스타그램, 페이스북 채널로 연결되는 영역입니다. 실제 링크는
-            각 카드의 주석 위치에서 바로 수정하실 수 있습니다.
+            유튜브, 인스타그램, 네이버 블로그에서 메리츠의 소식과 시공 현장을
+            만나보실 수 있습니다.
           </p>
         </div>
 
@@ -26,7 +27,6 @@ function MP01AA01M4() {
           {socials.map((item) => (
             <a
               key={item.title}
-              // TODO: 여기에 실제 SNS 링크를 넣어주세요.
               href={item.href}
               target="_blank"
               rel="noreferrer"
@@ -36,7 +36,7 @@ function MP01AA01M4() {
                 <div
                   className={`flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${item.accentClassName} text-white shadow-lg shadow-slate-200/70`}
                 >
-                  <i data-lucide={item.icon} className="h-8 w-8" />
+                  <BrandIcon name={item.icon} className="h-8 w-8" />
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold tracking-tight text-slate-900">
